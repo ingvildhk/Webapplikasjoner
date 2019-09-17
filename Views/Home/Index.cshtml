@@ -27,8 +27,8 @@
                 url: '/Home/hentTilStasjoner',
                 type: 'GET',
                 dataType: 'json',
-                success: function () {
-                    VisDropDown();
+                success: function (stasjon) {
+                    VisDropDown(stasjon);
                 },
                 error: function (x, y, z) {
                     alert(x + '\n' + y + '\n' + z)
