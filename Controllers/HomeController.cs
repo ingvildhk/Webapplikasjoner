@@ -15,7 +15,7 @@ namespace Oppg1.Controllers
             return View();
         }
 
-        public string hentAlleStasjonsnavn()
+        public string hentFraStasjoner()
         {
             var Bdb = new BestillingDB();
             List<stasjon> alleStasjoner = Bdb.hentAlleStasjoner();

@@ -12,7 +12,7 @@
             // hentAlleStasjoner og bygg opp dropdown når siden lastes
 
             $.ajax({
-                url: '/Home/hentAlleStasjonsnavn',
+                url: '/Home/hentFraStasjoner',
                 type: 'GET',
                 dataType: 'json',
                 success: function (stasjon) {
@@ -20,6 +20,18 @@
                 },
                 error: function (x, y, z) {
                     alert(x + '\n' + y + '\n' + z);
+                }
+            });
+
+            $.ajax({
+                url: '/Home/hentTilStasjoner',
+                type: 'GET',
+                dataType: 'json',
+                success: function () {
+                    VisDropDown();
+                },
+                error: function (x, y, z) {
+                    alert(x + '\n' + y + '\n' + z)
                 }
             });
 
@@ -36,6 +48,13 @@
 
 <body>
     Reis fra stasjon: <br />
+    <div id="dropDown">
+        <select id="drop">
+        </select>
+    </div>
+
+    <br />
+    Reis til stasjon: <br />
     <div id="dropDown">
         <select id="drop">
         </select>
