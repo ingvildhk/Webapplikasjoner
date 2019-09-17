@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script type="text/javascript">
+        $(function () {
+
+            // hentAlleStasjoner og bygg opp dropdown når siden lastes
+
+            $.ajax({
+                url: '/Home/hentAlleStasjonsnavn',
+                type: 'GET',
+                dataType: 'json',
+                success: function (stasjon) {
+                    VisDropDown(stasjon);
+                },
+                error: function (x, y, z) {
+                    alert(x + '\n' + y + '\n' + z);
+                }
+            });
+
+            function VisDropDown(stasjon) {
+                var utStreng = "";
+                for (var i in stasjon) {
+                    utStreng += "<option value='" + stasjon[i].stasjonsID + "'>" + stasjon[i].Stasjonsnavn + "</option>";
+                }
+                $("#drop").append(utStreng);
+            }
+        })
+    </script>
+    </head>
+
+<body>
+    Reis fra stasjon: <br />
+    <div id="dropDown">
+        <select id="drop">
+        </select>
+    </div>
+
+</body>
+</html>
