@@ -20,7 +20,7 @@ namespace Oppg1
             return alleStasjoner;
         }
 
-        public List<Stasjon> hentTilStasjoner(int id)
+        public List<stasjon> hentTilStasjoner(int id)
         {
             List<Bane> alleBaner = new List<Bane>();
 
@@ -35,17 +35,30 @@ namespace Oppg1
                 }
             }
 
-            List<Stasjon> tilStasjoner = new List<Stasjon>();
+            List<Stasjon> TilStasjoner = new List<Stasjon>();
 
             foreach (Bane bane in alleBaner)
             {
                 foreach (Stasjon stasjon in bane.Stasjoner)
                 {
-                    if (!tilStasjoner.Contains(stasjon))
+                    if (!TilStasjoner.Contains(stasjon))
                     {
-                        tilStasjoner.Add(stasjon);
+                        TilStasjoner.Add(stasjon);
                     }
                 }
+            }
+
+            Stasjon FraStasjon = TilStasjoner.Find(s => s.stasjonsID == id);
+            TilStasjoner.Remove(FraStasjon);
+
+            List<stasjon> tilStasjoner = new List<stasjon>();
+
+            foreach (Stasjon tilStasjon in TilStasjoner)
+            {
+                stasjon s = new stasjon();
+                s.stasjonsID = tilStasjon.stasjonsID;
+                s.Stasjonsnavn = tilStasjon.Stasjonsnavn;
+                tilStasjoner.Add(s);
             }
             return tilStasjoner;
         }
