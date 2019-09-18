@@ -28,8 +28,7 @@
                 for (var i in stasjon) {
                     utStreng += "<option value='" + stasjon[i].stasjonsID + "'>" + stasjon[i].Stasjonsnavn + "</option>";
                 }
-                $("#drop1").append(utStreng);
-                $("#drop2").append(utStreng);
+                $("#drop").append(utStreng);
             }
         })
     </script>
@@ -63,27 +62,7 @@
     </head>
 
 <body>
-        <div id="fraDest">
-
-            <select id="drop1" class="dd" style="border:outset;left:0;">
-
-                <option value="" selected disabled hidden>Velg avreisestasjon her</option>
-
-            </select>
-
-        </div>
-
-        <div id="tilDest">
-
-            <select id="drop2" class="dd" style="border:outset">
-
-                <option value="" selected disabled hidden>Velg ankomststasjon her</option>
-
-            </select>
-
-        </div>
-        <div id="vy">
-        </div>
+        
 </body>
 
 </html>
