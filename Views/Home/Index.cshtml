@@ -36,21 +36,6 @@
             });
         });
 
-        $("#drop").change(function () {
-            var id = $(this).val();
-            $.ajax({
-                url: '/Home/hentAvgang/' + id,
-                type: 'GET',
-                dataType: 'json',
-                success: function (avgang) {
-                    VisTilDropDown(avgang);
-                },
-                error: function (x, y, z) {
-                    alert(x + '\n' + y + '\n' + z);
-                }
-            });
-        });
-
         function VisFraDropDown(stasjon) {
                 var utStreng = "";
                 for (var i in stasjon) {
@@ -65,14 +50,6 @@
                     utStreng += "<option value='" + stasjon[i].stasjonsID + "'>" + stasjon[i].Stasjonsnavn + "</option>";
                 }
                 $("#drop1").append(utStreng);
-            }
-
-            function VisAvganger(avgang) {
-                var utStreng = "";
-                for (var i in avgang) {
-                    utStreng += "<option value='" + avgang[i].Tidspunkt "</option>";
-                }
-                $("#drop2").append(utStreng);
             }
         })
     </script>
@@ -90,12 +67,5 @@
         <select id="drop1">
         </select>
     </div>
-
-    Velg klokkeslett: <br />
-    <div id="dropDown">
-        <select id="drop2">
-        </select>
-    </div>
-
 </body>
 </html>

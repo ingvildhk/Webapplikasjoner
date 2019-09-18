@@ -62,10 +62,5 @@ namespace Oppg1
             }
             return tilStasjoner;
        }
-
-        public List<string> Avganger(int id)
-        {
-
-        }
     }
 }
