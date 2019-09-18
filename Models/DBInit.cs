@@ -64,7 +64,7 @@ namespace Oppg1.Models
 
             var nyBane = new Bane
             {
-                Banenavn = "Sørlandsbanen",
+                Banenavn = "R10",
                 Stasjoner = new List<Stasjon>()
             };
 

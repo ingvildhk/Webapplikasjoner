@@ -23,5 +23,26 @@ namespace Oppg1.Controllers
             string json = jsonSerializer.Serialize(alleStasjoner);
             return json;
         }
+
+        public string hentTilStasjoner(int id)
+        {
+            var Bdb = new BestillingDB();
+            List<Stasjon> TilStasjoner = Bdb.hentTilStasjoner(id);
+            Stasjon FraStasjon = TilStasjoner.Find(s => s.stasjonsID == id);
+            TilStasjoner.Remove(FraStasjon);
+
+            List<stasjon> tilStasjoner = new List<stasjon>();
+
+            foreach (Stasjon tilStasjon in TilStasjoner)
+            {
+                stasjon s = new stasjon();
+                s.stasjonsID = tilStasjon.stasjonsID;
+                s.Stasjonsnavn = tilStasjon.Stasjonsnavn;
+                tilStasjoner.Add(s);
+            }
+            var jsonSerializer = new JavaScriptSerializer();
+            string json = jsonSerializer.Serialize(tilStasjoner);
+            return json;
+        }
     }
 }

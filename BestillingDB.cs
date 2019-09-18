@@ -19,5 +19,35 @@ namespace Oppg1
             }).ToList();
             return alleStasjoner;
         }
+
+       public List<Stasjon> hentTilStasjoner(int id)
+       {
+            List<Bane> alleBaner = new List<Bane>();
+
+            foreach (Bane bane in db.Bane)
+            {
+                foreach (Stasjon stasjon in bane.Stasjoner)
+                {
+                    if (stasjon.stasjonsID == id)
+                    {
+                        alleBaner.Add(bane);
+                    }
+                }
+            }
+
+            List<Stasjon> tilStasjoner = new List<Stasjon>();
+
+            foreach (Bane bane in alleBaner)
+            {
+                foreach (Stasjon stasjon in bane.Stasjoner)
+                {
+                    if (!tilStasjoner.Contains(stasjon))
+                    {
+                        tilStasjoner.Add(stasjon);
+                    }
+                }
+            }
+            return tilStasjoner;
+       }
     }
 }
