@@ -37,13 +37,15 @@ namespace Oppg1.Models
             nyAvgang1.Avgangstider.Add(nyAvgangstid1);
             nyAvgang1.Avgangstider.Add(nyAvgangstid2);
 
-            var nyAvgang2 = new Avgang
+            var nyAvgang4 = new Avgang
             {
                 Avgangstider = new List<Avgangstider>()
             };
 
-            nyAvgang2.Avgangstider.Add(nyAvgangstid3);
-            nyAvgang2.Avgangstider.Add(nyAvgangstid4);
+            nyAvgang4.Avgangstider.Add(nyAvgangstid3);
+            nyAvgang4.Avgangstider.Add(nyAvgangstid4);
+
+
 
             var nyStasjon1 = new Stasjon
             {
@@ -58,8 +60,22 @@ namespace Oppg1.Models
                 Stasjonsnavn = "Nationaltheateret",
                 Avganger = new List<Avgang>()
             };
+            nyStasjon2.Avganger.Add(nyAvgang4);
 
-            nyStasjon2.Avganger.Add(nyAvgang2);
+            var nyStasjon3 = new Stasjon
+            {
+                Stasjonsnavn = "Asker",
+                Avganger = new List<Avgang>()
+            };
+
+
+            var nyStasjon4 = new Stasjon
+            {
+                Stasjonsnavn = "Skøyen",
+                Avganger = new List<Avgang>()
+            };
+
+            
 
 
             var nyBane = new Bane
@@ -70,15 +86,17 @@ namespace Oppg1.Models
 
             nyBane.Stasjoner.Add(nyStasjon1);
             nyBane.Stasjoner.Add(nyStasjon2);
+            nyBane.Stasjoner.Add(nyStasjon3);
+            nyBane.Stasjoner.Add(nyStasjon4);
 
             nyAvgang1.Bane = nyBane;
-            nyAvgang2.Bane = nyBane;
+            nyAvgang4.Bane = nyBane;
 
             var nyBestilling = new Bestilling
             {
                 fraStasjon = nyStasjon1,
                 tilStasjon = nyStasjon2,
-                Avgangstid = nyAvgang1.Avgangstider[1],
+                Avgangstid = nyAvgang4.Avgangstider[1],
                 Dato = "10.10.2019",
                 Navn = "Nina Olsen",
                 Telefonnummer = "12345678"
