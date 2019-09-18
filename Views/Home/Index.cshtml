@@ -12,7 +12,7 @@
             // hentAlleStasjoner og bygg opp dropdown når siden lastes
 
             $.ajax({
-                url: '/Home/hentAlleStasjonsnavn',
+                url: '/Home/hentFraStasjoner',
                 type: 'GET',
                 dataType: 'json',
                 success: function (stasjon) {
