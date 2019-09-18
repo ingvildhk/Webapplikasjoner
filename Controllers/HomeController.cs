@@ -15,12 +15,21 @@ namespace Oppg1.Controllers
             return View();
         }
 
-        public string hentAlleStasjonsnavn()
+        public string hentFraStasjoner()
         {
             var Bdb = new BestillingDB();
             List<stasjon> alleStasjoner = Bdb.hentAlleStasjoner();
             var jsonSerializer = new JavaScriptSerializer();
             string json = jsonSerializer.Serialize(alleStasjoner);
+            return json;
+        }
+
+        public string hentTilStasjoner(int id)
+        {
+            var Bdb = new BestillingDB();
+            List<stasjon> tilStasjoner = Bdb.hentTilStasjoner(id);
+            var jsonSerializer = new JavaScriptSerializer();
+            string json = jsonSerializer.Serialize(tilStasjoner);
             return json;
         }
     }
