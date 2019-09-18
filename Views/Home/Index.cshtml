@@ -31,11 +31,48 @@
                 $("#drop").append(utStreng);
             }
         })
+
+        // Henter metoden som henter tilhørende stasjoner slik at man kan velge riktig til-stasjon
+        $.ajax({
+            url: '/Home/hentTilStasjoner',
+            type: 'GET',
+            dataType: 'json',
+            success: function (stasjon) {
+                visDropdown(stasjon);
+            },
+            error: function (x, y, z) {
+                alert(x + '\n' + y + '\n' + z);
+            }
+        });
+
+        // Kopi fra Tor, skal prøve å få til å fungere påvår dropdown
+        $("#drop").change(function () {
+            var id = $(this).val();
+            $.ajax({
+                url: '/Home/hentTilStasjoner/' + id,
+                type: 'GET',
+                dataType: 'json',
+                success: function (stasjon) {
+                    visDropdown(stasjon);
+                },
+                error: function (x, y, z) {
+                    alert(x + '\n' + y + '\n' + z);
+                }
+            });
+        });
+
+
     </script>
-    </head>
+</head>
 
 <body>
     Reis fra stasjon: <br />
+    <div id="dropDown">
+        <select id="drop">
+        </select>
+    </div>
+
+    Reis til stasjon: <br />
     <div id="dropDown">
         <select id="drop">
         </select>
