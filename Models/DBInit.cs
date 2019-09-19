@@ -79,7 +79,7 @@ namespace Oppg1.Models
                 fraStasjon = nyStasjon1,
                 tilStasjon = nyStasjon2,
                 Avgangstid = nyAvgang1.Avgangstider[1],
-                Dato = "10.10.2019",
+                Dato = new DateTime(2019, 11, 1, 7, 0, 0),
                 Navn = "Nina Olsen",
                 Telefonnummer = "12345678"
             };
