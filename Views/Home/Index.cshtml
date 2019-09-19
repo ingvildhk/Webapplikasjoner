@@ -49,6 +49,7 @@
                 for (var i in stasjon) {
                     utStreng += "<option value='" + stasjon[i].stasjonsID + "'>" + stasjon[i].Stasjonsnavn + "</option>";
                 }
+                $("#drop1").empty();
                 $("#drop1").append(utStreng);
             }
         })

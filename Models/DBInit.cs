@@ -45,6 +45,20 @@ namespace Oppg1.Models
             nyAvgang2.Avgangstider.Add(nyAvgangstid3);
             nyAvgang2.Avgangstider.Add(nyAvgangstid4);
 
+            var nyAvgang3 = new Avgang
+            {
+                Avgangstider = new List<Avgangstider>()
+            };
+            nyAvgang3.Avgangstider.Add(nyAvgangstid1);
+            nyAvgang3.Avgangstider.Add(nyAvgangstid3);
+
+            var nyAvgang4 = new Avgang
+            {
+                Avgangstider = new List<Avgangstider>()
+            };
+            nyAvgang4.Avgangstider.Add(nyAvgangstid2);
+            nyAvgang4.Avgangstider.Add(nyAvgangstid4);
+
             var nyStasjon1 = new Stasjon
             {
                 Stasjonsnavn = "Oslo S",
@@ -61,30 +75,48 @@ namespace Oppg1.Models
 
             nyStasjon2.Avganger.Add(nyAvgang2);
 
+            var nyStasjon3 = new Stasjon
+            {
+                Stasjonsnavn = "Oslo Lufthavn",
+                Avganger = new List<Avgang>()
+            };
 
-            var nyBane = new Bane
+            nyStasjon3.Avganger.Add(nyAvgang3);
+
+            var nyStasjon4 = new Stasjon
+            {
+                Stasjonsnavn = "Lillestrøm",
+                Avganger = new List<Avgang>()
+            };
+
+            nyStasjon4.Avganger.Add(nyAvgang4);
+
+            var nyBane1 = new Bane
             {
                 Banenavn = "R10",
                 Stasjoner = new List<Stasjon>()
             };
 
-            nyBane.Stasjoner.Add(nyStasjon1);
-            nyBane.Stasjoner.Add(nyStasjon2);
+            nyBane1.Stasjoner.Add(nyStasjon1);
+            nyBane1.Stasjoner.Add(nyStasjon2);
 
-            nyAvgang1.Bane = nyBane;
-            nyAvgang2.Bane = nyBane;
+            nyAvgang1.Bane = nyBane1;
+            nyAvgang2.Bane = nyBane1;
 
-            var nyBestilling = new Bestilling
+            var nyBane2 = new Bane
             {
-                fraStasjon = nyStasjon1,
-                tilStasjon = nyStasjon2,
-                Avgangstid = nyAvgang1.Avgangstider[1],
-                Dato = "10.10.2019",
-                Navn = "Nina Olsen",
-                Telefonnummer = "12345678"
+                Banenavn = "R11",
+                Stasjoner = new List<Stasjon>()
             };
 
-            context.Bestilling.Add(nyBestilling);
+            nyBane2.Stasjoner.Add(nyStasjon3);
+            nyBane2.Stasjoner.Add(nyStasjon4);
+
+            nyAvgang3.Bane = nyBane2;
+            nyAvgang4.Bane = nyBane2;
+
+            context.Bane.Add(nyBane1);
+            context.Bane.Add(nyBane2);
             base.Seed(context);
         }
     }
