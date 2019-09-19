@@ -37,7 +37,10 @@ namespace Oppg1.Models
         public virtual Stasjon fraStasjon { get; set; }
         public virtual Stasjon tilStasjon { get; set; }
         public virtual Avgangstider Avgangstid { get; set; }
-        public string Dato { get; set; }
+        [Display(Name="Dato")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString="{0.dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime Dato { get; set; }
         public string Navn { get; set; }
         public string Telefonnummer { get; set; }
     }

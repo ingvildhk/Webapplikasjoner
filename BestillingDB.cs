@@ -20,8 +20,8 @@ namespace Oppg1
             return alleStasjoner;
         }
 
-       public List<stasjon> hentTilStasjoner(int id)
-       {
+        public List<stasjon> hentTilStasjoner(int id)
+        {
             List<Bane> alleBaner = new List<Bane>();
 
             foreach (Bane bane in db.Bane)
@@ -61,6 +61,6 @@ namespace Oppg1
                 tilStasjoner.Add(s);
             }
             return tilStasjoner;
-       }
+        }
     }
 }

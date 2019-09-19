@@ -8,8 +8,10 @@
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script type="text/javascript">
         $(function () {
+            // ToDo
+            // hentAlleStasjoner og bygg opp dropdown når siden lastes
 
-        $.ajax({
+            $.ajax({
                 url: '/Home/hentFraStasjoner',
                 type: 'GET',
                 dataType: 'json',
@@ -19,24 +21,24 @@
                 error: function (x, y, z) {
                     alert(x + '\n' + y + '\n' + z);
                 }
-        });
-
-        $("#drop").change(function () {
-            var id = $(this).val();
-            $.ajax({
-                url: '/Home/hentTilStasjoner/' + id,
-                type: 'GET',
-                dataType: 'json',
-                success: function (stasjon) {
-                    VisTilDropDown(stasjon);
-                },
-                error: function (x, y, z) {
-                    alert(x + '\n' + y + '\n' + z);
-                }
             });
-        });
 
-        function VisFraDropDown(stasjon) {
+            $("#drop").change(function () {
+                var id = $(this).val();
+                $.ajax({
+                    url: '/Home/hentTilStasjoner/' + id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (stasjon) {
+                        VisTilDropDown(stasjon);
+                    },
+                    error: function (x, y, z) {
+                        alert(x + '\n' + y + '\n' + z);
+                    }
+                });
+            });
+
+            function VisFraDropDown(stasjon) {
                 var utStreng = "";
                 for (var i in stasjon) {
                     utStreng += "<option value='" + stasjon[i].stasjonsID + "'>" + stasjon[i].Stasjonsnavn + "</option>";
@@ -57,16 +59,50 @@
 </head>
 
 <body>
-    Reis fra stasjon: <br />
-    <div id="dropDown">
-        <select id="drop">
-        </select>
-    </div>
 
-    Reis til stasjon: <br />
-    <div id="dropDown">
-        <select id="drop1">
-        </select>
-    </div>
+    <form>
+        <h2>Hei, hvor ønsker du å reise?</h2>
+        <br />
+
+        <div class="form-row">
+
+            <div class="form-group col-md-6" id="dropDown">
+                <label for="exampleFormControlSelect1">Reise fra</label>
+                <select class="form-control" id="drop"></select>
+            </div>
+
+
+            <div class="form-group col-md-6" id="dropDown">
+                <label for="exampleFormControlSelect1">Reise til</label>
+                <select class="form-control" id="drop1"></select>
+            </div>
+
+
+
+
+            <div class="form-group col-md-6">
+                <label for="exampleFormControlSelect1">Dato</label>
+                <input class="form-control" id="dato" name="dato" type="date">
+            </div>
+
+
+            <div class="form-group col-md-6" id="dropDown">
+                <label for="exampleFormControlSelect1">Tid</label>
+                <select class="form-control" id="drop"></select>
+            </div>
+
+
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Bestill" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </form>
 </body>
 </html>
