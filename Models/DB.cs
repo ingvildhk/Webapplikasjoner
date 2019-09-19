@@ -41,8 +41,6 @@ namespace Oppg1.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString="{0.dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Dato { get; set; }
-        public string Navn { get; set; }
-        public string Telefonnummer { get; set; }
     }
 
     public class Stasjon
