@@ -39,7 +39,7 @@
             });
 
             function VisFraDropDown(stasjon) {
-                var utStreng = "";
+                var utStreng = "<option value'' selected hidden>Velg stasjon</option>";
                 for (var i in stasjon) {
                     utStreng += "<option value='" + stasjon[i].stasjonsID + "'>" + stasjon[i].Stasjonsnavn + "</option>";
                 }
@@ -47,7 +47,7 @@
             }
 
             function VisTilDropDown(stasjon) {
-                var utStreng = "";
+                var utStreng = "<option value'' selected hidden>Velg stasjon</option>";
                 for (var i in stasjon) {
                     utStreng += "<option value='" + stasjon[i].stasjonsID + "'>" + stasjon[i].Stasjonsnavn + "</option>";
                 }
