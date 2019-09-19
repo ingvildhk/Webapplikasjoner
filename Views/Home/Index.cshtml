@@ -38,6 +38,22 @@
                 });
             });
 
+            $("#Tidspunkt").click(function () {
+                var tilStasjon = $('#tilStasjon').val();
+                var fraStasjon = $("#fraStasjon").val();
+                $.ajax({
+                    url: '/Home/hentTidspunkt?fraStasjon=' + fraStasjon +"&tilStasjon="+ tilStasjon,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (tidspunkt) {
+                        VisTidspunktDropDown(tidspunkt);
+                    },
+                    error: function (x, y, z) {
+                        alert(x + '\n' + y + '\n' + z);
+                    }
+                });
+            });
+
             function VisFraDropDown(stasjon) {
                 var utStreng = "<option value'' selected hidden>Velg stasjon</option>";
                 for (var i in stasjon) {
@@ -53,6 +69,15 @@
                 }
                 $("#tilStasjon").empty();
                 $("#tilStasjon").append(utStreng);
+            }
+
+            function VisTidspunktDropDown(tidspunkt) {
+                var utStreng = "<option value'' selected hidden>Velg tidspunkt</option>";
+                for (var i in tidspunkt) {
+                    utStreng += "<option value='" + tidspunkt[i].Tidspunkt + "</option>";
+                }
+                $("#Tidspunkt").empty();
+                $("#Tidspunkt").append(utStreng);
             }
         })
     </script>
@@ -88,7 +113,7 @@
 
             <div class="form-group col-md-6" id="dropDown">
                 <label for="exampleFormControlSelect1">Tid</label>
-                <select class="form-control" id="tidspunkt"></select>
+                <select class="form-control" id="Tidspunkt"></select>
             </div>
 
 

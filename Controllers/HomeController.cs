@@ -32,5 +32,14 @@ namespace Oppg1.Controllers
             string json = jsonSerializer.Serialize(tilStasjoner);
             return json;
         }
+
+        public string hentTidspunkt(int fraStasjon, int tilStasjon)
+        {
+            var Bdb = new BestillingDB();
+            List<Avgangstider> Avgangstider = Bdb.hentTidspunkt(fraStasjon, tilStasjon);
+            var jsonSerializer = new JavaScriptSerializer();
+            string json = jsonSerializer.Serialize(Avgangstider);
+            return json;
+        }
     }
 }

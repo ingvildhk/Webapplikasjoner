@@ -8,11 +8,12 @@ using System.Web;
 
 namespace Oppg1.Models
 {
-    public class Avgang
+    public class Avganger
     {
         [Key]
         public int avgangsID { get; set; }
         public virtual Bane Bane { get; set; }
+        public virtual Stasjon Stasjon { get; set; }
         public virtual List<Avgangstider> Avgangstider { get; set; }
     }
 
@@ -48,7 +49,7 @@ namespace Oppg1.Models
         [Key]
         public int stasjonsID { get; set; }
         public string Stasjonsnavn { get; set; }
-        public virtual List<Avgang> Avganger { get; set; }
+        public virtual List<Avganger> Avganger { get; set; }
     }
 
     public class DB : DbContext
@@ -65,7 +66,7 @@ namespace Oppg1.Models
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
 
-        public virtual DbSet<Avgang> Avgang { get; set; }
+        public virtual DbSet<Avganger> Avgang { get; set; }
         public virtual DbSet<Bane> Bane { get; set; }
         public virtual DbSet<Bestilling> Bestilling { get; set; }
         public virtual DbSet<Stasjon> Stasjon { get; set; }

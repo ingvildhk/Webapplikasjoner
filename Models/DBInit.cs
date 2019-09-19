@@ -30,14 +30,14 @@ namespace Oppg1.Models
                 Tidspunkt = "14.03"
             };
 
-            var nyAvgang1 = new Avgang
+            var nyAvgang1 = new Avganger
             {
                 Avgangstider = new List<Avgangstider>()
             };
             nyAvgang1.Avgangstider.Add(nyAvgangstid1);
             nyAvgang1.Avgangstider.Add(nyAvgangstid2);
 
-            var nyAvgang2 = new Avgang
+            var nyAvgang2 = new Avganger
             {
                 Avgangstider = new List<Avgangstider>()
             };
@@ -45,14 +45,14 @@ namespace Oppg1.Models
             nyAvgang2.Avgangstider.Add(nyAvgangstid3);
             nyAvgang2.Avgangstider.Add(nyAvgangstid4);
 
-            var nyAvgang3 = new Avgang
+            var nyAvgang3 = new Avganger
             {
                 Avgangstider = new List<Avgangstider>()
             };
             nyAvgang3.Avgangstider.Add(nyAvgangstid1);
             nyAvgang3.Avgangstider.Add(nyAvgangstid3);
 
-            var nyAvgang4 = new Avgang
+            var nyAvgang4 = new Avganger
             {
                 Avgangstider = new List<Avgangstider>()
             };
@@ -62,7 +62,7 @@ namespace Oppg1.Models
             var nyStasjon1 = new Stasjon
             {
                 Stasjonsnavn = "Oslo S",
-                Avganger = new List<Avgang>()
+                Avganger = new List<Avganger>()
             };
 
             nyStasjon1.Avganger.Add(nyAvgang1);
@@ -70,7 +70,7 @@ namespace Oppg1.Models
             var nyStasjon2 = new Stasjon
             {
                 Stasjonsnavn = "Nationaltheateret",
-                Avganger = new List<Avgang>()
+                Avganger = new List<Avganger>()
             };
 
             nyStasjon2.Avganger.Add(nyAvgang2);
@@ -78,7 +78,7 @@ namespace Oppg1.Models
             var nyStasjon3 = new Stasjon
             {
                 Stasjonsnavn = "Oslo Lufthavn",
-                Avganger = new List<Avgang>()
+                Avganger = new List<Avganger>()
             };
 
             nyStasjon3.Avganger.Add(nyAvgang3);
@@ -86,7 +86,7 @@ namespace Oppg1.Models
             var nyStasjon4 = new Stasjon
             {
                 Stasjonsnavn = "Lillestrøm",
-                Avganger = new List<Avgang>()
+                Avganger = new List<Avganger>()
             };
 
             nyStasjon4.Avganger.Add(nyAvgang4);
