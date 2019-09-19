@@ -23,7 +23,7 @@
                 }
             });
 
-            $("#drop").change(function () {
+            $("#fraStasjon").change(function () {
                 var id = $(this).val();
                 $.ajax({
                     url: '/Home/hentTilStasjoner/' + id,
@@ -43,7 +43,7 @@
                 for (var i in stasjon) {
                     utStreng += "<option value='" + stasjon[i].stasjonsID + "'>" + stasjon[i].Stasjonsnavn + "</option>";
                 }
-                $("#drop").append(utStreng);
+                $("#fraStasjon").append(utStreng);
             }
 
             function VisTilDropDown(stasjon) {
@@ -51,8 +51,8 @@
                 for (var i in stasjon) {
                     utStreng += "<option value='" + stasjon[i].stasjonsID + "'>" + stasjon[i].Stasjonsnavn + "</option>";
                 }
-                $("#drop1").empty();
-                $("#drop1").append(utStreng);
+                $("#tilStasjon").empty();
+                $("#tilStasjon").append(utStreng);
             }
         })
     </script>
@@ -68,13 +68,13 @@
 
             <div class="form-group col-md-6" id="dropDown">
                 <label for="exampleFormControlSelect1">Reise fra</label>
-                <select class="form-control" id="drop"></select>
+                <select class="form-control" id="fraStasjon"></select>
             </div>
 
 
             <div class="form-group col-md-6" id="dropDown">
                 <label for="exampleFormControlSelect1">Reise til</label>
-                <select class="form-control" id="drop1"></select>
+                <select class="form-control" id="tilStasjon"></select>
             </div>
 
 
@@ -88,7 +88,7 @@
 
             <div class="form-group col-md-6" id="dropDown">
                 <label for="exampleFormControlSelect1">Tid</label>
-                <select class="form-control" id="drop"></select>
+                <select class="form-control" id="tidspunkt"></select>
             </div>
 
 
