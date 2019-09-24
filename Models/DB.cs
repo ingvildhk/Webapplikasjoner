@@ -12,7 +12,7 @@ namespace Oppg1.Models
     {
         [Key]
         public int BaneID { get; set; }
-        public String Linje { get; set; } // Eks. linje L1, R10 etc. 
+        public String Banenavn { get; set; } // Eks. linje L1, R10 etc. 
         public virtual List <Togstopp> Togstopp { get; set; }
     }
 
@@ -21,7 +21,7 @@ namespace Oppg1.Models
         [Key]
         public int TogstoppID { get; set; }
         public Stasjon Stasjon { get; set; }
-        public virtual List <DateTime> Avgang { get; set;  }
+        public List <TimeSpan> Avgang { get; set; } //ikke virtual fordi ikke tabell i databasen
     }
 
     public class Stasjon
@@ -38,7 +38,7 @@ namespace Oppg1.Models
         public Bane Bane { get; set; }
         public Stasjon fraStasjon { get; set; }
         public Stasjon tilStasjon { get; set; }
-        public DateTime Avgang { get; set; }
+        public TimeSpan Avgang { get; set; }
         public String Epost { get; set; } // Foreløpig kundeID 
     }
     public class DB : DbContext
@@ -54,5 +54,10 @@ namespace Oppg1.Models
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
+
+        public virtual DbSet<Bane> Bane { get; set; }
+        public virtual DbSet<Togstopp> Togstopp { get; set; }
+        public virtual DbSet<Stasjon> Stasjon { get; set; }
+        public virtual DbSet<Bestilling> Bestilling { get; set; }
     }
 }
