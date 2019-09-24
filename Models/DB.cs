@@ -13,10 +13,10 @@ namespace Oppg1.Models
         [Key]
         public int BaneID { get; set; }
         public String Banenavn { get; set; } // Eks. linje L1, R10 etc. 
-        public virtual List <Togstopp> Togstopp { get; set; }
+        public virtual List <StasjonPaaBane> StasjonPaaBane { get; set; }
     }
 
-    public class Togstopp
+    public class StasjonPaaBane
     {
         [Key]
         public int TogstoppID { get; set; }
@@ -56,7 +56,7 @@ namespace Oppg1.Models
         }
 
         public virtual DbSet<Bane> Bane { get; set; }
-        public virtual DbSet<Togstopp> Togstopp { get; set; }
+        public virtual DbSet<StasjonPaaBane> StasjonPaaBane { get; set; }
         public virtual DbSet<Stasjon> Stasjon { get; set; }
         public virtual DbSet<Bestilling> Bestilling { get; set; }
     }
