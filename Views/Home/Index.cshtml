@@ -57,7 +57,7 @@
             function VisFraDropDown(stasjon) {
                 var utStreng = "<option value'' selected hidden>Velg stasjon</option>";
                 for (var i in stasjon) {
-                    utStreng += "<option value='" + stasjon[i].stasjonsID + "'>" + stasjon[i].Stasjonsnavn + "</option>";
+                    utStreng += "<option value='" + stasjon[i].StasjonsID + "'>" + stasjon[i].Stasjonsnavn + "</option>";
                 }
                 $("#fraStasjon").append(utStreng);
             }
@@ -65,7 +65,7 @@
             function VisTilDropDown(stasjon) {
                 var utStreng = "<option value'' selected hidden>Velg stasjon</option>";
                 for (var i in stasjon) {
-                    utStreng += "<option value='" + stasjon[i].stasjonsID + "'>" + stasjon[i].Stasjonsnavn + "</option>";
+                    utStreng += "<option value='" + stasjon[i].StasjonsID + "'>" + stasjon[i].Stasjonsnavn + "</option>";
                 }
                 $("#tilStasjon").empty();
                 $("#tilStasjon").append(utStreng);

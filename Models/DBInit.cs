@@ -203,9 +203,9 @@ namespace Oppg1.Models
                 Banenavn = "R10",
                 StasjonPaaBane = new List<StasjonPaaBane>()
             };
-            S20.StasjonPaaBane.Add(OslosR10);
-            S20.StasjonPaaBane.Add(JessR10);
-            S20.StasjonPaaBane.Add(GarR10);
+            R10.StasjonPaaBane.Add(OslosR10);
+            R10.StasjonPaaBane.Add(JessR10);
+            R10.StasjonPaaBane.Add(GarR10);
 
 
             // -----------------------------Bane  R20 --------------------------------------
@@ -253,6 +253,18 @@ namespace Oppg1.Models
             context.Bane.Add(S20);
             context.Bane.Add(R10);
             context.Bane.Add(R20);
+
+            context.StasjonPaaBane.Add(OslosL1);
+            context.StasjonPaaBane.Add(OslosR10);
+            context.StasjonPaaBane.Add(OslosS20);
+            context.StasjonPaaBane.Add(OslosR10);
+            context.StasjonPaaBane.Add(NationalL1);
+            context.StasjonPaaBane.Add(SkoyenL1);
+            context.StasjonPaaBane.Add(LillestromL1);
+            context.StasjonPaaBane.Add(AskerL1);
+            context.StasjonPaaBane.Add(AskerS20);
+            context.StasjonPaaBane.Add(GarR10);
+            context.StasjonPaaBane.Add(GarR20);
 
             base.Seed(context);
         }
