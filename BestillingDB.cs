@@ -27,6 +27,8 @@ namespace Oppg1
 
             var fraStasjonBaneListe = new List<Bane>();
 
+
+            //skal hente alle banene som inneholder FraStasjon
             foreach (Bane bane in db.Bane)
             {
                 foreach (StasjonPaaBane stasjonPaaBane in bane.StasjonPaaBane)
@@ -40,17 +42,18 @@ namespace Oppg1
 
             var tilStasjoner = new List<Stasjon>();
 
+            //skal legge til alle stasjonene som kjører fra FraStasjon i en liste
             foreach (Bane bane in fraStasjonBaneListe)
             {
                 foreach (StasjonPaaBane stasjonPaaBane in bane.StasjonPaaBane)
                 {
+                    //skal hindre at FraStasjon blir lagt til i lista
                     if (stasjonPaaBane.Stasjon != fraStasjon)
                     {
                         tilStasjoner.Add(stasjonPaaBane.Stasjon);
                     }
                 }
             }
-           tilStasjoner = tilStasjoner.Distinct().ToList();
             return tilStasjoner;
         }
 
