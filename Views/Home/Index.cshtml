@@ -6,7 +6,10 @@
     <title>Index</title>
     <script src="~/Scripts/jquery-3.4.1.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
     <script type="text/javascript">
+        var stasjoner;
+        var thread = null;
         $(function () {
             // ToDo
             // hentAlleStasjoner og bygg opp dropdown når siden lastes
@@ -23,6 +26,65 @@
                 }
             });
 
+
+
+            //$.ajax({
+            //    url: '/Home/hentFraStasjoner',
+            //    type: 'GET',
+            //    dataType: 'json',
+            //    success: function (stasjon) {
+            //        VisFraDropDown1(stasjon);
+            //    },
+            //    error: function (x, y, z) {
+            //        alert(x + '\n' + y + '\n' + z);
+            //    }
+            //});
+
+            //function VisFraDropDown1(stasjon) {
+            //    var utStreng = "<option value'' selected hidden>Hvor vil du reise fra?</option>";
+            //    for (var i in stasjon) {
+            //        utStreng += "<option value='" + stasjon[i].stasjonsID + "'>" + stasjon[i].Stasjonsnavn + "</option>";
+            //    }
+            //    $("#testFra").append(utStreng);
+            //}
+
+
+            $.ajax({
+                url: '/Home/hentFraStasjoner',
+                type: 'GET',
+                dataType: 'json',
+                success: function (stasjon) {
+                    stasjoner = stasjon;
+                },
+                error: function (x, y, z) {
+                    alert(x + '\n' + y + '\n' + z);
+                }
+            });
+
+
+            $("#testInput").keyup(function () {
+                clearTimeout(thread);
+                var sok = $(this).val();
+                thread = setTimeout(function () { VisFraDropDown1(stasjoner, sok) }, 1000);
+            });
+
+
+            function VisFraDropDown1(stasjon, sok) {
+                var utStreng = "";
+                for (var i in stasjon) {
+                    if (stasjon[i].Stasjonsnavn.toLowerCase().startsWith(sok.toLowerCase())) {
+                        utStreng += "<li role='option' id='button'><button type='button' class='btn btn-light btn-sm btn-lg btn-block'><span>" + stasjon[i].Stasjonsnavn + "</span></button></li>";
+                    }
+                }
+                $("#testUl").empty();
+                $("#testUl").append(utStreng);
+            }
+
+            //function testFunc(snavn) {
+            //    document.getElementById("testInput").value = snavn;
+            //}
+
+
             $("#fraStasjon").change(function () {
                 var id = $(this).val();
                 $.ajax({
@@ -38,8 +100,9 @@
                 });
             });
 
+
             function VisFraDropDown(stasjon) {
-                var utStreng = "<option value'' selected hidden>Velg stasjon</option>";
+                var utStreng = "<option value'' selected hidden>Hvor vil du reise fra?</option>";
                 for (var i in stasjon) {
                     utStreng += "<option value='" + stasjon[i].stasjonsID + "'>" + stasjon[i].Stasjonsnavn + "</option>";
                 }
@@ -47,7 +110,7 @@
             }
 
             function VisTilDropDown(stasjon) {
-                var utStreng = "<option value'' selected hidden>Velg stasjon</option>";
+                var utStreng = "<option value'' selected hidden>Hvor vil du reise til?</option>";
                 for (var i in stasjon) {
                     utStreng += "<option value='" + stasjon[i].stasjonsID + "'>" + stasjon[i].Stasjonsnavn + "</option>";
                 }
@@ -56,6 +119,75 @@
             }
         })
     </script>
+
+    
+
+    <style type="text/css">
+
+
+        #testInput:focus {
+    border-color: #029678;
+    box-shadow: inset 0 1px 1px rgba(2,150,120, 0.8), 0 0 8px rgba(2,150,120, 0.86);
+    }
+    
+        #fraStasjon:focus {
+            border-color: #029678;
+            box-shadow: inset 0 1px 1px rgba(2,150,120, 0.8), 0 0 8px rgba(2,150,120, 0.86);
+        }
+
+
+
+        /*
+        #op1:hover {
+            color: #029678;
+        }
+            */
+
+        #tilStasjon:focus {
+            border-color: #029678;
+            box-shadow: inset 0 1px 1px rgba(2,150,120, 0.8), 0 0 8px rgba(2,150,120, 0.86);
+        }
+
+        #dato:focus {
+            border-color: #029678;
+            box-shadow: inset 0 1px 1px rgba(2,150,120, 0.8), 0 0 8px rgba(2,150,120, 0.86);
+        }
+
+
+        #Avgangstid:focus {
+            border-color: #029678;
+            box-shadow: inset 0 1px 1px rgba(2,150,120, 0.8), 0 0 8px rgba(2,150,120, 0.86);
+        }
+
+        #bestillKnapp {
+            background-color: #029678;
+        }
+
+        li {
+            list-style-type: none
+        }
+
+
+
+        #button {
+            padding: 0;
+      
+        }
+
+        #testDiv2 {
+            padding: 0;
+      
+        }
+
+        #testUl {
+            padding-left: 0;
+      
+        }
+
+
+
+    </style>
+
 </head>
 
 <body>
@@ -65,6 +197,23 @@
         <br />
 
         <div class="form-row">
+
+            @*<div class="form-group col-md-6" id="testDiv">
+            <label for="exampleFormControlSelect1">test</label>
+            <input list="testFra" class="form-control" id="testSelect" />
+            <datalist id="testFra"></datalist>
+        </div>*@
+
+
+            <div class="form-group col-md-6" id="testDiv1">
+                <label for="exampleFormControlSelect1">test</label>
+                <input class="form-control" id="testInput" type="text" autocomplete="off" placeholder="Hvor vil du reise fra?" />
+                <div class="form-group col-md-6" id="testDiv2">
+                    <ul  id="testUl"></ul>
+                </div>
+            </div>
+
+           
 
             <div class="form-group col-md-6" id="dropDown">
                 <label for="exampleFormControlSelect1">Reise fra</label>
@@ -79,7 +228,6 @@
 
 
 
-
             <div class="form-group col-md-6">
                 <label for="exampleFormControlSelect1">Dato</label>
                 <input class="form-control" id="dato" name="dato" type="date">
@@ -88,20 +236,21 @@
 
             <div class="form-group col-md-6" id="dropDown">
                 <label for="exampleFormControlSelect1">Tid</label>
-                <select class="form-control" id="tidspunkt"></select>
+                <select class="form-control" id="Avgangstid"></select>
             </div>
-
 
 
             <div class="form-horizontal">
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Bestill" class="btn btn-success" />
+                        <input type="submit" value="Bestill billett" class="btn btn-success" id="bestillKnapp" />
                     </div>
                 </div>
             </div>
 
         </div>
+
+    
 
     </form>
 </body>

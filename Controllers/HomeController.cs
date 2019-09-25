@@ -1,5 +1,7 @@
 ﻿using Oppg1.Models;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -24,6 +26,7 @@ namespace Oppg1.Controllers
             return json;
         }
 
+
         public string hentTilStasjoner(int id)
         {
             var Bdb = new BestillingDB();
@@ -32,5 +35,9 @@ namespace Oppg1.Controllers
             string json = jsonSerializer.Serialize(tilStasjoner);
             return json;
         }
+
+
+
+
     }
 }
