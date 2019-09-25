@@ -21,6 +21,7 @@ namespace Oppg1
             return alleStasjoner;
         }
 
+
         public List<Stasjon> hentTilStasjoner(int id)
         {
             Stasjon fraStasjon = db.Stasjon.Find(id);
