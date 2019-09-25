@@ -10,57 +10,95 @@ namespace Oppg1
     {
         DB db = new DB();
 
-        public List<stasjon> hentAlleStasjoner()
+        public List<Stasjon> hentAlleStasjoner()
         {
-            List<stasjon> alleStasjoner = db.Stasjon.Select(s => new stasjon()
+            List<Stasjon> alleStasjoner = new List<Stasjon>();
+
+            foreach (Stasjon stasjon in db.Stasjon)
             {
-                stasjonsID = s.stasjonsID,
-                Stasjonsnavn = s.Stasjonsnavn
-            }).ToList();
+                alleStasjoner.Add(stasjon);
+            }
             return alleStasjoner;
         }
 
-        public List<stasjon> hentTilStasjoner(int id)
+        public List<Stasjon> hentTilStasjoner(int id)
         {
-            List<Bane> alleBaner = new List<Bane>();
+            Stasjon fraStasjon = db.Stasjon.Find(id);
+
+            var fraStasjonBaneListe = new List<Bane>();
+
+
+            //skal hente alle banene som inneholder FraStasjon
+            foreach (Bane bane in db.Bane)
+            {
+                foreach (StasjonPaaBane stasjonPaaBane in bane.StasjonPaaBane)
+                {
+                    if (stasjonPaaBane.Stasjon == fraStasjon)
+                    {
+                        fraStasjonBaneListe.Add(bane);
+                    }
+                }
+            }
+
+            var tilStasjoner = new List<Stasjon>();
+
+            //skal legge til alle stasjonene som kjører fra FraStasjon i en liste
+            foreach (Bane bane in fraStasjonBaneListe)
+            {
+                foreach (StasjonPaaBane stasjonPaaBane in bane.StasjonPaaBane)
+                {
+                    //skal hindre at FraStasjon blir lagt til i lista
+                    if (stasjonPaaBane.Stasjon != fraStasjon)
+                    {
+                        tilStasjoner.Add(stasjonPaaBane.Stasjon);
+                    }
+                }
+            }
+            return tilStasjoner;
+        }
+
+        public List<TimeSpan> hentTidspunkt(int fraStasjon, int tilStasjon)
+        {
+            Stasjon FraStasjon = db.Stasjon.Find(fraStasjon);
+            Stasjon TilStasjon = db.Stasjon.Find(tilStasjon);
+
+            var TilFraBaner = new List<Bane>();
 
             foreach (Bane bane in db.Bane)
             {
-                foreach (Stasjon stasjon in bane.Stasjoner)
+                foreach (StasjonPaaBane stasjonPaaBane in bane.StasjonPaaBane)
                 {
-                    if (stasjon.stasjonsID == id)
+                    if (stasjonPaaBane.Stasjon == FraStasjon)
                     {
-                        alleBaner.Add(bane);
+                        foreach (StasjonPaaBane stasjonPaaBane1 in bane.StasjonPaaBane)
+                        {
+                            if (stasjonPaaBane1.Stasjon == TilStasjon)
+                            {
+                                TilFraBaner.Add(bane);
+                            }
+                        }
                     }
                 }
             }
 
-            List<Stasjon> TilStasjoner = new List<Stasjon>();
+            var Avgangstider = new List<TimeSpan>();
 
-            foreach (Bane bane in alleBaner)
+            foreach (Bane bane in TilFraBaner)
             {
-                foreach (Stasjon stasjon in bane.Stasjoner)
+                foreach (StasjonPaaBane stasjonPaaBane in bane.StasjonPaaBane)
                 {
-                    if (!TilStasjoner.Contains(stasjon))
+                    if (stasjonPaaBane.Stasjon == FraStasjon)
                     {
-                        TilStasjoner.Add(stasjon);
+                        foreach (TimeSpan timeSpan in stasjonPaaBane.Avgang)
+                        {
+                            Avgangstider.Add(timeSpan);
+                        }
                     }
                 }
             }
 
-            Stasjon FraStasjon = TilStasjoner.Find(s => s.stasjonsID == id);
-            TilStasjoner.Remove(FraStasjon);
+            return Avgangstider;
 
-            List<stasjon> tilStasjoner = new List<stasjon>();
-
-            foreach (Stasjon tilStasjon in TilStasjoner)
-            {
-                stasjon s = new stasjon();
-                s.stasjonsID = tilStasjon.stasjonsID;
-                s.Stasjonsnavn = tilStasjon.Stasjonsnavn;
-                tilStasjoner.Add(s);
-            }
-            return tilStasjoner;
         }
     }
 }

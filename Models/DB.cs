@@ -8,49 +8,39 @@ using System.Web;
 
 namespace Oppg1.Models
 {
-    public class Avgang
-    {
-        [Key]
-        public int avgangsID { get; set; }
-        public virtual Bane Bane { get; set; }
-        public virtual List<Avgangstider> Avgangstider { get; set; }
-    }
-
-    public class Avgangstider
-    {
-        [Key]
-        public string Tidspunkt { get; set; }
-    }
-
     public class Bane
     {
         [Key]
-        public int baneID { get; set; }
-        public string Banenavn { get; set; }
-        public virtual List<Stasjon> Stasjoner { get; set; }
+        public int BaneID { get; set; }
+        public String Banenavn { get; set; } // Eks. linje L1, R10 etc. 
+        public virtual List <StasjonPaaBane> StasjonPaaBane { get; set; }
     }
 
-    public class Bestilling
+    public class StasjonPaaBane
     {
         [Key]
-        public int BestillingID { get; set; }
-        public virtual Stasjon fraStasjon { get; set; }
-        public virtual Stasjon tilStasjon { get; set; }
-        public virtual Avgangstider Avgangstid { get; set; }
-        [Display(Name="Dato")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString="{0.dd-MM-yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime Dato { get; set; }
+        public int TogstoppID { get; set; }
+        public Stasjon Stasjon { get; set; }
+        public List <TimeSpan> Avgang { get; set; } //ikke virtual fordi ikke tabell i databasen
     }
 
     public class Stasjon
     {
         [Key]
-        public int stasjonsID { get; set; }
-        public string Stasjonsnavn { get; set; }
-        public virtual List<Avgang> Avganger { get; set; }
+        public int StasjonsID { get; set; }
+        public String Stasjonsnavn { get; set; }
     }
 
+    public class Bestilling
+    {
+        [Key]
+        public int BestillingsID { get; set; }
+        public Bane Bane { get; set; }
+        public Stasjon fraStasjon { get; set; }
+        public Stasjon tilStasjon { get; set; }
+        public TimeSpan Avgang { get; set; }
+        public String Epost { get; set; } // Foreløpig kundeID 
+    }
     public class DB : DbContext
     {
         public DB() : base("name=DB")
@@ -65,10 +55,9 @@ namespace Oppg1.Models
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
 
-        public virtual DbSet<Avgang> Avgang { get; set; }
         public virtual DbSet<Bane> Bane { get; set; }
-        public virtual DbSet<Bestilling> Bestilling { get; set; }
+        public virtual DbSet<StasjonPaaBane> StasjonPaaBane { get; set; }
         public virtual DbSet<Stasjon> Stasjon { get; set; }
+        public virtual DbSet<Bestilling> Bestilling { get; set; }
     }
-
 }

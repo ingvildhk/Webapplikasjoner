@@ -151,10 +151,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\bestilling.cs" />
     <Compile Include="Models\DB.cs" />
     <Compile Include="Models\DBInit.cs" />
-    <Compile Include="Models\stasjon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

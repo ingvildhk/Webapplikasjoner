@@ -10,113 +10,262 @@ namespace Oppg1.Models
     {
         protected override void Seed(DB context)
         {
-            var nyAvgangstid1 = new Avgangstider
+            // Oppretter stasjoner
+
+            var OsloS = new Stasjon
             {
-                Tidspunkt = "12.00"
+                Stasjonsnavn = "Oslo S"
+            };
+            var Nationalteateret = new Stasjon
+            {
+                Stasjonsnavn = "Nationalteateret"
+            };
+            var Skoyen = new Stasjon
+            {
+                Stasjonsnavn = "Skøyen"
+            };
+            var Asker = new Stasjon
+            {
+                Stasjonsnavn = "Asker"
+            };
+            var Lillestrom = new Stasjon
+            {
+                Stasjonsnavn = "Lillestrøm"
+            };
+            var Gardermoen = new Stasjon
+            {
+                Stasjonsnavn = "Gardermoen"
+            };
+            var Fredrikstad = new Stasjon
+            {
+                Stasjonsnavn = "Fredrikstad"
+            };
+            var Jessheim = new Stasjon
+            {
+                Stasjonsnavn = "Jessheim"
+            };
+            var Stavanger = new Stasjon
+            {
+                Stasjonsnavn = "Stavanger"
             };
 
-            var nyAvgangstid2 = new Avgangstider
+            // oppretter tidspunkt til listen i Togstopp
+
+            TimeSpan kl09 = new TimeSpan(09, 00, 00);
+            TimeSpan kl10 = new TimeSpan(10, 00, 00);
+            TimeSpan kl11 = new TimeSpan(11, 00, 00);
+            TimeSpan kl12 = new TimeSpan(12, 00, 00);
+            TimeSpan kl13 = new TimeSpan(13, 00, 00);
+            TimeSpan kl14 = new TimeSpan(14, 00, 00);
+            TimeSpan kl15 = new TimeSpan(15, 00, 00);
+            TimeSpan kl16 = new TimeSpan(16, 00, 00);
+            TimeSpan kl17 = new TimeSpan(17, 00, 00);
+            TimeSpan kl18 = new TimeSpan(18, 00, 00);
+            TimeSpan kl19 = new TimeSpan(19, 00, 00);
+            TimeSpan kl20 = new TimeSpan(20, 00, 00);
+
+
+            //---------------- Her opprettes StasjonPaaBane objekt på bane L1--------------------
+
+            var OslosL1 = new StasjonPaaBane
             {
-                Tidspunkt = "14.00"
+                Stasjon = OsloS,
+                Avgang = new List<TimeSpan>()
             };
+            OslosL1.Avgang.Add(kl09);
+            OslosL1.Avgang.Add(kl12);
+            OslosL1.Avgang.Add(kl19);
 
-            var nyAvgangstid3 = new Avgangstider
+            var NationalL1 = new StasjonPaaBane
             {
-                Tidspunkt = "12.03"
+                Stasjon = Nationalteateret,
+                Avgang = new List<TimeSpan>()
             };
+            NationalL1.Avgang.Add(kl10);
+            NationalL1.Avgang.Add(kl13);
+            NationalL1.Avgang.Add(kl16);
 
-            var nyAvgangstid4 = new Avgangstider
+            var SkoyenL1 = new StasjonPaaBane
             {
-                Tidspunkt = "14.03"
+                Stasjon = Skoyen,
+                Avgang = new List<TimeSpan>()
             };
+            SkoyenL1.Avgang.Add(kl10);
+            SkoyenL1.Avgang.Add(kl13);
+            SkoyenL1.Avgang.Add(kl20);
 
-            var nyAvgang1 = new Avgang
+            var AskerL1 = new StasjonPaaBane
             {
-                Avgangstider = new List<Avgangstider>()
+                Stasjon = Asker,
+                Avgang = new List<TimeSpan>()
             };
-            nyAvgang1.Avgangstider.Add(nyAvgangstid1);
-            nyAvgang1.Avgangstider.Add(nyAvgangstid2);
+            AskerL1.Avgang.Add(kl10);
+            AskerL1.Avgang.Add(kl13);
+            AskerL1.Avgang.Add(kl20);
 
-            var nyAvgang2 = new Avgang
+            var LillestromL1 = new StasjonPaaBane
             {
-                Avgangstider = new List<Avgangstider>()
+                Stasjon = Lillestrom,
+                Avgang = new List<TimeSpan>()
             };
+            LillestromL1.Avgang.Add(kl10);
+            LillestromL1.Avgang.Add(kl15);
+            LillestromL1.Avgang.Add(kl17);
 
-            nyAvgang2.Avgangstider.Add(nyAvgangstid3);
-            nyAvgang2.Avgangstider.Add(nyAvgangstid4);
 
-            var nyAvgang3 = new Avgang
+
+            // Oppretter Bane L1 med stasjoner i liste
+
+            var L1 = new Bane
             {
-                Avgangstider = new List<Avgangstider>()
+                Banenavn = "L1",
+                StasjonPaaBane = new List<StasjonPaaBane>()
             };
-            nyAvgang3.Avgangstider.Add(nyAvgangstid1);
-            nyAvgang3.Avgangstider.Add(nyAvgangstid3);
+            L1.StasjonPaaBane.Add(OslosL1);
+            L1.StasjonPaaBane.Add(NationalL1);
+            L1.StasjonPaaBane.Add(SkoyenL1);
+            L1.StasjonPaaBane.Add(AskerL1);
+            L1.StasjonPaaBane.Add(LillestromL1);
 
-            var nyAvgang4 = new Avgang
+
+            // --------------------------Oppretter Sørlandsbanen S20 --------------------
+
+            var OslosS20 = new StasjonPaaBane
             {
-                Avgangstider = new List<Avgangstider>()
+                Stasjon = OsloS,
+                Avgang = new List<TimeSpan>()
             };
-            nyAvgang4.Avgangstider.Add(nyAvgangstid2);
-            nyAvgang4.Avgangstider.Add(nyAvgangstid4);
+            OslosS20.Avgang.Add(kl09);
+            OslosS20.Avgang.Add(kl12);
+            OslosS20.Avgang.Add(kl19);
 
-            var nyStasjon1 = new Stasjon
+            var StavS20 = new StasjonPaaBane
             {
-                Stasjonsnavn = "Oslo S",
-                Avganger = new List<Avgang>()
+                Stasjon = Stavanger,
+                Avgang = new List<TimeSpan>()
             };
+            StavS20.Avgang.Add(kl09);
+            StavS20.Avgang.Add(kl12);
+            StavS20.Avgang.Add(kl19);
 
-            nyStasjon1.Avganger.Add(nyAvgang1);
-
-            var nyStasjon2 = new Stasjon
+            var AskerS20 = new StasjonPaaBane
             {
-                Stasjonsnavn = "Nationaltheateret",
-                Avganger = new List<Avgang>()
+                Stasjon = Asker,
+                Avgang = new List<TimeSpan>()
             };
+            AskerS20.Avgang.Add(kl10);
+            AskerS20.Avgang.Add(kl13);
+            AskerS20.Avgang.Add(kl20);
 
-            nyStasjon2.Avganger.Add(nyAvgang2);
+            // S20 Bane med stasjoner
 
-            var nyStasjon3 = new Stasjon
+            var S20 = new Bane
             {
-                Stasjonsnavn = "Oslo Lufthavn",
-                Avganger = new List<Avgang>()
+                Banenavn = "Sørlandsbanen",
+                StasjonPaaBane = new List<StasjonPaaBane>()
             };
+            S20.StasjonPaaBane.Add(OslosS20);
+            S20.StasjonPaaBane.Add(StavS20);
+            S20.StasjonPaaBane.Add(AskerS20);
 
-            nyStasjon3.Avganger.Add(nyAvgang3);
-
-            var nyStasjon4 = new Stasjon
+            // -----------------------------Bane  R10 --------------------------------------
+            var OslosR10 = new StasjonPaaBane
             {
-                Stasjonsnavn = "Lillestrøm",
-                Avganger = new List<Avgang>()
+                Stasjon = OsloS,
+                Avgang = new List<TimeSpan>()
             };
+            OslosR10.Avgang.Add(kl09);
+            OslosR10.Avgang.Add(kl12);
+            OslosR10.Avgang.Add(kl19);
 
-            nyStasjon4.Avganger.Add(nyAvgang4);
+            var JessR10 = new StasjonPaaBane
+            {
+                Stasjon = Jessheim,
+                Avgang = new List<TimeSpan>()
+            };
+            JessR10.Avgang.Add(kl09);
+            JessR10.Avgang.Add(kl12);
+            JessR10.Avgang.Add(kl19);
 
-            var nyBane1 = new Bane
+            var GarR10 = new StasjonPaaBane
+            {
+                Stasjon = Gardermoen,
+                Avgang = new List<TimeSpan>()
+            };
+            GarR10.Avgang.Add(kl10);
+            GarR10.Avgang.Add(kl13);
+            GarR10.Avgang.Add(kl20);
+
+            // S20 Bane med stasjoner
+
+            var R10 = new Bane
             {
                 Banenavn = "R10",
-                Stasjoner = new List<Stasjon>()
+                StasjonPaaBane = new List<StasjonPaaBane>()
             };
+            R10.StasjonPaaBane.Add(OslosR10);
+            R10.StasjonPaaBane.Add(JessR10);
+            R10.StasjonPaaBane.Add(GarR10);
 
-            nyBane1.Stasjoner.Add(nyStasjon1);
-            nyBane1.Stasjoner.Add(nyStasjon2);
 
-            nyAvgang1.Bane = nyBane1;
-            nyAvgang2.Bane = nyBane1;
+            // -----------------------------Bane  R20 --------------------------------------
 
-            var nyBane2 = new Bane
+
+            var OslosR20 = new StasjonPaaBane
             {
-                Banenavn = "R11",
-                Stasjoner = new List<Stasjon>()
+                Stasjon = OsloS,
+                Avgang = new List<TimeSpan>()
             };
+            OslosR20.Avgang.Add(kl09);
+            OslosR20.Avgang.Add(kl12);
+            OslosR20.Avgang.Add(kl19);
 
-            nyBane2.Stasjoner.Add(nyStasjon3);
-            nyBane2.Stasjoner.Add(nyStasjon4);
+            var FredR20 = new StasjonPaaBane
+            {
+                Stasjon = Fredrikstad,
+                Avgang = new List<TimeSpan>()
+            };
+            FredR20.Avgang.Add(kl09);
+            FredR20.Avgang.Add(kl12);
+            FredR20.Avgang.Add(kl18);
 
-            nyAvgang3.Bane = nyBane2;
-            nyAvgang4.Bane = nyBane2;
+            var GarR20 = new StasjonPaaBane
+            {
+                Stasjon = Gardermoen,
+                Avgang = new List<TimeSpan>()
+            };
+            GarR20.Avgang.Add(kl11);
+            GarR20.Avgang.Add(kl14);
+            GarR20.Avgang.Add(kl20);
 
-            context.Bane.Add(nyBane1);
-            context.Bane.Add(nyBane2);
+            // S20 Bane med stasjoner
+
+            var R20 = new Bane
+            {
+                Banenavn = "R20",
+                StasjonPaaBane = new List<StasjonPaaBane>()
+            };
+            R20.StasjonPaaBane.Add(OslosR20);
+            R20.StasjonPaaBane.Add(FredR20);
+            R20.StasjonPaaBane.Add(GarR20);
+
+            context.Bane.Add(L1);
+            context.Bane.Add(S20);
+            context.Bane.Add(R10);
+            context.Bane.Add(R20);
+
+            context.StasjonPaaBane.Add(OslosL1);
+            context.StasjonPaaBane.Add(OslosR10);
+            context.StasjonPaaBane.Add(OslosS20);
+            context.StasjonPaaBane.Add(OslosR10);
+            context.StasjonPaaBane.Add(NationalL1);
+            context.StasjonPaaBane.Add(SkoyenL1);
+            context.StasjonPaaBane.Add(LillestromL1);
+            context.StasjonPaaBane.Add(AskerL1);
+            context.StasjonPaaBane.Add(AskerS20);
+            context.StasjonPaaBane.Add(GarR10);
+            context.StasjonPaaBane.Add(GarR20);
+
             base.Seed(context);
         }
     }
