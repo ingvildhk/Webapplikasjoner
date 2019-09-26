@@ -92,6 +92,11 @@ namespace Oppg1
                 }
             }
 
+            //Finner nåværende tidspunkt og konverter til double
+            String naaTidspunktString = DateTime.Now.ToString("HH:mm");
+            naaTidspunktString = naaTidspunktString.Replace(':', ',');
+            double naaTidspunkt = Convert.ToDouble(naaTidspunktString);
+
             var Avgangstider = new List<String>();
 
             foreach (Bane bane in FraTilBaner)
@@ -100,9 +105,17 @@ namespace Oppg1
                 {
                     if (stasjonPaaBane.Stasjon == FraStasjon)
                     {
-                        if (!Avgangstider.Contains(stasjonPaaBane.Avgang))
+                        //Finner avgangstidene, konverterer til double og sammenligner med nåværede tidspunkt
+                        String avgangsTidspunktString = stasjonPaaBane.Avgang;
+                        avgangsTidspunktString = avgangsTidspunktString.Replace(':', ',');
+                        double avgangsTidspunkt = Convert.ToDouble(avgangsTidspunktString);
+
+                        if (naaTidspunkt < avgangsTidspunkt)
                         {
-                            Avgangstider.Add(stasjonPaaBane.Avgang);
+                            if (!Avgangstider.Contains(stasjonPaaBane.Avgang))
+                            {
+                                Avgangstider.Add(stasjonPaaBane.Avgang);
+                            }
                         }
                     }
                 }
