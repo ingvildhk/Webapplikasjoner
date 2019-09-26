@@ -71,11 +71,10 @@
                 $("#tilStasjon").append(utStreng);
             }
 
-            function VisTidspunktDropDown(stasjonpaabane) {
-                console.log(stasjonpaabane);
+            function VisTidspunktDropDown(avgang) {
                 var utStreng = "<option value'' selected hidden>Velg tidspunkt</option>";
-                for (var i in stasjonpaabane) {
-                    utStreng += "<option value='" + stasjonpaabane[i] + "'>" + stasjonpaabane[i] + "</option>";
+                for (var i in avgang) {
+                    utStreng += "<option value='" + avgang[i] + "'>" + avgang[i] + "</option>";
                 }
                 $("#Tidspunkt").empty();
                 $("#Tidspunkt").append(utStreng);
