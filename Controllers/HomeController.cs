@@ -37,7 +37,7 @@ namespace Oppg1.Controllers
         public string hentTidspunkt(int fraStasjon, int tilStasjon)
         {
             var Bdb = new BestillingDB();
-            List<TimeSpan> Avganger = Bdb.hentTidspunkt(fraStasjon, tilStasjon);
+            List<String> Avganger = Bdb.hentTidspunkt(fraStasjon, tilStasjon);
             var jsonSerializer = new JavaScriptSerializer();
             string json = jsonSerializer.Serialize(Avganger);
             return json;

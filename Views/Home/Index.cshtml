@@ -38,7 +38,7 @@
                 });
             });
 
-            $("#Tidspunkt").click(function () {
+            $("#tilStasjon").change(function () {
                 var tilStasjon = $('#tilStasjon').val();
                 var fraStasjon = $("#fraStasjon").val();
                 $.ajax({
@@ -71,10 +71,11 @@
                 $("#tilStasjon").append(utStreng);
             }
 
-            function VisTidspunktDropDown(tidspunkt) {
+            function VisTidspunktDropDown(stasjonpaabane) {
+                console.log(stasjonpaabane);
                 var utStreng = "<option value'' selected hidden>Velg tidspunkt</option>";
-                for (var i in tidspunkt) {
-                    utStreng += "<option value='" + tidspunkt[i].Tidspunkt + "</option>";
+                for (var i in stasjonpaabane) {
+                    utStreng += "<option value='" + stasjonpaabane[i] + "'>" + stasjonpaabane[i] + "</option>";
                 }
                 $("#Tidspunkt").empty();
                 $("#Tidspunkt").append(utStreng);
@@ -101,8 +102,6 @@
                 <label for="exampleFormControlSelect1">Reise til</label>
                 <select class="form-control" id="tilStasjon"></select>
             </div>
-
-
 
 
             <div class="form-group col-md-6">

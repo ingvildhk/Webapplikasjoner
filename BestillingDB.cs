@@ -62,12 +62,12 @@ namespace Oppg1
             return tilStasjoner;
         }
 
-        public List<TimeSpan> hentTidspunkt(int fraStasjon, int tilStasjon)
+        public List<String> hentTidspunkt(int fraStasjon, int tilStasjon)
         {
             Stasjon FraStasjon = db.Stasjon.Find(fraStasjon);
             Stasjon TilStasjon = db.Stasjon.Find(tilStasjon);
 
-            var TilFraBaner = new List<Bane>();
+            var FraBaner = new List<Bane>();
 
             foreach (Bane bane in db.Bane)
             {
@@ -75,20 +75,38 @@ namespace Oppg1
                 {
                     if (stasjonPaaBane.Stasjon == FraStasjon)
                     {
-                        foreach (StasjonPaaBane stasjonPaaBane1 in bane.StasjonPaaBane)
-                        {
-                            if (stasjonPaaBane1.Stasjon == TilStasjon)
-                            {
-                                TilFraBaner.Add(bane);
-                            }
-                        }
+                        FraBaner.Add(bane);
                     }
                 }
             }
 
-            var Avgangstider = new List<TimeSpan>();
+            var FraTilBaner = new List<Bane>();
+            foreach (Bane bane in FraBaner)
+            {
+                foreach (StasjonPaaBane stasjonPaaBane in bane.StasjonPaaBane)
+                {
+                    if (stasjonPaaBane.Stasjon == TilStasjon)
+                    {
+                        FraTilBaner.Add(bane);
+                    }
+                }
+            }
 
+            var Avgangstider = new List<String>();
 
+            foreach (Bane bane in FraTilBaner)
+            {
+                foreach (StasjonPaaBane stasjonPaaBane in bane.StasjonPaaBane)
+                {
+                    if (stasjonPaaBane.Stasjon == FraStasjon)
+                    {
+                        if (!Avgangstider.Contains(stasjonPaaBane.Avgang))
+                        {
+                            Avgangstider.Add(stasjonPaaBane.Avgang);
+                        }
+                    }
+                }
+            }
             return Avgangstider;
 
         }

@@ -19,7 +19,7 @@ namespace Oppg1.Models
     public class StasjonPaaBane
     {
         [Key]
-        public int TogstoppID { get; set; }
+        public int StasjonPaaBaneID { get; set; }
         public virtual Stasjon Stasjon { get; set; }
         public virtual Bane Bane { get; set; }
         public String Avgang { get; set; } 
