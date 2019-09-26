@@ -62,7 +62,7 @@ namespace Oppg1
             return tilStasjoner;
         }
 
-        public List<String> hentTidspunkt(int fraStasjon, int tilStasjon)
+        public List<String> hentTidspunkt(int fraStasjon, int tilStasjon, string dato)
         {
             Stasjon FraStasjon = db.Stasjon.Find(fraStasjon);
             Stasjon TilStasjon = db.Stasjon.Find(tilStasjon);
@@ -92,36 +92,68 @@ namespace Oppg1
                 }
             }
 
+            var Avgangstider = new List<String>();
+
             //Finner nåværende tidspunkt og konverter til double
             String naaTidspunktString = DateTime.Now.ToString("HH:mm");
             naaTidspunktString = naaTidspunktString.Replace(':', ',');
             double naaTidspunkt = Convert.ToDouble(naaTidspunktString);
 
-            var Avgangstider = new List<String>();
+            //Finner dagens dato
+            DateTime dagensDato = DateTime.Now.Date;
 
-            foreach (Bane bane in FraTilBaner)
+            //Konverterer valgt dato til DateTime
+            DateTime valgDato = DateTime.Parse(dato);
+
+
+            //Sammenligner dagens dato med valgt dato. Valgt dato skal aldri være lavere enn dagens dato
+            int sammenligning = DateTime.Compare(valgDato, dagensDato);
+
+            //Hvis valgt dato er senere enn dagens dato, lister ut alle tidspunkt
+            if (sammenligning > 0)
             {
-                foreach (StasjonPaaBane stasjonPaaBane in bane.StasjonPaaBane)
+                foreach (Bane bane in FraTilBaner)
                 {
-                    if (stasjonPaaBane.Stasjon == FraStasjon)
+                    foreach (StasjonPaaBane stasjonPaaBane in bane.StasjonPaaBane)
                     {
-                        //Finner avgangstidene, konverterer til double og sammenligner med nåværede tidspunkt
-                        String avgangsTidspunktString = stasjonPaaBane.Avgang;
-                        avgangsTidspunktString = avgangsTidspunktString.Replace(':', ',');
-                        double avgangsTidspunkt = Convert.ToDouble(avgangsTidspunktString);
-
-                        if (naaTidspunkt < avgangsTidspunkt)
+                        if (stasjonPaaBane.Stasjon == FraStasjon)
                         {
                             if (!Avgangstider.Contains(stasjonPaaBane.Avgang))
                             {
-                                Avgangstider.Add(stasjonPaaBane.Avgang);
+                               Avgangstider.Add(stasjonPaaBane.Avgang);
                             }
                         }
                     }
                 }
             }
-            return Avgangstider;
 
+            //Hvis dato valgt er samme som dagens dato, lister kun ut tidspunkt som ikke har vært
+            if (sammenligning == 0)
+            {
+                foreach (Bane bane in FraTilBaner)
+                {
+                    foreach (StasjonPaaBane stasjonPaaBane in bane.StasjonPaaBane)
+                    {
+                        if (stasjonPaaBane.Stasjon == FraStasjon)
+                        {
+                            //Finner avgangstidene, konverterer til double og sammenligner med nåværede tidspunkt
+                            String avgangsTidspunktString = stasjonPaaBane.Avgang;
+                            avgangsTidspunktString = avgangsTidspunktString.Replace(':', ',');
+                            double avgangsTidspunkt = Convert.ToDouble(avgangsTidspunktString);
+
+                            if (naaTidspunkt < avgangsTidspunkt)
+                            {
+                                if (!Avgangstider.Contains(stasjonPaaBane.Avgang))
+                                {
+                                    Avgangstider.Add(stasjonPaaBane.Avgang);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+            return Avgangstider;
         }
     }
 }

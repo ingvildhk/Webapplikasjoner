@@ -34,10 +34,11 @@ namespace Oppg1.Controllers
             return json;
         }
 
-        public string hentTidspunkt(int fraStasjon, int tilStasjon)
+        public string hentTidspunkt(int fraStasjon, int tilStasjon, string dato)
         {
             var Bdb = new BestillingDB();
-            List<String> Avganger = Bdb.hentTidspunkt(fraStasjon, tilStasjon);
+            string test = dato;
+            List<String> Avganger = Bdb.hentTidspunkt(fraStasjon, tilStasjon, dato);
             var jsonSerializer = new JavaScriptSerializer();
             string json = jsonSerializer.Serialize(Avganger);
             return json;

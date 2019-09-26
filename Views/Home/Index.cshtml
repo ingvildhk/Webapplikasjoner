@@ -38,11 +38,12 @@
                 });
             });
 
-            $("#tilStasjon").change(function () {
+            $("#dato").change(function () {
                 var tilStasjon = $('#tilStasjon').val();
                 var fraStasjon = $("#fraStasjon").val();
+                var dato = $('#dato').val();
                 $.ajax({
-                    url: '/Home/hentTidspunkt?fraStasjon=' + fraStasjon +"&tilStasjon="+ tilStasjon,
+                    url: '/Home/hentTidspunkt?fraStasjon=' + fraStasjon +"&tilStasjon="+ tilStasjon + "&dato=" + dato,
                     type: 'GET',
                     dataType: 'json',
                     success: function (tidspunkt) {
