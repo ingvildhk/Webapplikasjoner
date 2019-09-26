@@ -182,14 +182,14 @@ namespace Oppg1.Models
             {
                 Stasjon = Asker,
                 Bane = S20,
-                Avgang = "08.30"
+                Avgang = "08:30"
             };
 
             var AskerS20kl1930 = new StasjonPaaBane
             {
                 Stasjon = Asker,
                 Bane = S20,
-                Avgang = "19.30"
+                Avgang = "19:30"
             };
 
             S20.StasjonPaaBane.Add(OslosS20kl1430);
