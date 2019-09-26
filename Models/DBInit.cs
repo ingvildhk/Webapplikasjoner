@@ -204,42 +204,42 @@ namespace Oppg1.Models
             {
                 Stasjon = OsloS,
                 Bane = R10,
-                Avgang = "10.00" 
+                Avgang = "10:00" 
             };
 
             var OslosR10kl13 = new StasjonPaaBane
             {
                 Stasjon = OsloS,
                 Bane = R10,
-                Avgang = "13.00"
+                Avgang = "13:00"
             };
 
             var JessR10kl11 = new StasjonPaaBane
             {
                 Stasjon = Jessheim,
                 Bane = R10,
-                Avgang = "11.00"
+                Avgang = "11:00"
             };
 
             var JessR10kl14 = new StasjonPaaBane
             {
                 Stasjon = Jessheim,
                 Bane = R10,
-                Avgang = "14.00"
+                Avgang = "14:00"
             };
 
             var GarR10kl1130 = new StasjonPaaBane
             {
                 Stasjon = Gardermoen,
                 Bane = R10,
-                Avgang = "11.30"
+                Avgang = "11:30"
             };
 
             var GarR10kl1430 = new StasjonPaaBane
             {
                 Stasjon = Gardermoen,
                 Bane = R10,
-                Avgang = "14.30"
+                Avgang = "14:30"
             };
 
             // R10 Bane med stasjoner
