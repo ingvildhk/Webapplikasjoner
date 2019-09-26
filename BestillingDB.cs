@@ -50,10 +50,15 @@ namespace Oppg1
                     //skal hindre at FraStasjon blir lagt til i lista
                     if (stasjonPaaBane.Stasjon != fraStasjon)
                     {
-                        tilStasjoner.Add(stasjonPaaBane.Stasjon);
+                        if (!tilStasjoner.Contains(stasjonPaaBane.Stasjon))
+                        {
+                            tilStasjoner.Add(stasjonPaaBane.Stasjon);
+                        }
                     }
                 }
             }
+
+
             return tilStasjoner;
         }
 
@@ -83,19 +88,6 @@ namespace Oppg1
 
             var Avgangstider = new List<TimeSpan>();
 
-            foreach (Bane bane in TilFraBaner)
-            {
-                foreach (StasjonPaaBane stasjonPaaBane in bane.StasjonPaaBane)
-                {
-                    if (stasjonPaaBane.Stasjon == FraStasjon)
-                    {
-                        foreach (TimeSpan timeSpan in stasjonPaaBane.Avgang)
-                        {
-                            Avgangstider.Add(timeSpan);
-                        }
-                    }
-                }
-            }
 
             return Avgangstider;
 

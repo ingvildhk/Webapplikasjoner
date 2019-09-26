@@ -20,8 +20,9 @@ namespace Oppg1.Models
     {
         [Key]
         public int TogstoppID { get; set; }
-        public Stasjon Stasjon { get; set; }
-        public List <TimeSpan> Avgang { get; set; } //ikke virtual fordi ikke tabell i databasen
+        public virtual Stasjon Stasjon { get; set; }
+        public virtual Bane Bane { get; set; }
+        public String Avgang { get; set; } 
     }
 
     public class Stasjon
