@@ -39,7 +39,8 @@ namespace Oppg1.Models
         public Bane Bane { get; set; }
         public Stasjon fraStasjon { get; set; }
         public Stasjon tilStasjon { get; set; }
-        public TimeSpan Avgang { get; set; }
+        public String dato { get; set; }
+        public String avgangstid { get; set; }
         public String Epost { get; set; } // Foreløpig kundeID 
     }
     public class DB : DbContext

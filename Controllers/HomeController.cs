@@ -13,9 +13,18 @@ namespace Oppg1.Controllers
 
         public ActionResult Index()
         {
+            // For å kunne ta vare på bestillingsobjektet 
+            Session["Bestillingen"] = new Models.Bestilling();
             return View();
         }
-        
+
+        [HttpPost]
+        public ActionResult Bestilling(Models.Bestilling innBestilling)
+        {
+            innBestilling = (Models.Bestilling)Session["Bestillingen"];
+            return View(innBestilling);
+        }
+
         public string hentFraStasjoner()
         {
             var Bdb = new BestillingDB();
