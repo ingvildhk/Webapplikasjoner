@@ -14,23 +14,22 @@ namespace Oppg1.Controllers
         public ActionResult Index()
         {
             // For å kunne ta vare på bestillingsobjektet 
-            Session["Bestillingen"] = new List<Models.TestBestilling>();
+            Session["Bestillingen"] = new Models.Bestilling();
             return View();
         }
 
         [HttpPost]
-        public ActionResult Index(Models.TestBestilling innBestilling)
+        public ActionResult Index(Models.Bestilling innBestilling)
         {
-            var bestillingsliste = (List<Models.TestBestilling>)Session["Bestillingen"];
-            bestillingsliste.Add(innBestilling);
-            Session["Bestillingen"] = bestillingsliste;
-            return RedirectToAction("Bestilling");
+            var bestillingen = (Models.Bestilling)Session["Bestillingen"];
+            Session["Bestillingen"] = bestillingen;
+            return RedirectToAction("Bestilling", bestillingen);
         }
 
         public ActionResult Bestilling()
         {
-            var bestillingsliste = (List<Models.TestBestilling>)Session["Bestillingen"];
-            return View(bestillingsliste);
+            var bestillingen = (Models.Bestilling)Session["Bestillingen"];
+            return View(bestillingen);
         }
 
         public string hentFraStasjoner()

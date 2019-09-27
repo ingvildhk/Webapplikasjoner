@@ -1,5 +1,4 @@
-﻿@model List<Oppg1.Models.TestBestilling>
-
+﻿@model Oppg1.Models.Bestilling
 <h2>Bestilling</h2>
 
 Her er dataene:
@@ -7,28 +6,11 @@ Her er dataene:
 
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model[0].dato)
+
         </th>
         <th>
-            @Html.DisplayNameFor(model => model[0].avgang)
         </th>
     </tr>
-
-    @foreach (var item in Model)
-    {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.dato)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.avgang)
-    </td>
-</tr>
-    }
-    
-
-
-
 </table>
 
 

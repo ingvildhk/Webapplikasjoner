@@ -8,11 +8,6 @@ using System.Web;
 
 namespace Oppg1.Models
 {
-    public class TestBestilling
-    {
-        public String dato { get; set; }
-        public String avgang { get; set; }
-    }
     public class Bane
     {
         [Key]
@@ -41,7 +36,7 @@ namespace Oppg1.Models
     {
         [Key]
         public int BestillingsID { get; set; }
-        public Bane Bane { get; set; }
+        // public Bane Bane { get; set; }
         public Stasjon fraStasjon { get; set; }
         public Stasjon tilStasjon { get; set; }
         public String dato { get; set; }
