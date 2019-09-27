@@ -1,17 +1,34 @@
-﻿@model Oppg1.Models.Bestilling
+﻿@model List<Oppg1.Models.TestBestilling>
 
 <h2>Bestilling</h2>
 
 Her er dataene:
 <table>
+
     <tr>
-        <td>@Model.dato</td>
-    </tr>
-    <tr>
-        <td>@Model.avgang</td>
+        <th>
+            @Html.DisplayNameFor(model => model[0].dato)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].avgang)
+        </th>
     </tr>
 
-    </tr>
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.dato)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.avgang)
+    </td>
+</tr>
+    }
+    
+
+
+
 </table>
 
 
