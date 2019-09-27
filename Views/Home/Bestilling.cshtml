@@ -1,4 +1,7 @@
 ﻿@model Oppg1.Models.Bestilling
+    @{
+
+    }
 <h2>Bestilling</h2>
 
 Her er dataene:
@@ -6,9 +9,18 @@ Her er dataene:
 
     <tr>
         <th>
-
+            Dato
         </th>
         <th>
+            Avgang
+        </th>
+    </tr>
+    <tr>
+        <th>
+            @Model.dato
+        </th>
+        <th>
+            @Model.avgang
         </th>
     </tr>
 </table>
