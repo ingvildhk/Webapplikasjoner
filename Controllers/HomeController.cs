@@ -1,7 +1,6 @@
 ﻿using Oppg1.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
@@ -15,7 +14,7 @@ namespace Oppg1.Controllers
         {
             return View();
         }
-        
+
         public string hentFraStasjoner()
         {
             var Bdb = new BestillingDB();

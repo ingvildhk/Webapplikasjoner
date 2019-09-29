@@ -1,8 +1,6 @@
-﻿using System;
+﻿using Oppg1.Models;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Oppg1.Models;
 
 namespace Oppg1
 {
@@ -28,7 +26,7 @@ namespace Oppg1
             var fraStasjonBaneListe = new List<Bane>();
 
 
-            //skal hente alle banene som inneholder FraStasjon
+            //henter alle banene som inneholder FraStasjon
             foreach (Bane bane in db.Bane)
             {
                 foreach (StasjonPaaBane stasjonPaaBane in bane.StasjonPaaBane)
@@ -42,12 +40,12 @@ namespace Oppg1
 
             var tilStasjoner = new List<Stasjon>();
 
-            //skal legge til alle stasjonene som kjører fra FraStasjon i en liste
+            //legger til alle stasjonene som kjører fra FraStasjon i en liste
             foreach (Bane bane in fraStasjonBaneListe)
             {
                 foreach (StasjonPaaBane stasjonPaaBane in bane.StasjonPaaBane)
                 {
-                    //skal hindre at FraStasjon blir lagt til i lista
+                    //hindrer at FraStasjon blir lagt til i lista
                     if (stasjonPaaBane.Stasjon != fraStasjon)
                     {
                         if (!tilStasjoner.Contains(stasjonPaaBane.Stasjon))
@@ -57,8 +55,6 @@ namespace Oppg1
                     }
                 }
             }
-
-
             return tilStasjoner;
         }
 
@@ -97,7 +93,13 @@ namespace Oppg1
             //Finner nåværende tidspunkt og konverter til double
             String naaTidspunktString = DateTime.Now.ToString("HH:mm");
             naaTidspunktString = naaTidspunktString.Replace(':', ',');
-            double naaTidspunkt = Convert.ToDouble(naaTidspunktString);
+
+            //sjekker om nåværende tidspunkt kan konverteres til double, ellers setter den til 0
+            double naaTidspunkt;
+            if (!Double.TryParse(naaTidspunktString, out naaTidspunkt))
+            {
+                naaTidspunkt = 0.0;
+            }
 
             //Finner dagens dato
             DateTime dagensDato = DateTime.Now.Date;
@@ -120,7 +122,7 @@ namespace Oppg1
                         {
                             if (!Avgangstider.Contains(stasjonPaaBane.Avgang))
                             {
-                               Avgangstider.Add(stasjonPaaBane.Avgang);
+                                Avgangstider.Add(stasjonPaaBane.Avgang);
                             }
                         }
                     }
@@ -136,11 +138,14 @@ namespace Oppg1
                     {
                         if (stasjonPaaBane.Stasjon == FraStasjon)
                         {
-                            //Finner avgangstidene, konverterer til double og sammenligner med nåværede tidspunkt
+                            //Finner avgangstidene, sjekker om de kan konverteres til double og sammenligner med nåværede tidspunkt
                             String avgangsTidspunktString = stasjonPaaBane.Avgang;
                             avgangsTidspunktString = avgangsTidspunktString.Replace(':', ',');
-                            double avgangsTidspunkt = Convert.ToDouble(avgangsTidspunktString);
-
+                            double avgangsTidspunkt;
+                            if (!Double.TryParse(avgangsTidspunktString, out avgangsTidspunkt))
+                            {
+                                avgangsTidspunkt = 0.0;
+                            }
                             if (naaTidspunkt < avgangsTidspunkt)
                             {
                                 if (!Avgangstider.Contains(stasjonPaaBane.Avgang))
@@ -152,7 +157,6 @@ namespace Oppg1
                     }
                 }
             }
-            
             return Avgangstider;
         }
     }

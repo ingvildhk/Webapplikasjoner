@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Linq;
-using System.Web;
 
 namespace Oppg1.Models
 {
@@ -13,7 +11,7 @@ namespace Oppg1.Models
         [Key]
         public int BaneID { get; set; }
         public String Banenavn { get; set; } // Eks. linje L1, R10 etc. 
-        public virtual List <StasjonPaaBane> StasjonPaaBane { get; set; }
+        public virtual List<StasjonPaaBane> StasjonPaaBane { get; set; }
     }
 
     public class StasjonPaaBane
@@ -22,7 +20,7 @@ namespace Oppg1.Models
         public int StasjonPaaBaneID { get; set; }
         public virtual Stasjon Stasjon { get; set; }
         public virtual Bane Bane { get; set; }
-        public String Avgang { get; set; } 
+        public String Avgang { get; set; }
     }
 
     public class Stasjon
