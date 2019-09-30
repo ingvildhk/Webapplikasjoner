@@ -105,7 +105,7 @@
 
 <body>
 
-    <form>
+    <form action="/Home/Index" method="post">
         <h2>Hei, hvor ønsker du å reise?</h2>
         <br />
 
@@ -113,13 +113,13 @@
 
             <div class="form-group col-md-6" id="dropDown">
                 <label for="exampleFormControlSelect1">Reise fra</label>
-                <select class="form-control" id="fraStasjon"></select>
+                <select class="form-control" id="fraStasjon" name="fraStasjon"></select>
             </div>
 
 
             <div class="form-group col-md-6" id="dropDown">
                 <label for="exampleFormControlSelect1">Reise til</label>
-                <select class="form-control" id="tilStasjon"></select>
+                <select class="form-control" id="tilStasjon" name="tilStasjon"></select>
             </div>
 
 
@@ -131,14 +131,14 @@
 
             <div class="form-group col-md-6" id="dropDown">
                 <label for="exampleFormControlSelect1">Tid</label>
-                <select class="form-control" id="Tidspunkt"></select>
+                <select class="form-control" id="Tidspunkt" name="avgang"></select>
             </div>
 
 
             <div class="form-horizontal">
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Bestill" class="btn btn-success" />
+                        <input type="submit" name ="Bestilling" value="Bestill" class="btn btn-success" />
                     </div>
                 </div>
             </div>
