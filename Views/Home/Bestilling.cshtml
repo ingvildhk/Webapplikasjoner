@@ -12,7 +12,7 @@
 <h2>Her er din bestillingsinformasjon</h2>
 <br />
 
-<form>
+<form action="/Home/Bestilling" method="post">
     <table>
 
         <tr>
@@ -31,17 +31,17 @@
         </tr>
 
         <tr>
-            <td>
+            <td name="fraStasjon">
                 @Model.fraStasjon
             </td>
-            <td>
+            <td name="tilStasjon">
                 @Model.tilStasjon
             </td>
 
-            <td>
+            <td name="dato">
                 @Model.dato
             </td>
-            <td>
+            <td name="avgang">
                 @Model.avgang
             </td>
         </tr>

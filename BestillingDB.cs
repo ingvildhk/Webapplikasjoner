@@ -1,6 +1,7 @@
 ﻿using Oppg1.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Oppg1
 {
@@ -8,7 +9,13 @@ namespace Oppg1
     {
         DB db = new DB();
 
-        public String hentStasjon(int id)
+        public Stasjon hentStasjon(String StasjonsNavn)
+        {
+            Stasjon stasjon = db.Stasjon.FirstOrDefault(s => s.Stasjonsnavn == StasjonsNavn);
+            return stasjon;
+        }
+
+        public String hentStasjonsNavn(int id)
         {
             Stasjon stasjon = db.Stasjon.Find(id);
             String stasjonNavn = stasjon.Stasjonsnavn;
@@ -165,6 +172,37 @@ namespace Oppg1
                 }
             }
             return Avgangstider;
+        }
+
+        public bool lagreBestilling (BestillingHjelp innBestilling)
+        {
+            using (var db = new DB())
+            {
+
+                String fraStasjon = hentStasjon(innBestilling.fraStasjon).ToString();
+                String tilStasjon = hentStasjon(innBestilling.tilStasjon).ToString();
+
+                Bestilling bestilling = new Bestilling()
+                {
+                    fraStasjon = fraStasjon,
+                    tilStasjon = tilStasjon,
+                    dato = innBestilling.dato,
+                    avgang = innBestilling.avgang,
+                    epost = innBestilling.epost
+                };
+
+                try
+                {
+                    db.Bestilling.Add(bestilling);
+                    db.SaveChanges();
+                    return true;
+                }
+
+                catch (Exception feil)
+                {
+                    return false;
+                }
+            }
         }
     }
 }

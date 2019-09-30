@@ -25,11 +25,11 @@ namespace Oppg1.Controllers
             Session["Bestillingen"] = innBestilling;
 
             int fraId = int.Parse(innBestilling.fraStasjon);
-            String fraStasjon = Bdb.hentStasjon(fraId);
+            String fraStasjon = Bdb.hentStasjonsNavn(fraId);
             innBestilling.fraStasjon = fraStasjon;
 
             int tilId = int.Parse(innBestilling.tilStasjon);
-            String tilStasjon = Bdb.hentStasjon(tilId);
+            String tilStasjon = Bdb.hentStasjonsNavn(tilId);
             innBestilling.tilStasjon = tilStasjon;
 
             return RedirectToAction("Bestilling");
@@ -41,7 +41,31 @@ namespace Oppg1.Controllers
             return View(bestilling);
         }
 
+        [HttpPost]
+        public ActionResult Bestilling(String epost)
+        {
+            var bestilling = (BestillingHjelp)Session["Bestillingen"];
 
+            var innBestilling = new BestillingHjelp()
+            {
+                fraStasjon = bestilling.fraStasjon,
+                tilStasjon = bestilling.tilStasjon,
+                dato = bestilling.dato,
+                avgang = bestilling.avgang,
+                epost = epost
+            };
+
+            var Bdb = new BestillingDB();
+            if (Bdb.lagreBestilling(innBestilling))
+            {
+                return View("Bekreftelse");
+            }
+            else
+            {
+                // Prøve å returnere noe fornuftig her :):):)
+                return ViewBag("Hei");
+            }
+        }
 
         public string hentFraStasjoner()
         {
