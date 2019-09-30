@@ -16,3 +16,29 @@ textarea {
     max-width: 280px;
 }
 
+
+#fraStasjon:focus {
+    border-color: #029678;
+    box-shadow: inset 0 1px 1px rgba(2,150,120, 0.8), 0 0 8px rgba(2,150,120, 0.86);
+}
+
+#tilStasjon:focus {
+    border-color: #029678;
+    box-shadow: inset 0 1px 1px rgba(2,150,120, 0.8), 0 0 8px rgba(2,150,120, 0.86);
+}
+
+#dato:focus {
+    border-color: #029678;
+    box-shadow: inset 0 1px 1px rgba(2,150,120, 0.8), 0 0 8px rgba(2,150,120, 0.86);
+}
+
+
+#Tidspunkt:focus {
+    border-color: #029678;
+    box-shadow: inset 0 1px 1px rgba(2,150,120, 0.8), 0 0 8px rgba(2,150,120, 0.86);
+}
+
+#bestill {
+    background-color: #029678;
+}
+

@@ -4,6 +4,11 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap-reboot.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap-grid.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
     <script src="~/Scripts/jquery-3.4.1.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script type="text/javascript">
@@ -42,7 +47,7 @@
             function VisFraDropDown(stasjon) {
                 var utStreng = "<option value'' selected hidden>Velg stasjon</option>";
                 for (var i in stasjon) {
-                    utStreng += "<option value='" + stasjon[i].StasjonsID + "'>" + stasjon[i].Stasjonsnavn + "</option>";
+                    utStreng += "<option class='dropdown-item' value='" + stasjon[i].StasjonsID + "'>" + stasjon[i].Stasjonsnavn + "</option>";
 
                 }
                 $("#fraStasjon").append(utStreng);
@@ -59,7 +64,7 @@
                     if (stasjon[i].StasjonsID === tilStasjon) {
                         finnes = true;
                     }
-                }   
+                }
                 $("#tilStasjon").empty();
                 $("#tilStasjon").append(utStreng);
                 $("#tilStasjon").val(finnes ? tilStasjon : "Velg stasjon");
@@ -100,6 +105,7 @@
                 $("#Tidspunkt").append(utStreng);
             }
         })
+
     </script>
 </head>
 
@@ -138,7 +144,7 @@
             <div class="form-horizontal">
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" name ="Bestilling" value="Bestill" class="btn btn-success" />
+                        <input type="submit" id="bestill" name ="Bestilling" value="Bestill" class="btn btn-success" />
                     </div>
                 </div>
             </div>
