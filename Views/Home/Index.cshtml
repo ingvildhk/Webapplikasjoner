@@ -10,6 +10,7 @@
     <script type="text/javascript">
         var stasjoner;
         var thread = null;
+        var fs;
         $(function () {
             // ToDo
             // hentAlleStasjoner og bygg opp dropdown når siden lastes
@@ -48,7 +49,7 @@
             //    $("#testFra").append(utStreng);
             //}
 
-
+            // FRA STASJONER
             $.ajax({
                 url: '/Home/hentFraStasjoner',
                 type: 'GET',
@@ -71,20 +72,29 @@
 
             function VisFraDropDown1(stasjon, sok) {
                 var utStreng = "";
-                for (var i in stasjon) {
-                    if (stasjon[i].Stasjonsnavn.toLowerCase().startsWith(sok.toLowerCase())) {
-                        utStreng += "<li role='option' id='button'><button type='button' class='btn btn-light btn-sm btn-lg btn-block'><span>" + stasjon[i].Stasjonsnavn + "</span></button></li>";
+                fs = [];
+                if (sok) {
+                    for (var i in stasjon) {
+                        if (stasjon[i].Stasjonsnavn.toLowerCase().startsWith(sok.toLowerCase())) {
+                            fs[i] = stasjon[i].Stasjonsnavn;
+                            utStreng += "<li role='option' id='button'><button type='button' class='btn btn-light btn-sm btn-lg btn-block' onclick='myFunction("+i+")'><span>" + stasjon[i].Stasjonsnavn + "</span></button></li>";
+                        }
                     }
+                } else {
+                    utStreng = "";
                 }
                 $("#testUl").empty();
                 $("#testUl").append(utStreng);
+                
             }
+
+
 
             //function testFunc(snavn) {
             //    document.getElementById("testInput").value = snavn;
             //}
 
-
+            // TIL STASJONER
             $("#fraStasjon").change(function () {
                 var id = $(this).val();
                 $.ajax({
@@ -100,6 +110,7 @@
                 });
             });
 
+            // TIDSPUNKT
             $("#Tidspunkt").click(function () {
                 var tilStasjon = $('#tilStasjon').val();
                 var fraStasjon = $("#fraStasjon").val();
@@ -116,6 +127,7 @@
                 });
             });
 
+            // FRA STASJON DROPDOWN
             function VisFraDropDown(stasjon) {
                 var utStreng = "<option value'' selected hidden>Hvor vil du reise fra?</option>";
                 for (var i in stasjon) {
@@ -124,6 +136,7 @@
                 $("#fraStasjon").append(utStreng);
             }
 
+            // TIL STASJON DROPDOWN
             function VisTilDropDown(stasjon) {
                 var utStreng = "<option value'' selected hidden>Hvor vil du reise til?</option>";
                 for (var i in stasjon) {
@@ -133,10 +146,13 @@
                 $("#tilStasjon").append(utStreng);
             }
 
+            /*
             function feilhandtering() {
-                $("#tilStasjon").append("<option value='tullefjas'>tullefjas</option>");
+                $("#tilStasjon").append("<option value='feilhandtering'>feilhandtering</option>");
             }
+            */
 
+            // TIDSPUNKT
             function VisTidspunktDropDown(tidspunkt) {
                 var utStreng = "<option value'' selected hidden>Velg tidspunkt</option>";
                 for (var i in tidspunkt) {
@@ -154,9 +170,9 @@
 
 
         #testInput:focus {
-    border-color: #029678;
-    box-shadow: inset 0 1px 1px rgba(2,150,120, 0.8), 0 0 8px rgba(2,150,120, 0.86);
-    }
+            border-color: #029678;
+            box-shadow: inset 0 1px 1px rgba(2,150,120, 0.8), 0 0 8px rgba(2,150,120, 0.86);
+        }
     
         #fraStasjon:focus {
             border-color: #029678;
@@ -196,7 +212,6 @@
         }
 
 
-
         #button {
             padding: 0;
       
@@ -204,8 +219,12 @@
 
         #testDiv2 {
             padding: 0;
-      
+            //border: dashed 1px;
+            width:275px; /* or whatever width you want. */
+            max-width:275px; /* or whatever width you want. */
+            display: inline-block;
         }
+        
 
         #testUl {
             padding-left: 0;
@@ -237,11 +256,22 @@
                 <label for="exampleFormControlSelect1">test</label>
                 <input class="form-control" id="testInput" type="text" autocomplete="off" placeholder="Hvor vil du reise fra?" />
                 <div class="form-group col-md-6" id="testDiv2">
-                    <ul  id="testUl"></ul>
+                    <ul id="testUl"></ul>
                 </div>
             </div>
 
            
+            <script>
+                function myFunction(s) {
+                    document.getElementById("testInput").value = fs[s];
+                }
+            </script>
+
+            <div class="form-group col-md-6" id="testDiv3">
+                <label for="exampleFormControlSelect1">test</label>
+                <input class="form-control" id="testInput2" type="text" autocomplete="off" placeholder="Hvor vil du reise fra?" value="" />
+            </div>
+
 
             <div class="form-group col-md-6" id="dropDown">
                 <label for="exampleFormControlSelect1">Reise fra</label>
