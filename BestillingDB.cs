@@ -8,6 +8,13 @@ namespace Oppg1
     {
         DB db = new DB();
 
+        public String hentStasjon(int id)
+        {
+            Stasjon stasjon = db.Stasjon.Find(id);
+            String stasjonNavn = stasjon.Stasjonsnavn;
+            return stasjonNavn;
+        }
+
         public List<Stasjon> hentAlleStasjoner()
         {
             List<Stasjon> alleStasjoner = new List<Stasjon>();

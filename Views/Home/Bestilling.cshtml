@@ -1,4 +1,4 @@
-﻿@model List<Oppg1.Models.Bestilling>
+﻿@model Oppg1.Models.BestillingHjelp
 
 <h2>Bestilling</h2>
 
@@ -7,10 +7,10 @@ Her er dataene:
 
     <tr>
         <th>
-            Fra stasjon: 
+            Fra stasjon:
         </th>
         <th>
-            Til stasjon: 
+            Til stasjon:
         </th>
         <th>
             Dato
@@ -19,24 +19,23 @@ Her er dataene:
             Avgang
         </th>
     </tr>
-    @foreach (var item in Model)
-    {
+ 
         <tr>
             <td>
-                Hei jeg er tom
+                @Model.fraStasjon
             </td>
             <td>
-                Hei jeg er tom
+                @Model.tilStasjon
             </td>
 
             <td>
-                @item.dato
+                @Model.dato
             </td>
             <td>
-                @item.avgang
+                @Model.avgang
             </td>
         </tr>
-    }
+    
 
 
 </table>
