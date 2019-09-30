@@ -1,23 +1,24 @@
 ﻿@model Oppg1.Models.BestillingHjelp
 
-<h2>Bestilling</h2>
+<h2>Din reservasjon</h2>
 
-Her er dataene:
+Her din bestillingsreservasjon
+
 <form action="/Home/Bestilling" method="post">
-    <table>
+    <table class="table">
 
         <tr>
-            <th>
-                Fra stasjon:
+            <th class="thead-light">
+                Reise fra:
+            </th>
+            <th class="thead-light">
+                Reise til:
             </th>
             <th>
-                Til stasjon:
+                Utreise:
             </th>
-            <th>
-                Dato
-            </th>
-            <th>
-                Avgang
+            <th class="thead-light">
+                Tid:
             </th>
         </tr>
 
@@ -38,14 +39,15 @@ Her er dataene:
         </tr>
     </table>
 
-    <input type="text" name="epost" id="epost" />
+    <h3>For å kjøpe denne billetten vennligst skriv inn din epost adresse: </h3>
 
-    <input type="submit" name="bestill" id="bestill" value="Bekreft bestilling" />
+    <input type="email" name="epost" id="epost" required /> <br />
+
+
+    <input type="submit" name="bestill" id="bestill" value="Kjøp" />
 
 </form>
 
-
-Må du endre bestillingen? Klikk tilbake til bestilling for å endre (:
 <!--For å komme tilbake til bestillingsvindu-->
 <div>
     @Html.ActionLink("Tilbake til bestilling", "Index")
