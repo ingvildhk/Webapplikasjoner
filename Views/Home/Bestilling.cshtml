@@ -1,5 +1,14 @@
 ﻿@model Oppg1.Models.BestillingHjelp
 
+
+<!--For å komme tilbake til bestillingsvindu-->
+<div>
+    @Html.ActionLink("Tilbake til bestilling", "Index")
+</div>
+
+<br />
+
+
 <h2>Her er din bestillingsinformasjon</h2>
 <br />
 
@@ -8,16 +17,16 @@
 
         <tr>
             <th>
-                Fra stasjon:
+                Fra stasjon
             </th>
             <th>
-                Til stasjon:
+                Til stasjon
             </th>
             <th>
                 Dato
             </th>
             <th>
-                Avgang
+                Avgangstid
             </th>
         </tr>
 
@@ -37,32 +46,42 @@
             </td>
         </tr>
     </table>
+</form>
+
+<br />
+
+<form class="form-horizontal">
+    <div class="form-group">
+        <label for="exampleFormControlInput1">Skriv din epostadresse om du ønsker bekreftelse på mail</label>
+        <input type="email" class="form-control" id="epost" placeholder="Skriv epostadresse her">
+    </div>
 
     <div class="form-horizontal">
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="text" name="epost" id="epost" />
+                <input type="submit" name="bestill" value="Bekreft bestilling" class="btn btn-success" id="bestill" />
             </div>
         </div>
     </div>
 
     <br />
 
-
-    <div class="form-horizontal">
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" name="bestill" value="Bekreft bestilling" class="btn btn-success" id="bestillKnapp" />
-            </div>
-        </div>
-    </div>
-
-
 </form>
 
+<style type="text/css">
 
-Må du endre bestillingen? Klikk tilbake til bestilling for å endre (:
-<!--For å komme tilbake til bestillingsvindu-->
-<div>
-    @Html.ActionLink("Tilbake til bestilling", "Index")
-</div>
+    #epost:focus {
+        border-color: #029678;
+        box-shadow: inset 0 1px 1px rgba(2,150,120, 0.8), 0 0 8px rgba(2,150,120, 0.86);
+    }
+
+    #bestill {
+        background-color: #029678;
+    }
+
+    td, th {
+        text-align: left;
+        padding-right: 40px;
+    }
+</style>
+
