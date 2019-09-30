@@ -1,0 +1,52 @@
+﻿@model Oppg1.Models.BestillingHjelp
+
+<h2>Bestilling</h2>
+
+Her er dataene:
+<form action="/Home/Bestilling" method="post">
+    <table>
+
+        <tr>
+            <th>
+                Fra stasjon:
+            </th>
+            <th>
+                Til stasjon:
+            </th>
+            <th>
+                Dato
+            </th>
+            <th>
+                Avgang
+            </th>
+        </tr>
+
+        <tr>
+            <td name="fraStasjon">
+                @Model.fraStasjon
+            </td>
+            <td name="tilStasjon">
+                @Model.tilStasjon
+            </td>
+
+            <td name="dato">
+                @Model.dato
+            </td>
+            <td name="avgang">
+                @Model.avgang
+            </td>
+        </tr>
+    </table>
+
+    <input type="text" name="epost" id="epost" />
+
+    <input type="submit" name="bestill" id="bestill" value="Bekreft bestilling" />
+
+</form>
+
+
+Må du endre bestillingen? Klikk tilbake til bestilling for å endre (:
+<!--For å komme tilbake til bestillingsvindu-->
+<div>
+    @Html.ActionLink("Tilbake til bestilling", "Index")
+</div>

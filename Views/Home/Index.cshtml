@@ -8,67 +8,143 @@
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script type="text/javascript">
         $(function () {
-            //
+
+            // sørger for at man ikke kan velge dato tidligere enn dagens dato
+            // 2019-09-29T11:45:15.764Z
+            $("#dato").attr("min", new Date().toISOString().split("T")[0]);
+
+            //henter alle stasjoner man kan reise fra ved oppstart
             $.ajax({
                 url: '/Home/hentFraStasjoner',
                 type: 'GET',
                 dataType: 'json',
-                success: function (stasjon) {
-                    VisFraDropDown(stasjon);
-                },
+                success: VisFraDropDown,
                 error: function (x, y, z) {
                     alert(x + '\n' + y + '\n' + z);
                 }
             });
 
-            $("#drop").change(function () {
-                var id = $(this).val();
+            //henter stasjoner man kan reise til basert på velgt frastasjon
+            $("#fraStasjon").change(function () {
+                var id = $("#fraStasjon").val();
                 $.ajax({
                     url: '/Home/hentTilStasjoner/' + id,
                     type: 'GET',
                     dataType: 'json',
-                    success: function (stasjon) {
-                        VisTilDropDown(stasjon);
-                    },
+                    success: VisTilDropDown,
                     error: function (x, y, z) {
                         alert(x + '\n' + y + '\n' + z);
                     }
                 });
             });
 
+            //Legger frastasjoner i dropdownliste
             function VisFraDropDown(stasjon) {
-                var utStreng = "";
+                var utStreng = "<option value'' selected hidden>Velg stasjon</option>";
                 for (var i in stasjon) {
-                    utStreng += "<option value='" + stasjon[i].stasjonsID + "'>" + stasjon[i].Stasjonsnavn + "</option>";
+                    utStreng += "<option value='" + stasjon[i].StasjonsID + "'>" + stasjon[i].Stasjonsnavn + "</option>";
+
                 }
-                $("#drop").append(utStreng);
+                $("#fraStasjon").append(utStreng);
             }
 
+            //Legger tilstasjoner i dropdownliste. Hvis man endrer frastasjon, og det er en stasjon man kan reise fra
+            //for å komme til allerede valgt tilstasjon, så beholdes verdien i tilstasjon
             function VisTilDropDown(stasjon) {
-                var utStreng = "";
+                var utStreng = "<option value'' selected hidden>Velg stasjon</option>";
+                var finnes = false;
+                var tilStasjon = parseInt($("#tilStasjon").val())
                 for (var i in stasjon) {
-                    utStreng += "<option value='" + stasjon[i].stasjonsID + "'>" + stasjon[i].Stasjonsnavn + "</option>";
+                    utStreng += "<option value='" + stasjon[i].StasjonsID + "'>" + stasjon[i].Stasjonsnavn + "</option>";
+                    if (stasjon[i].StasjonsID === tilStasjon) {
+                        finnes = true;
+                    }
+                }   
+                $("#tilStasjon").empty();
+                $("#tilStasjon").append(utStreng);
+                $("#tilStasjon").val(finnes ? tilStasjon : "Velg stasjon");
+                VisTidspunkt();
+            }
+
+            $("#tilStasjon").change(VisTidspunkt);
+            $("#dato").change(VisTidspunkt);
+
+            //legger tidspunkt i dropdownliste. Kjøres ved change både på til, fra og dato, men fullføres kun hvis
+            //alle variablene har data
+            function VisTidspunkt() {
+                var fraStasjon = $("#fraStasjon").val();
+                var tilStasjon = $("#tilStasjon").val();
+                var dato = $("#dato").val();
+
+                if (fraStasjon && tilStasjon && tilStasjon !== "Velg stasjon" && dato) {
+                    $.ajax({
+                        url: '/Home/hentTidspunkt?fraStasjon=' + fraStasjon + "&tilStasjon=" + tilStasjon + "&dato=" + dato,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: VisTidspunktDropDown,
+                        error: function (x, y, z) {
+                            alert(x + '\n' + y + '\n' + z);
+                        }
+                    });
+                } else {
+                    $("#Tidspunkt").empty();
                 }
-                $("#drop1").append(utStreng);
+            }
+
+            function VisTidspunktDropDown(avgang) {
+                var utStreng = "<option value'' selected hidden>Velg tidspunkt</option>";
+                for (var i in avgang.sort()) {
+                    utStreng += "<option value='" + avgang[i] + "'>" + avgang[i] + "</option>";
+                }
+                $("#Tidspunkt").empty();
+                $("#Tidspunkt").append(utStreng);
             }
         })
     </script>
 </head>
 
 <body>
-    <h1>HALLOOOOO FRIENDS</h1>
-    <h2>Hallo tofriends</h2>
-    <h3>Hallo3</h3>
-    Reis fra stasjon: <br />
-    <div id="dropDown">
-        <select id="drop">
-        </select>
-    </div>
 
-    Reis til stasjon: <br />
-    <div id="dropDown">
-        <select id="drop1">
-        </select>
-    </div>
+    <form action="/Home/Index" method="post">
+        <h2>Hei, hvor ønsker du å reise?</h2>
+        <br />
+
+        <div class="form-row">
+
+            <div class="form-group col-md-6" id="dropDown">
+                <label for="exampleFormControlSelect1">Reise fra</label>
+                <select class="form-control" id="fraStasjon" name="fraStasjon"></select>
+            </div>
+
+
+            <div class="form-group col-md-6" id="dropDown">
+                <label for="exampleFormControlSelect1">Reise til</label>
+                <select class="form-control" id="tilStasjon" name="tilStasjon"></select>
+            </div>
+
+
+            <div class="form-group col-md-6">
+                <label for="exampleFormControlSelect1">Dato</label>
+                <input class="form-control" id="dato" name="dato" type="date">
+            </div>
+
+
+            <div class="form-group col-md-6" id="dropDown">
+                <label for="exampleFormControlSelect1">Tid</label>
+                <select class="form-control" id="Tidspunkt" name="avgang"></select>
+            </div>
+
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" name ="Bestilling" value="Bestill" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </form>
 </body>
 </html>

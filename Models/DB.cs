@@ -3,53 +3,44 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Linq;
-using System.Web;
 
 namespace Oppg1.Models
 {
-    public class Avgang
-    {
-        [Key]
-        public int avgangsID { get; set; }
-        public virtual Bane Bane { get; set; }
-        public virtual List<Avgangstider> Avgangstider { get; set; }
-    }
-
-    public class Avgangstider
-    {
-        [Key]
-        public string Tidspunkt { get; set; }
-    }
-
     public class Bane
     {
         [Key]
-        public int baneID { get; set; }
-        public string Banenavn { get; set; }
-        public virtual List<Stasjon> Stasjoner { get; set; }
+        public int BaneID { get; set; }
+        public String Banenavn { get; set; } // Eks. linje L1, R10 etc. 
+        public virtual List<StasjonPaaBane> StasjonPaaBane { get; set; }
     }
 
-    public class Bestilling
+    public class StasjonPaaBane
     {
         [Key]
-        public int BestillingID { get; set; }
-        public virtual Stasjon fraStasjon { get; set; }
-        public virtual Stasjon tilStasjon { get; set; }
-        public virtual Avgangstider Avgangstid { get; set; }
-        public string Dato { get; set; }
-        public string Navn { get; set; }
-        public string Telefonnummer { get; set; }
+        public int StasjonPaaBaneID { get; set; }
+        public virtual Stasjon Stasjon { get; set; }
+        public virtual Bane Bane { get; set; }
+        public String Avgang { get; set; }
     }
 
     public class Stasjon
     {
         [Key]
-        public int stasjonsID { get; set; }
-        public string Stasjonsnavn { get; set; }
-        public virtual List<Avgang> Avganger { get; set; }
+        public int StasjonsID { get; set; }
+        public String Stasjonsnavn { get; set; }
     }
 
+    public class Bestilling
+    {
+        [Key]
+        public int BestillingsID { get; set; }
+        // public Bane Bane { get; set; }
+        public Stasjon fraStasjon { get; set; }
+        public Stasjon tilStasjon { get; set; }
+        public String dato { get; set; }
+        public String avgang { get; set; }
+        public String epost { get; set; } // Foreløpig kundeID 
+    }
     public class DB : DbContext
     {
         public DB() : base("name=DB")
@@ -64,10 +55,9 @@ namespace Oppg1.Models
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
 
-        public virtual DbSet<Avgang> Avgang { get; set; }
         public virtual DbSet<Bane> Bane { get; set; }
-        public virtual DbSet<Bestilling> Bestilling { get; set; }
+        public virtual DbSet<StasjonPaaBane> StasjonPaaBane { get; set; }
         public virtual DbSet<Stasjon> Stasjon { get; set; }
+        public virtual DbSet<Bestilling> Bestilling { get; set; }
     }
-
 }

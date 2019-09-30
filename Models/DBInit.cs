@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Web;
 
 namespace Oppg1.Models
 {
@@ -135,7 +132,7 @@ namespace Oppg1.Models
                 Bane = L1,
                 Avgang = "14:25"
             };
-            
+
             //Legger til stasjonene i L1
             L1.StasjonPaaBane.Add(OslosL1kl12);
             L1.StasjonPaaBane.Add(OslosL1kl14);
@@ -204,7 +201,7 @@ namespace Oppg1.Models
             {
                 Stasjon = OsloS,
                 Bane = R10,
-                Avgang = "10:00" 
+                Avgang = "10:00"
             };
 
             var OslosR10kl13 = new StasjonPaaBane
@@ -295,7 +292,7 @@ namespace Oppg1.Models
                 Bane = R20,
                 Avgang = "18.00"
             };
-            
+
             R20.StasjonPaaBane.Add(OslosR20kl17);
             R20.StasjonPaaBane.Add(OslosR20kl19);
             R20.StasjonPaaBane.Add(FredR20kl18);
