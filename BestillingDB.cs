@@ -179,8 +179,8 @@ namespace Oppg1
             using (var db = new DB())
             {
 
-                Stasjon fraStasjon = hentStasjon(innBestilling.fraStasjon);
-                Stasjon tilStasjon = hentStasjon(innBestilling.tilStasjon);
+                String fraStasjon = hentStasjon(innBestilling.fraStasjon).ToString();
+                String tilStasjon = hentStasjon(innBestilling.tilStasjon).ToString();
 
                 Bestilling bestilling = new Bestilling()
                 {
