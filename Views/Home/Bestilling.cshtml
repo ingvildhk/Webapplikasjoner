@@ -3,23 +3,24 @@
 <h2>Bestilling</h2>
 
 Her er dataene:
-<table>
+<form>
+    <table>
 
-    <tr>
-        <th>
-            Fra stasjon:
-        </th>
-        <th>
-            Til stasjon:
-        </th>
-        <th>
-            Dato
-        </th>
-        <th>
-            Avgang
-        </th>
-    </tr>
- 
+        <tr>
+            <th>
+                Fra stasjon:
+            </th>
+            <th>
+                Til stasjon:
+            </th>
+            <th>
+                Dato
+            </th>
+            <th>
+                Avgang
+            </th>
+        </tr>
+
         <tr>
             <td>
                 @Model.fraStasjon
@@ -35,11 +36,13 @@ Her er dataene:
                 @Model.avgang
             </td>
         </tr>
-    
+    </table>
 
+    <input type="text" name="epost" id="epost" />
 
-</table>
+    <input type="submit" name="bestill" id="bestill" value="Bekreft bestilling" />
 
+</form>
 
 
 Må du endre bestillingen? Klikk tilbake til bestilling for å endre (:
