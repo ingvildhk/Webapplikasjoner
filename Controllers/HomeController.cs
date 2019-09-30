@@ -58,12 +58,14 @@ namespace Oppg1.Controllers
             var Bdb = new BestillingDB();
             if (Bdb.lagreBestilling(innBestilling))
             {
-
+                return View("Bekreftelse");
             }
-            return View("Index");
+            else
+            {
+                // Prøve å returnere noe fornuftig her :):):)
+                return ViewBag("Hei");
+            }
         }
-
-
 
         public string hentFraStasjoner()
         {

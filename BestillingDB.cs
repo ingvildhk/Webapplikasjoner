@@ -1,6 +1,7 @@
 ﻿using Oppg1.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Oppg1
 {
@@ -10,15 +11,7 @@ namespace Oppg1
 
         public Stasjon hentStasjon(String StasjonsNavn)
         {
-            Stasjon stasjon = new Stasjon();
-
-            foreach (Stasjon s in db.Stasjon)
-            {
-                if (s.Stasjonsnavn == StasjonsNavn)
-                {
-                    stasjon = s;
-                }
-            }
+            Stasjon stasjon = db.Stasjon.FirstOrDefault(s => s.Stasjonsnavn == StasjonsNavn);
             return stasjon;
         }
 
