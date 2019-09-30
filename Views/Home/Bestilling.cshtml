@@ -1,0 +1,50 @@
+﻿@model List<Oppg1.Models.Bestilling>
+
+<h2>Bestilling</h2>
+
+Her er dataene:
+<table>
+
+    <tr>
+        <th>
+            Fra stasjon: 
+        </th>
+        <th>
+            Til stasjon: 
+        </th>
+        <th>
+            Dato
+        </th>
+        <th>
+            Avgang
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                Hei jeg er tom
+            </td>
+            <td>
+                Hei jeg er tom
+            </td>
+
+            <td>
+                @item.dato
+            </td>
+            <td>
+                @item.avgang
+            </td>
+        </tr>
+    }
+
+
+</table>
+
+
+
+Må du endre bestillingen? Klikk tilbake til bestilling for å endre (:
+<!--For å komme tilbake til bestillingsvindu-->
+<div>
+    @Html.ActionLink("Tilbake til bestilling", "Index")
+</div>

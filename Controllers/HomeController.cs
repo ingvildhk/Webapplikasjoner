@@ -1,6 +1,7 @@
 ﻿using Oppg1.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
@@ -12,7 +13,24 @@ namespace Oppg1.Controllers
 
         public ActionResult Index()
         {
+            // For å kunne ta vare på bestillingsobjektet 
+            Session["Bestillingen"] = new List<Bestilling>();
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Index(Bestilling innBestilling)
+        {
+            var bestillingsliste = (List<Bestilling>)Session["Bestillingen"];
+            bestillingsliste.Add(innBestilling);
+            Session["Bestillingen"] = bestillingsliste;
+            return RedirectToAction("Bestilling");
+        }
+
+        public ActionResult Bestilling()
+        {
+            var bestillingsliste = (List<Bestilling>)Session["Bestillingen"];
+            return View(bestillingsliste);
         }
 
         public string hentFraStasjoner()
