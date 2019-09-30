@@ -24,11 +24,18 @@ namespace Oppg1.Controllers
             var Bdb = new BestillingDB();
             Session["Bestillingen"] = innBestilling;
 
-            int fraId = int.Parse(innBestilling.fraStasjon);
+            int fraId;
+            if (!int.TryParse(innBestilling.fraStasjon, out fraId)) {
+                fraId = 1;
+            }
             String fraStasjon = Bdb.hentStasjonsNavn(fraId);
             innBestilling.fraStasjon = fraStasjon;
 
-            int tilId = int.Parse(innBestilling.tilStasjon);
+            int tilId;
+            if (!int.TryParse(innBestilling.tilStasjon, out tilId))
+            {
+                tilId = 1;
+            }
             String tilStasjon = Bdb.hentStasjonsNavn(tilId);
             innBestilling.tilStasjon = tilStasjon;
 
