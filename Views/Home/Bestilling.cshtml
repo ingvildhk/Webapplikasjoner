@@ -1,8 +1,6 @@
 ﻿@model Oppg1.Models.BestillingHjelp
 
-<h2>Din reservasjon</h2>
-
-Her din bestillingsreservasjon
+<h2>Din reservasjon: </h2>
 
 <form action="/Home/Bestilling" method="post">
     <table class="table">
@@ -38,12 +36,11 @@ Her din bestillingsreservasjon
             </td>
         </tr>
     </table>
-
+    <br />
     <h3>For å kjøpe denne billetten vennligst skriv inn din epost adresse: </h3>
 
-    <input type="email" name="epost" id="epost" required /> <br />
-
-
+    <input type="email" name="epost" id="epost" required /> 
+    <br /><br />
     <input type="submit" name="bestill" id="bestill" value="Kjøp" />
 
 </form>
