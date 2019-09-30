@@ -3,7 +3,7 @@
 <h2>Bestilling</h2>
 
 Her er dataene:
-<form>
+<form action="/Home/Bestilling" method="post">
     <table>
 
         <tr>
@@ -22,17 +22,17 @@ Her er dataene:
         </tr>
 
         <tr>
-            <td>
+            <td name="fraStasjon">
                 @Model.fraStasjon
             </td>
-            <td>
+            <td name="tilStasjon">
                 @Model.tilStasjon
             </td>
 
-            <td>
+            <td name="dato">
                 @Model.dato
             </td>
-            <td>
+            <td name="avgang">
                 @Model.avgang
             </td>
         </tr>

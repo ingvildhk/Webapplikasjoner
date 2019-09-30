@@ -8,7 +8,21 @@ namespace Oppg1
     {
         DB db = new DB();
 
-        public String hentStasjon(int id)
+        public Stasjon hentStasjon(String StasjonsNavn)
+        {
+            Stasjon stasjon = new Stasjon();
+
+            foreach (Stasjon s in db.Stasjon)
+            {
+                if (s.Stasjonsnavn == StasjonsNavn)
+                {
+                    stasjon = s;
+                }
+            }
+            return stasjon;
+        }
+
+        public String hentStasjonsNavn(int id)
         {
             Stasjon stasjon = db.Stasjon.Find(id);
             String stasjonNavn = stasjon.Stasjonsnavn;
@@ -165,6 +179,37 @@ namespace Oppg1
                 }
             }
             return Avgangstider;
+        }
+
+        public bool lagreBestilling (BestillingHjelp innBestilling)
+        {
+            using (var db = new DB())
+            {
+
+                Stasjon fraStasjon = hentStasjon(innBestilling.fraStasjon);
+                Stasjon tilStasjon = hentStasjon(innBestilling.tilStasjon);
+
+                Bestilling bestilling = new Bestilling()
+                {
+                    fraStasjon = fraStasjon,
+                    tilStasjon = tilStasjon,
+                    dato = innBestilling.dato,
+                    avgang = innBestilling.avgang,
+                    epost = innBestilling.epost
+                };
+
+                try
+                {
+                    db.Bestilling.Add(bestilling);
+                    db.SaveChanges();
+                    return true;
+                }
+
+                catch (Exception feil)
+                {
+                    return false;
+                }
+            }
         }
     }
 }

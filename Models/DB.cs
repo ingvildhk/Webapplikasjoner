@@ -39,7 +39,7 @@ namespace Oppg1.Models
         public Stasjon tilStasjon { get; set; }
         public String dato { get; set; }
         public String avgang { get; set; }
-        public String Epost { get; set; } // Foreløpig kundeID 
+        public String epost { get; set; } // Foreløpig kundeID 
     }
     public class DB : DbContext
     {
