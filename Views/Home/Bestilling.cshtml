@@ -1,70 +1,81 @@
 ﻿@model Oppg1.Models.BestillingHjelp
+<!DOCTYPE html>
 
-<!--For å komme tilbake til bestillingsvindu-->
-<div>
-    @Html.ActionLink("Tilbake til bestilling", "Index")
-</div>
+<html>
+<head>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-reboot.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-grid.css" rel="stylesheet" />
 
-<br />
-
-
-<h2>Her er din bestillingsinformasjon</h2>
-<br />
-
-<form action="/Home/Bestilling" method="post">
-    <table class="table">
-
-        <tr>
-            <th>
-                Fra stasjon
-            </th>
-            <th>
-                Til stasjon
-            </th>
-            <th>
-                Dato
-            </th>
-            <th>
-                Avgangstid
-            </th>
-        </tr>
-
-        <tr>
-            <td name="fraStasjon">
-                @Model.fraStasjon
-            </td>
-            <td name="tilStasjon">
-                @Model.tilStasjon
-            </td>
-
-            <td name="dato">
-                @Model.dato
-            </td>
-            <td name="avgang">
-                @Model.avgang
-            </td>
-        </tr>
-    </table>
-
-
-<br />
-
-    <div class="form-group">
-        <h4><label for="exampleFormControlInput1">Oppgi din epostadresse</label></h4>
-        <input type="email" class="form-control" id="epost" required placeholder="Skriv epostadresse her">
-    </div>
-
-    <div class="form-horizontal">
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" name="bestill" value="Kjøp billett" class="btn btn-success" id="bestill" />
-            </div>
-        </div>
+</head>
+<body>
+    <!--For å komme tilbake til bestillingsvindu-->
+    <div>
+        @Html.ActionLink("Tilbake til bestilling", "Index")
     </div>
 
     <br />
 
-</form>
 
+    <h2>Her er din bestillingsinformasjon</h2>
+    <br />
+
+    <form action="/Home/Bestilling" method="post">
+        <table class="table">
+
+            <tr>
+                <th>
+                    Fra stasjon
+                </th>
+                <th>
+                    Til stasjon
+                </th>
+                <th>
+                    Dato
+                </th>
+                <th>
+                    Avgangstid
+                </th>
+            </tr>
+
+            <tr>
+                <td name="fraStasjon">
+                    @Model.fraStasjon
+                </td>
+                <td name="tilStasjon">
+                    @Model.tilStasjon
+                </td>
+
+                <td name="dato">
+                    @Model.dato
+                </td>
+                <td name="avgang">
+                    @Model.avgang
+                </td>
+            </tr>
+        </table>
+
+
+        <br />
+
+        <div class="form-group">
+            <h4><label for="exampleFormControlInput1">Oppgi din epostadresse</label></h4>
+            <input type="email" class="form-control" id="epost" required placeholder="Skriv epostadresse her">
+        </div>
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10" id="knappKnapp">
+                    <input type="submit" name="bestill" value="Kjøp billett" class="btn btn-success" id="bestillKnapp" />
+                </div>
+            </div>
+        </div>
+
+        <br />
+
+    </form>
+    </body>
+</html>
 
 
