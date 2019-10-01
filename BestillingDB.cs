@@ -1,19 +1,12 @@
 ﻿using Oppg1.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Oppg1
 {
     public class BestillingDB
     {
         DB db = new DB();
-
-        public Stasjon hentStasjon(String StasjonsNavn)
-        {
-            Stasjon stasjon = db.Stasjon.FirstOrDefault(s => s.Stasjonsnavn == StasjonsNavn);
-            return stasjon;
-        }
 
         public String hentStasjonsNavn(int id)
         {
@@ -174,20 +167,119 @@ namespace Oppg1
             return Avgangstider;
         }
 
-        public bool lagreBestilling (BestillingHjelp innBestilling)
+        public List<String> hentReturTidspunkt(int fraStasjon, int tilStasjon, string dato, string returDato, string avgang)
+        {
+            Stasjon FraStasjon = db.Stasjon.Find(fraStasjon);
+            Stasjon TilStasjon = db.Stasjon.Find(tilStasjon);
+
+            var FraBaner = new List<Bane>();
+
+            foreach (Bane bane in db.Bane)
+            {
+                foreach (StasjonPaaBane stasjonPaaBane in bane.StasjonPaaBane)
+                {
+                    if (stasjonPaaBane.Stasjon == FraStasjon)
+                    {
+                        FraBaner.Add(bane);
+                    }
+                }
+            }
+
+            var FraTilBaner = new List<Bane>();
+            foreach (Bane bane in FraBaner)
+            {
+                foreach (StasjonPaaBane stasjonPaaBane in bane.StasjonPaaBane)
+                {
+                    if (stasjonPaaBane.Stasjon == TilStasjon)
+                    {
+                        FraTilBaner.Add(bane);
+                    }
+                }
+            }
+
+            var Avgangstider = new List<String>();
+
+            //Konverterer avgangstidspunkt til double
+            String avgangsTidspunktString = avgang;
+            avgangsTidspunktString = avgangsTidspunktString.Replace(':', ',');
+            double avgangstidspunkt;
+            if (!Double.TryParse(avgangsTidspunktString, out avgangstidspunkt))
+            {
+                avgangstidspunkt = 0.0;
+            }
+
+            //Konverterer avgangsdato til Datetime
+            DateTime avgangsDato = DateTime.Parse(dato);
+
+            //Konverterer returdato til DateTime
+            DateTime returdato = DateTime.Parse(returDato);
+
+
+            //Sammenligner dagens dato med valgt dato. Returdato skal aldri være lavere enn avgangsdato
+            int sammenligning = DateTime.Compare(returdato, avgangsDato);
+
+            //Hvis valgt dato er senere enn dagens dato, lister ut alle tidspunkt
+            if (sammenligning > 0)
+            {
+                foreach (Bane bane in FraTilBaner)
+                {
+                    foreach (StasjonPaaBane stasjonPaaBane in bane.StasjonPaaBane)
+                    {
+                        if (stasjonPaaBane.Stasjon == FraStasjon)
+                        {
+                            if (!Avgangstider.Contains(stasjonPaaBane.Avgang))
+                            {
+                                Avgangstider.Add(stasjonPaaBane.Avgang);
+                            }
+                        }
+                    }
+                }
+            }
+
+            //Hvis avgangsdato og returdato er like, lister kun ut tidspunkt som ikke har vært
+            if (sammenligning == 0)
+            {
+                foreach (Bane bane in FraTilBaner)
+                {
+                    foreach (StasjonPaaBane stasjonPaaBane in bane.StasjonPaaBane)
+                    {
+                        if (stasjonPaaBane.Stasjon == FraStasjon)
+                        {
+                            //Finner avgangstidene, sjekker om de kan konverteres til double og sammenligner med avgangtiden
+                            String returAvgangstidspunktString = stasjonPaaBane.Avgang;
+                            returAvgangstidspunktString = returAvgangstidspunktString.Replace(':', ',');
+                            double returAvgangstidspunkt;
+                            if (!Double.TryParse(returAvgangstidspunktString, out returAvgangstidspunkt))
+                            {
+                                returAvgangstidspunkt = 0.0;
+                            }
+                            if (avgangstidspunkt < returAvgangstidspunkt)
+                            {
+                                if (!Avgangstider.Contains(stasjonPaaBane.Avgang))
+                                {
+                                    Avgangstider.Add(stasjonPaaBane.Avgang);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return Avgangstider;
+        }
+
+        public bool lagreBestilling(BestillingHjelp innBestilling)
         {
             using (var db = new DB())
             {
 
-                String fraStasjon = hentStasjon(innBestilling.fraStasjon).ToString();
-                String tilStasjon = hentStasjon(innBestilling.tilStasjon).ToString();
-
                 Bestilling bestilling = new Bestilling()
                 {
-                    fraStasjon = fraStasjon,
-                    tilStasjon = tilStasjon,
+                    fraStasjon = innBestilling.fraStasjon,
+                    tilStasjon = innBestilling.tilStasjon,
                     dato = innBestilling.dato,
+                    returDato = innBestilling.returDato,
                     avgang = innBestilling.avgang,
+                    returAvgang = innBestilling.returAvgang,
                     epost = innBestilling.epost
                 };
 

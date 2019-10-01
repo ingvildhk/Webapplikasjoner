@@ -1,7 +1,6 @@
 ﻿using Oppg1.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
@@ -24,11 +23,19 @@ namespace Oppg1.Controllers
             var Bdb = new BestillingDB();
             Session["Bestillingen"] = innBestilling;
 
-            int fraId = int.Parse(innBestilling.fraStasjon);
+            int fraId;
+            if (!int.TryParse(innBestilling.fraStasjon, out fraId))
+            {
+                fraId = 1;
+            }
             String fraStasjon = Bdb.hentStasjonsNavn(fraId);
             innBestilling.fraStasjon = fraStasjon;
 
-            int tilId = int.Parse(innBestilling.tilStasjon);
+            int tilId;
+            if (!int.TryParse(innBestilling.tilStasjon, out tilId))
+            {
+                tilId = 1;
+            }
             String tilStasjon = Bdb.hentStasjonsNavn(tilId);
             innBestilling.tilStasjon = tilStasjon;
 
@@ -52,6 +59,8 @@ namespace Oppg1.Controllers
                 tilStasjon = bestilling.tilStasjon,
                 dato = bestilling.dato,
                 avgang = bestilling.avgang,
+                returDato = bestilling.returDato,
+                returAvgang = bestilling.returAvgang,
                 epost = epost
             };
 
@@ -90,6 +99,16 @@ namespace Oppg1.Controllers
             var Bdb = new BestillingDB();
             string test = dato;
             List<String> Avganger = Bdb.hentTidspunkt(fraStasjon, tilStasjon, dato);
+            var jsonSerializer = new JavaScriptSerializer();
+            string json = jsonSerializer.Serialize(Avganger);
+            return json;
+        }
+
+        public string hentReturTidspunkt(int fraStasjon, int tilStasjon, string dato, string returDato, string avgang)
+        {
+            var Bdb = new BestillingDB();
+            string test = dato;
+            List<String> Avganger = Bdb.hentReturTidspunkt(fraStasjon, tilStasjon, dato, returDato, avgang);
             var jsonSerializer = new JavaScriptSerializer();
             string json = jsonSerializer.Serialize(Avganger);
             return json;

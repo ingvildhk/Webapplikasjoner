@@ -24,20 +24,26 @@
     <form action="/Home/Bestilling" method="post">
         <table class="table">
 
-            <tr>
-                <th>
-                    Fra stasjon
-                </th>
-                <th>
-                    Til stasjon
-                </th>
-                <th>
-                    Dato
-                </th>
-                <th>
-                    Avgangstid
-                </th>
-            </tr>
+        <tr>
+            <th>
+                Fra stasjon
+            </th>
+            <th>
+                Til stasjon
+            </th>
+            <th>
+                Dato
+            </th>
+            <th>
+                Avgangstid
+            </th>
+            <th>
+                Returdato
+            </th>
+            <th>
+                Returtid
+            </th>
+        </tr>
 
             <tr>
                 <td name="fraStasjon">
@@ -47,14 +53,20 @@
                     @Model.tilStasjon
                 </td>
 
-                <td name="dato">
-                    @Model.dato
-                </td>
-                <td name="avgang">
-                    @Model.avgang
-                </td>
-            </tr>
-        </table>
+            <td name="dato">
+                @Model.dato
+            </td>
+            <td name="avgang">
+                @Model.avgang
+            </td>
+            <td name="returDato">
+                @Model.returDato
+            </td>
+            <td name="returAvgang">
+                @Model.returAvgang
+            </td>
+        </tr>
+    </table>
 
         <br />
 
