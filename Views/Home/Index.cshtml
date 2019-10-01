@@ -9,9 +9,29 @@
     <script type="text/javascript">
         $(function () {
 
+            //gjemmer og viser tur/retur 
+            $(document).ready(function() {
+            $('input[type="radio"]').click(function() {
+                 if($(this).attr('id') == 'retur') {
+                     $('#visReturDato').show();   
+                     $('#visReturTidspunkt').show();
+                 }
+                 else {
+                     $('#visReturDato').hide(); 
+                     $('#visReturTidspunkt').hide();
+                 }
+                 });
+               });
+
             // sørger for at man ikke kan velge dato tidligere enn dagens dato
             // 2019-09-29T11:45:15.764Z
             $("#dato").attr("min", new Date().toISOString().split("T")[0]);
+
+            // sørger for at man ikke kan velge returdato tidligere enn utreisedato
+            $("#dato").change(function () {
+                var minDate = $("#dato").val();
+                $("#returDato").attr("min", minDate);
+            });
 
             //henter alle stasjoner man kan reise fra ved oppstart
             $.ajax({
@@ -99,6 +119,46 @@
                 $("#Tidspunkt").empty();
                 $("#Tidspunkt").append(utStreng);
             }
+
+
+            //Onchange funksjoner for visning av returavgang
+            $("#tilStasjon").change(VisReturTidspunkt);
+            $("#fraStasjon").change(VisReturTidspunkt);
+            $("#Tidspunkt").change(VisReturTidspunkt);
+            $("#dato").change(VisReturTidspunkt);
+            $("#returDato").change(VisReturTidspunkt);
+
+            //Viser returtidspunkt
+            function VisReturTidspunkt() {
+                var fraStasjon = $("#tilStasjon").val();
+                var tilStasjon = $("#fraStasjon").val();
+                var dato = $("#dato").val();
+                var returdato = $("#returDato").val();
+                var avgang = $("#Tidspunkt").val();
+
+                if (fraStasjon && tilStasjon && tilStasjon !== "Velg stasjon" && fraStasjon !== "Velg stasjon" && dato && returdato && avgang) {
+                    $.ajax({
+                        url: '/Home/hentReturTidspunkt?fraStasjon=' + fraStasjon + "&tilStasjon=" + tilStasjon + "&dato=" + dato + "&returdato=" + returdato + "&avgang=" + avgang,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: VisReturTidspunktDropDown,
+                        error: function (x, y, z) {
+                            alert(x + '\n' + y + '\n' + z);
+                        }
+                    });
+                } else {
+                    $("#returAvgang").empty();
+                }
+            }
+
+            function VisReturTidspunktDropDown(avgang) {
+                var utStreng = "<option value'' selected hidden>Velg tidspunkt</option>";
+                for (var i in avgang.sort()) {
+                    utStreng += "<option value='" + avgang[i] + "'>" + avgang[i] + "</option>";
+                }
+                $("#returAvgang").empty();
+                $("#returAvgang").append(utStreng);
+            }
         })
     </script>
 </head>
@@ -127,6 +187,14 @@
 
     #bestillKnapp {
         background-color: #029678;
+    }
+
+    #visReturDato {
+        display:none;
+    }
+
+    #visReturTidspunkt {
+        display: none;
     }
 
 </style>
@@ -163,17 +231,37 @@
                 <select class="form-control" id="Tidspunkt" name="avgang"></select>
             </div>
 
+            <div class="form-horizontal">
+                <table class="table">
+                    <tr>
+                        <td class="radio">
+                            <input type="radio" name="tur" value="en vei">En vei<br>
+                            <input type="radio" name="tur" value="tur/retur" id="retur">Tur/Retur<br>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="form-group col-md-6" id="visReturDato">
+                <label for="exampleFormControlSelect1">Returdato</label>
+                <input class="form-control" id="returDato" name="returDato" type="date">
+            </div>
+
+
+            <div class="form-group col-md-6" id="visReturTidspunkt">
+                <label for="exampleFormControlSelect1">Returtidspunkt</label>
+                <select class="form-control" id="returAvgang" name="returAvgang"></select>
+            </div>
+
 
             <div class="form-horizontal">
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" name="Bestilling" value="Gå til bestilling" class="btn btn-success" id="bestillKnapp"  />
+                        <input type="submit" name="Bestilling" value="Gå til bestilling" class="btn btn-success" id="bestillKnapp" />
                     </div>
                 </div>
             </div>
-
         </div>
-
     </form>
 </body>
 </html>
