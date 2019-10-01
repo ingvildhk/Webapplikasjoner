@@ -7,6 +7,8 @@
     <script src="~/Scripts/jquery-3.4.1.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script type="text/javascript">
+
+
         $(function () {
 
             // sørger for at man ikke kan velge dato tidligere enn dagens dato
@@ -59,7 +61,7 @@
                     if (stasjon[i].StasjonsID === tilStasjon) {
                         finnes = true;
                     }
-                }   
+                }
                 $("#tilStasjon").empty();
                 $("#tilStasjon").append(utStreng);
                 $("#tilStasjon").val(finnes ? tilStasjon : "Velg stasjon");
@@ -99,13 +101,37 @@
                 $("#Tidspunkt").empty();
                 $("#Tidspunkt").append(utStreng);
             }
-        })
+
+
+        });
+        </script>
+    <script type="text/javascript">
+
+        function validerTidspunkt() {
+            // regEx = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/;
+            regEx = /^[0-9]{4}$/;
+            OK = regEx.test(document.getElementById("Tidspunkt").value)
+            if (!OK) {
+                document.getElementById("feilTidspunkt").innerHTML("Husk å velge et tidspunkt");
+                return false;
+            }
+            document.getElementById("feilTidspunkt").innerHTML("");
+            return true;
+        }
+
+        function validerAlle() {
+            okTidspunkt = validerTidspunkt();
+            if (okTidspunkt) {
+                return true;
+            }
+            return false;
+        }
     </script>
 </head>
 
 <body>
 
-    <form action="/Home/Index" method="post">
+    <form action="/Home/Index" method="post" onsubmit="return validerAlle()">
         <h2>Hei, hvor ønsker du å reise?</h2>
         <br />
 
@@ -131,9 +157,10 @@
 
             <div class="form-group col-md-6" id="dropDown">
                 <label for="exampleFormControlSelect1">Tid</label>
-                <select class="form-control" id="Tidspunkt" name="avgang"></select>
+                <select class="form-control" id="Tidspunkt" name="avgang" onchange="validerTidspunkt()"></select>
+                <div id="feilTidspunkt"></div>
             </div>
-
+            
 
             <div class="form-horizontal">
                 <div class="form-group">
@@ -142,9 +169,7 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
     </form>
 </body>
 </html>
