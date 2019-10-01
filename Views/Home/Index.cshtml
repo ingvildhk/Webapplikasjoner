@@ -112,12 +112,41 @@
             }
         })
 
-        function validateForm() {
+        function validateTime() {
               var x = document.forms["myForm"]["avgang"].value;
-              if (x == "Velg tidspunkt") {
-                    alert("Velg tidspunkt");
+              if (x == "Velg tidspunkt" || x == null) {
+                    alert("Vennligst velg tidspunkt for avreise");
                     return false;
               }
+        }
+        function validateFrom() {
+              var x = document.forms["myForm"]["fraStasjon"].value;
+              if (x == "" || x == "Velg stasjon"){
+                    alert("Vennligst velg stasjon du reiser fra");
+                    return false;
+              }
+        }
+        function validateTo() {
+              var x = document.forms["myForm"]["tilStasjon"].value;
+              if (x == "" || x == "Velg stasjon"){
+                    alert("Vennligst velg stasjon du reiser til");
+                    return false;
+              }
+        }
+        function validateDate() {
+              var x = document.forms["myForm"]["dato"].value;
+              if (x == ""){
+                    alert("Vennligst velg dato for avreise");
+                    return false;
+              }
+        }
+
+        function validateAll() {
+            fraOK = validateFrom();
+            tilOK = validateTo();
+            tidOK = validateTime();
+            datoOK = validateDate();
+
         }
     </script>
 </head>
@@ -160,7 +189,7 @@
             <div class="form-horizontal">
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10" id="knappKnapp">
-                        <input type="submit" onclick="return validateForm()" id="bestill" name="Bestilling" value="Bestill" class="btn btn-success" />
+                        <input type="submit" onclick="return validateAll()" id="bestill" name="Bestilling" value="Bestill" class="btn btn-success" />
                     </div>
                 </div>
             </div>
