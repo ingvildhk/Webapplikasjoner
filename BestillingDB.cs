@@ -9,12 +9,6 @@ namespace Oppg1
     {
         DB db = new DB();
 
-        public Stasjon hentStasjon(String StasjonsNavn)
-        {
-            Stasjon stasjon = db.Stasjon.FirstOrDefault(s => s.Stasjonsnavn == StasjonsNavn);
-            return stasjon;
-        }
-
         public String hentStasjonsNavn(int id)
         {
             Stasjon stasjon = db.Stasjon.Find(id);
@@ -179,13 +173,10 @@ namespace Oppg1
             using (var db = new DB())
             {
 
-                Stasjon fraStasjon = hentStasjon(innBestilling.fraStasjon);
-                Stasjon tilStasjon = hentStasjon(innBestilling.tilStasjon);
-
                 Bestilling bestilling = new Bestilling()
                 {
-                    fraStasjon = fraStasjon,
-                    tilStasjon = tilStasjon,
+                    fraStasjon = innBestilling.fraStasjon,
+                    tilStasjon = innBestilling.tilStasjon,
                     dato = innBestilling.dato,
                     avgang = innBestilling.avgang,
                     epost = innBestilling.epost
