@@ -45,7 +45,7 @@
 
             //Legger frastasjoner i dropdownliste
             function VisFraDropDown(stasjon) {
-                var utStreng = "<option value'' selected hidden>Velg stasjon</option>";
+                var utStreng = "<option value'' disabled selected hidden>Velg stasjon</option>";
                 for (var i in stasjon) {
                     utStreng += "<option class='dropdown-item' value='" + stasjon[i].StasjonsID + "'>" + stasjon[i].Stasjonsnavn + "</option>";
 
@@ -56,7 +56,7 @@
             //Legger tilstasjoner i dropdownliste. Hvis man endrer frastasjon, og det er en stasjon man kan reise fra
             //for å komme til allerede valgt tilstasjon, så beholdes verdien i tilstasjon
             function VisTilDropDown(stasjon) {
-                var utStreng = "<option value'' selected hidden>Velg stasjon</option>";
+                var utStreng = "<option value'' disabled selected hidden>Velg stasjon</option>";
                 var finnes = false;
                 var tilStasjon = parseInt($("#tilStasjon").val())
                 for (var i in stasjon) {
@@ -97,7 +97,7 @@
             }
 
             function VisTidspunktDropDown(avgang) {
-                var utStreng = "<option value'' selected hidden>Velg tidspunkt</option>";
+                var utStreng = "<option value'' disabled selected hidden>Velg tidspunkt</option>";
                 for (var i in avgang.sort()) {
                     utStreng += "<option value='" + avgang[i] + "'>" + avgang[i] + "</option>";
                 }
