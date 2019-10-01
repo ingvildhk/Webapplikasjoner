@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -9,9 +10,14 @@
     <link href="~/Content/bootstrap-reboot.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap-grid.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/jquery-3.4.1.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
     <script type="text/javascript">
+
+         
+
         $(function () {
 
             // sørger for at man ikke kan velge dato tidligere enn dagens dato
@@ -106,12 +112,19 @@
             }
         })
 
+        function validateForm() {
+              var x = document.forms["myForm"]["avgang"].value;
+              if (x == "Velg tidspunkt") {
+                    alert("Velg tidspunkt");
+                    return false;
+              }
+        }
     </script>
 </head>
 
 <body>
 
-    <form action="/Home/Index" method="post">
+    <form action="/Home/Index" method="post" id="myForm">
         <h2>Hei, hvor ønsker du å reise?</h2>
         <br />
 
@@ -123,7 +136,7 @@
             </div>
 
 
-            <div class="form-group col-md-6" id="dropDown" >
+            <div class="form-group col-md-6" id="dropDown">
                 <label for="exampleFormControlSelect1">Reise til</label>
                 <select class="form-control" id="tilStasjon" name="tilStasjon" required></select>
             </div>
@@ -137,14 +150,17 @@
 
             <div class="form-group col-md-6" id="dropDown">
                 <label for="exampleFormControlSelect1">Tid</label>
-                <select class="form-control" id="Tidspunkt" name="avgang" required></select>
-            </div>
+                <select class="form-control" id="Tidspunkt" name="avgang" ></select>
 
+                <div id="feilTid"></div>
+
+            </div>
+            
 
             <div class="form-horizontal">
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" id="bestill" name ="Bestilling" value="Bestill" class="btn btn-success" />
+                    <div class="col-md-offset-2 col-md-10" id="knappKnapp">
+                        <input type="submit" onclick="return validateForm()" id="bestill" name="Bestilling" value="Bestill" class="btn btn-success" />
                     </div>
                 </div>
             </div>

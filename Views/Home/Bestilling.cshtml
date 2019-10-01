@@ -1,51 +1,68 @@
 ﻿@model Oppg1.Models.BestillingHjelp
+<!DOCTYPE html>
 
-<h2>Din reservasjon</h2>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap-reboot.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap-grid.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+</head>
+<body>
+    <h2>Din reservasjon</h2>
 
-<form action="/Home/Bestilling" method="post">
-    <table class="table">
+    <form action="/Home/Bestilling" method="post">
+        <table class="table">
 
-        <tr>
-            <th class="thead-light">
-                Reise fra:
-            </th>
-            <th class="thead-light">
-                Reise til:
-            </th>
-            <th>
-                Utreise:
-            </th>
-            <th class="thead-light">
-                Tid:
-            </th>
-        </tr>
+            <tr>
+                <th class="thead-light">
+                    Reise fra:
+                </th>
+                <th class="thead-light">
+                    Reise til:
+                </th>
+                <th>
+                    Utreise:
+                </th>
+                <th class="thead-light">
+                    Tid:
+                </th>
+            </tr>
 
-        <tr>
-            <td name="fraStasjon">
-                @Model.fraStasjon
-            </td>
-            <td name="tilStasjon">
-                @Model.tilStasjon
-            </td>
+            <tr>
+                <td name="fraStasjon">
+                    @Model.fraStasjon
+                </td>
+                <td name="tilStasjon">
+                    @Model.tilStasjon
+                </td>
 
-            <td name="dato">
-                @Model.dato
-            </td>
-            <td name="avgang">
-                @Model.avgang
-            </td>
-        </tr>
-    </table>
-    <br />
-    <h3>For å kjøpe denne billetten vennligst skriv inn din epost adresse: </h3>
+                <td name="dato">
+                    @Model.dato
+                </td>
+                <td name="avgang">
+                    @Model.avgang
+                </td>
+            </tr>
+        </table>
+        <br />
+        <h3>For å kjøpe denne billetten vennligst skriv inn din epost adresse: </h3>
 
-    <input type="email" name="epost" id="epost" required /> 
-    <br /><br />
-    <input type="submit" name="bestill" id="bestill" value="Kjøp" />
+        <input type="email" name="epost" id="epost" required />
+        <br /><br />
+        <input type="submit" name="bestill" id="bestill" value="Kjøp" />
 
-</form>
+    </form>
 
-<!--For å komme tilbake til bestillingsvindu-->
-<div>
-    @Html.ActionLink("Tilbake til bestilling", "Index")
-</div>
+    <!--For å komme tilbake til bestillingsvindu-->
+    <div>
+        @Html.ActionLink("Tilbake til bestilling", "Index")
+    </div>
+</body>
+</html>

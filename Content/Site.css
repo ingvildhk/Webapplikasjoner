@@ -46,4 +46,7 @@ textarea {
     padding-bottom: 30px;
 }
 
-
+#knappKnapp {
+    margin-left:0px;
+    padding-left:5px;
+}
