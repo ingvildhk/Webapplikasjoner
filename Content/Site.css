@@ -16,3 +16,54 @@ textarea {
     max-width: 280px;
 }
 
+
+/*CSS form Index.cshtml*/
+
+#fraStasjon:focus {
+    border-color: forestgreen;
+    box-shadow: inset 0 1px 1px rgba(2,150,120, 0.8), 0 0 8px rgba(2,150,120, 0.86);
+}
+
+#tilStasjon:focus {
+    border-color: #029678;
+    box-shadow: inset 0 1px 1px rgba(2,150,120, 0.8), 0 0 8px rgba(2,150,120, 0.86);
+}
+
+#dato:focus {
+    border-color: #029678;
+    box-shadow: inset 0 1px 1px rgba(2,150,120, 0.8), 0 0 8px rgba(2,150,120, 0.86);
+}
+
+#Tidspunkt:focus {
+    border-color: #029678;
+    box-shadow: inset 0 1px 1px rgba(2,150,120, 0.8), 0 0 8px rgba(2,150,120, 0.86);
+}
+
+#bestill {
+    background-color: #029678;
+}
+
+
+/*CSS form Bestilling.cshtml*/
+
+#epost:focus {
+    border-color: #029678;
+    box-shadow: inset 0 1px 1px rgba(2,150,120, 0.8), 0 0 8px rgba(2,150,120, 0.86);
+}
+
+#bestill {
+    background-color: #029678;
+}
+
+td, th {
+    text-align: left;
+    padding-right: 40px;
+}
+
+
+/*CSS form Layout.cshtml*/
+#VyLogo {
+    padding-left: 0px;
+    padding-bottom: 30px;
+
+}

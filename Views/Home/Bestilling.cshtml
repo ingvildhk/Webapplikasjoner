@@ -1,6 +1,5 @@
 ﻿@model Oppg1.Models.BestillingHjelp
 
-
 <!--For å komme tilbake til bestillingsvindu-->
 <div>
     @Html.ActionLink("Tilbake til bestilling", "Index")
@@ -13,7 +12,7 @@
 <br />
 
 <form action="/Home/Bestilling" method="post">
-    <table>
+    <table class="table">
 
         <tr>
             <th>
@@ -51,14 +50,14 @@
 <br />
 
     <div class="form-group">
-        <label for="exampleFormControlInput1">Skriv din epostadresse om du ønsker bekreftelse på mail</label>
-        <input type="email" class="form-control" id="epost" placeholder="Skriv epostadresse her">
+        <h4><label for="exampleFormControlInput1">Oppgi din epostadresse</label></h4>
+        <input type="email" class="form-control" id="epost" required placeholder="Skriv epostadresse her">
     </div>
 
     <div class="form-horizontal">
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" name="bestill" value="Bekreft bestilling" class="btn btn-success" id="bestill" />
+                <input type="submit" name="bestill" value="Kjøp billett" class="btn btn-success" id="bestill" />
             </div>
         </div>
     </div>
@@ -67,20 +66,5 @@
 
 </form>
 
-<style type="text/css">
 
-    #epost:focus {
-        border-color: #029678;
-        box-shadow: inset 0 1px 1px rgba(2,150,120, 0.8), 0 0 8px rgba(2,150,120, 0.86);
-    }
-
-    #bestill {
-        background-color: #029678;
-    }
-
-    td, th {
-        text-align: left;
-        padding-right: 40px;
-    }
-</style>
 
