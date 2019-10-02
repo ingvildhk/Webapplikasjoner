@@ -238,3 +238,15 @@ function validateAll() {
     }
     return false;
 }
+/* --------------------- klientvalidering bestilling ---------------*/
+
+/* validerer epost */
+function validateEmail() {
+    var regEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    var OK = regEx.test(document.getElementById("epost").value);
+    if (!OK) {
+        alert("Vennligst skriv inn en gyldig epostaddresse");
+        return false;
+    }
+    return true;
+}
