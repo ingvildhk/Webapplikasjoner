@@ -1,6 +1,8 @@
 ﻿using Oppg1.Models;
 using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Mail;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
@@ -63,6 +65,36 @@ namespace Oppg1.Controllers
                 returAvgang = bestilling.returAvgang,
                 epost = epost
             };
+
+            try
+            {
+                var senderEmail = new MailAddress("niklasbae@gmail.com", "Niklas");
+                var receiverEmail = new MailAddress("caroline.kavli@live.no", "Receiver");
+                var password = "dlqrpxdouoaautzc";
+                var sub = "Bestillingsbekreftelse";
+                var body = "Takk for bestillingen!";
+                var smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(senderEmail.Address, password)
+                };
+                using (var mess = new MailMessage(senderEmail, receiverEmail)
+                {
+                    Subject = sub,
+                    Body = body
+                })
+                {
+                    smtp.Send(mess);
+                }
+            }
+            catch (Exception)
+            {
+                ViewBag.Error = "Some Error";
+            }
 
             var Bdb = new BestillingDB();
             if (Bdb.lagreBestilling(innBestilling))
