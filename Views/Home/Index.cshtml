@@ -9,24 +9,25 @@
     <link href="~/Content/bootstrap-reboot.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap-grid.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/jquery-3.4.1.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script type="text/javascript">
         $(function () {
 
-            //gjemmer og viser tur/retur 
-            $(document).ready(function() {
-            $('input[type="radio"]').click(function() {
-                 if($(this).attr('id') == 'retur') {
-                     $('#visReturDato').show();   
-                     $('#visReturTidspunkt').show();
-                 }
-                 else {
-                     $('#visReturDato').hide(); 
-                     $('#visReturTidspunkt').hide();
-                 }
-                 });
-               });
+            //gjemmer og viser tur/retur
+            $(document).ready(function () {
+                $('input[type="radio"]').click(function () {
+                    if ($(this).attr('id') == 'retur') {
+                        $('#visReturDato').show();
+                        $('#visReturTidspunkt').show();
+                    }
+                    else {
+                        $('#visReturDato').hide();
+                        $('#visReturTidspunkt').hide();
+                    }
+                });
+            });
 
             // sørger for at man ikke kan velge dato tidligere enn dagens dato
             // 2019-09-29T11:45:15.764Z
@@ -164,13 +165,66 @@
                 $("#returAvgang").empty();
                 $("#returAvgang").append(utStreng);
             }
+
         })
+        /* --------------------- klient-side validering på index----------------------*/
+        function validateTime() {
+            var x = document.forms["myForm"]["avgang"].value;
+            if (x == "Velg tidspunkt" || x == null) {
+                alert("Vennligst velg tidspunkt for avreise");
+                return false;
+            }
+        }
+        function validateFrom() {
+            var x = document.forms["myForm"]["fraStasjon"].value;
+            if (x == "" || x == "Velg stasjon") {
+                alert("Vennligst velg stasjon du reiser fra");
+                return false;
+            }
+        }
+        function validateTo() {
+            var x = document.forms["myForm"]["tilStasjon"].value;
+            if (x == "" || x == "Velg stasjon") {
+                alert("Vennligst velg stasjon du reiser til");
+                return false;
+            }
+        }
+        function validateDate() {
+            var x = document.forms["myForm"]["dato"].value;
+            if (x == "") {
+                alert("Vennligst velg dato for avreise");
+                return false;
+            }
+        }
+        function validateReturDate() {
+            var x = document.forms["myForm"]["returDato"].value;
+            if (x == "") {
+                alert("Vennligst velg returdato for avreise");
+                return false;
+            }
+        }
+        function validateReturTime() {
+            var x = document.forms["myForm"]["returAvgang"].value;
+            if (x == "Velg tidspunkt" || x == null) {
+                alert("Vennligst velg retur tidspunkt for avreise");
+                return false;
+            }
+        }
+
+        function validateAll() {
+            fraOK = validateFrom();
+            tilOK = validateTo();
+            tidOK = validateTime();
+            datoOK = validateDate();
+
+            
+        }
     </script>
 </head>
 
 <body>
 
-    <form action="/Home/Index" method="post">
+    <form action="/Home/Index" method="post" name="myForm">
         <h2>Hei, hvor ønsker du å reise?</h2>
         <br />
 
@@ -228,7 +282,7 @@
                 <div class="form-horizontal">
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10" id="knappKnapp">
-                            <input type="submit" name="Bestilling" value="Gå til bestilling" class="btn btn-success" id="bestillKnapp" />
+                            <input onclick="return validateAll()" type="submit"  name="Bestilling" value="Gå til bestilling" class="btn btn-success" id="bestillKnapp" />
                         </div>
                     </div>
                 </div>
