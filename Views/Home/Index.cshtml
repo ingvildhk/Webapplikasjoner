@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model Oppg1.Models.BestillingHjelp
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -9,19 +10,19 @@
     <script type="text/javascript">
         $(function () {
 
-            //gjemmer og viser tur/retur 
-            $(document).ready(function() {
-            $('input[type="radio"]').click(function() {
-                 if($(this).attr('id') == 'retur') {
-                     $('#visReturDato').show();   
-                     $('#visReturTidspunkt').show();
-                 }
-                 else {
-                     $('#visReturDato').hide(); 
-                     $('#visReturTidspunkt').hide();
-                 }
-                 });
-               });
+            //gjemmer og viser tur/retur
+            $(document).ready(function () {
+                $('input[type="radio"]').click(function () {
+                    if ($(this).attr('id') == 'retur') {
+                        $('#visReturDato').show();
+                        $('#visReturTidspunkt').show();
+                    }
+                    else {
+                        $('#visReturDato').hide();
+                        $('#visReturTidspunkt').hide();
+                    }
+                });
+            });
 
             // sørger for at man ikke kan velge dato tidligere enn dagens dato
             // 2019-09-29T11:45:15.764Z
@@ -180,7 +181,7 @@
         box-shadow: inset 0 1px 1px rgba(2,150,120, 0.8), 0 0 8px rgba(2,150,120, 0.86);
     }
 
-     #Tidspunkt:focus {
+    #Tidspunkt:focus {
         border-color: #029678;
         box-shadow: inset 0 1px 1px rgba(2,150,120, 0.8), 0 0 8px rgba(2,150,120, 0.86);
     }
@@ -190,13 +191,12 @@
     }
 
     #visReturDato {
-        display:none;
+        display: none;
     }
 
     #visReturTidspunkt {
         display: none;
     }
-
 </style>
 
 
@@ -211,32 +211,77 @@
             <div class="form-group col-md-6" id="dropDown">
                 <label for="exampleFormControlSelect1">Reise fra</label>
                 <select class="form-control" id="fraStasjon" name="fraStasjon"></select>
+                <div class="editor-field">
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                    <span class="field-validation-error">
+                        @if (@ViewData.ModelState["fraStasjon"].Errors.Count > 0)
+                        {
+                            @ViewData.ModelState["fraStasjon"].Errors[0].ErrorMessage
+                        }
+                    </span>
+                    }
+                </div>
             </div>
 
 
             <div class="form-group col-md-6" id="dropDown">
                 <label for="exampleFormControlSelect1">Reise til</label>
                 <select class="form-control" id="tilStasjon" name="tilStasjon"></select>
+                <div class="editor-field">
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                    <span class="field-validation-error">
+                        @if (@ViewData.ModelState["tilStasjon"].Errors.Count > 0)
+                        {
+                            @ViewData.ModelState["tilStasjon"].Errors[0].ErrorMessage
+                        }
+                    </span>
+                    }
+                </div>
             </div>
 
 
             <div class="form-group col-md-6">
                 <label for="exampleFormControlSelect1">Dato</label>
                 <input class="form-control" id="dato" name="dato" type="date">
+                <div class="editor-field">
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                    <span class="field-validation-error">
+                        @if (@ViewData.ModelState["dato"].Errors.Count > 0)
+                        {
+                            @ViewData.ModelState["dato"].Errors[0].ErrorMessage
+                        }
+                    </span>
+                    }
+                </div>
             </div>
 
 
             <div class="form-group col-md-6" id="dropDown">
                 <label for="exampleFormControlSelect1">Tid</label>
                 <select class="form-control" id="Tidspunkt" name="avgang"></select>
+                <div class="editor-field">
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                    <span class="field-validation-error">
+                        @if (@ViewData.ModelState["avgang"].Errors.Count > 0)
+                        {
+                            @ViewData.ModelState["avgang"].Errors[0].ErrorMessage
+                        }
+                    </span>
+                    }
+                </div>
             </div>
+
 
             <div class="form-horizontal">
                 <table class="table">
                     <tr>
                         <td class="radio">
-                            <input type="radio" name="tur" value="en vei">En vei<br>
-                            <input type="radio" name="tur" value="tur/retur" id="retur">Tur/Retur<br>
+                            <input type="radio" name="returKnapp" value="en vei" checked>En vei<br>
+                            <input type="radio" name="returKnapp" value="tur/retur" id="retur">Tur/Retur<br>
                         </td>
                     </tr>
                 </table>
@@ -245,12 +290,34 @@
             <div class="form-group col-md-6" id="visReturDato">
                 <label for="exampleFormControlSelect1">Returdato</label>
                 <input class="form-control" id="returDato" name="returDato" type="date">
+                <div class="editor-field">
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <span class="field-validation-error">
+                            @if (@ViewData.ModelState["returDato"].Errors.Count > 0)
+                            {
+                                @ViewData.ModelState["returDato"].Errors[0].ErrorMessage
+                            }
+                        </span>
+                    }
+                </div>
             </div>
 
 
             <div class="form-group col-md-6" id="visReturTidspunkt">
                 <label for="exampleFormControlSelect1">Returtidspunkt</label>
                 <select class="form-control" id="returAvgang" name="returAvgang"></select>
+                <div class="editor-field">
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <span class="field-validation-error">
+                            @if (ViewData.ModelState["returAvgang"] != null && @ViewData.ModelState["returAvgang"].Errors.Count > 0)
+                            {
+                                @ViewData.ModelState["returAvgang"].Errors[0].ErrorMessage
+                            }
+                        </span>
+                    }
+                </div>
             </div>
 
 

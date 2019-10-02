@@ -11,5 +11,6 @@ namespace Oppg1.Models
         public String avgang { get; set; }
         public String returAvgang { get; set; }
         public String epost { get; set; }
+        public String returKnapp { get; set; }
     }
 }

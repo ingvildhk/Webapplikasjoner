@@ -1,5 +1,8 @@
 ﻿@model Oppg1.Models.BestillingHjelp
 
+@{ 
+    ViewBag.Title = "";
+}
 
 <!--For å komme tilbake til bestillingsvindu-->
 <div>
@@ -8,6 +11,7 @@
 
 <br />
 
+<h1>@ViewBag.save</h1>
 
 <h2>Her er din bestillingsinformasjon</h2>
 <br />
@@ -62,10 +66,21 @@
 
 <br />
 
-    <div class="form-group">
-        <label for="exampleFormControlInput1">Skriv din epostadresse om du ønsker bekreftelse på mail</label>
-        <input type="email" class="form-control" name="epost" placeholder="Skriv epostadresse her">
+<div class="form-group">
+    <label for="exampleFormControlInput1">Skriv din epostadresse om du ønsker bekreftelse på mail</label>
+    <input type="email" class="form-control" name="epost" placeholder="Skriv epostadresse her">
+    <div class="editor-field">
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <span class="field-validation-error">
+                @if (@ViewData.ModelState["epost"].Errors.Count > 0)
+                {
+                    @ViewData.ModelState["epost"].Errors[0].ErrorMessage
+                }
+            </span>
+        }
     </div>
+</div>
 
     <div class="form-horizontal">
         <div class="form-group">
