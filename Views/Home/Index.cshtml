@@ -21,10 +21,17 @@
                     if ($(this).attr('id') == 'retur') {
                         $('#visReturDato').show();
                         $('#visReturTidspunkt').show();
+                        $('#returDato').attr("required", "true");
+                        $('#returAvgang').attr("required", "true");
                     }
                     else {
+                        document.getElementById("returDato").value = "";
+                        $('#returDato').removeAttr('required');
+                        $('#returAvgang').empty('#returAvgang');
+                        $('#returAvgang').removeAttr('required');
                         $('#visReturDato').hide();
                         $('#visReturTidspunkt').hide();
+                        
                     }
                 });
             });
@@ -170,10 +177,11 @@
         /* --------------------- klient-side validering på index----------------------*/
         function validateTime() {
             var x = document.forms["myForm"]["avgang"].value;
-            if (x == "Velg tidspunkt" || x == null) {
+            if (x == "Velg tidspunkt" || x == null || x == "dd.mm.åååå") {
                 alert("Vennligst velg tidspunkt for avreise");
                 return false;
             }
+            return true;
         }
         function validateFrom() {
             var x = document.forms["myForm"]["fraStasjon"].value;
@@ -181,6 +189,7 @@
                 alert("Vennligst velg stasjon du reiser fra");
                 return false;
             }
+            return true;
         }
         function validateTo() {
             var x = document.forms["myForm"]["tilStasjon"].value;
@@ -188,6 +197,7 @@
                 alert("Vennligst velg stasjon du reiser til");
                 return false;
             }
+            return true;
         }
         function validateDate() {
             var x = document.forms["myForm"]["dato"].value;
@@ -195,30 +205,48 @@
                 alert("Vennligst velg dato for avreise");
                 return false;
             }
+            return true;
         }
         function validateReturDate() {
             var x = document.forms["myForm"]["returDato"].value;
-            if (x == "") {
+            if (x == "" || x == "dd.mm.åååå") {
                 alert("Vennligst velg returdato for avreise");
                 return false;
             }
+            return true;
         }
         function validateReturTime() {
+            
             var x = document.forms["myForm"]["returAvgang"].value;
-            if (x == "Velg tidspunkt" || x == null) {
-                alert("Vennligst velg retur tidspunkt for avreise");
+            if (x == "Velg tidspunkt" || x == null || x == "") {
+                alert("Vennligst velg returtidspunkt for avreise");
                 return false;
             }
+            return true;
         }
-
+        
+        
         function validateAll() {
-            fraOK = validateFrom();
-            tilOK = validateTo();
-            tidOK = validateTime();
-            datoOK = validateDate();
+            var okFra = validateFrom();
+            var okTil = validateTo();
+            var okTid = validateTime();
+            var okDato = validateDate();
 
-            
+            var x = document.forms["myForm"]["tur"].value;
+            if (x == "tur/retur" || x == "Tur/Retur" || x == "retur") {
+                var okTidRetur = validateReturTime();
+                var okDatoRetur = validateReturTime();
+                if (okTidRetur && okDatoRetur) {
+                    return true;
+                }
+                return false;
+            }
+            if (okFra && okTil && okTid && okDato) {
+                return true;
+            }
+            return false;
         }
+
     </script>
 </head>
 
@@ -232,20 +260,20 @@
 
             <div class="form-group col-md-4" id="dropDown">
                 <label for="exampleFormControlSelect1">Reise fra</label>
-                <select class="form-control" id="fraStasjon" name="fraStasjon"></select>
+                <select class="form-control" id="fraStasjon" name="fraStasjon" required></select>
             </div>
 
 
             <div class="form-group col-md-4" id="dropDown">
                 <label for="exampleFormControlSelect1">Reise til</label>
-                <select class="form-control" id="tilStasjon" name="tilStasjon"></select>
+                <select class="form-control" id="tilStasjon" name="tilStasjon"required></select>
             </div>
         </div>
 
         <div class="form-horizontal">
             <table class="form-check">
                 <tr>
-                    <td class="radio">
+                    <td class="radio" id="turRetur" >
                         <input type="radio" name="tur" value="en vei" checked> En vei<br>
                         <input type="radio" name="tur" value="tur/retur" id="retur"> Tur/Retur<br>
                     </td>
@@ -256,25 +284,25 @@
         <div class="form-row">
             <div class="form-group col-md-4">
                 <label for="exampleFormControlSelect1">Dato</label>
-                <input class="form-control" id="dato" name="dato" type="date">
+                <input class="form-control" id="dato" name="dato" type="date" required>
             </div>
 
 
             <div class="form-group col-md-4" id="dropDown">
                 <label for="exampleFormControlSelect1">Tid</label>
-                <select class="form-control" id="Tidspunkt" name="avgang"></select>
+                <select class="form-control" id="Tidspunkt" name="avgang" required></select>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-4" id="visReturDato">
                 <label for="exampleFormControlSelect1">Returdato</label>
-                <input class="form-control" id="returDato" name="returDato" type="date">
+                <input class="form-control" id="returDato" name="returDato" type="date" >
             </div>
 
 
             <div class="form-group col-md-4" id="visReturTidspunkt">
                 <label for="exampleFormControlSelect1">Returtidspunkt</label>
-                <select class="form-control" id="returAvgang" name="returAvgang"></select>
+                <select class="form-control" id="returAvgang" name="returAvgang" ></select>
             </div>
         </div>
 
