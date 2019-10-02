@@ -73,7 +73,12 @@ textarea {
 
 td, th {
     text-align: left;
-    padding-right: 40px;
+    padding-right: 30px;
+}
+
+
+h5 {
+    color: #029678;
 }
 
 

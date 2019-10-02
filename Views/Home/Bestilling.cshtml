@@ -15,78 +15,92 @@
         @Html.ActionLink("Tilbake til bestilling", "Index")
     </div>
 
-    <br />
+    <br/>
 
     <h2>Her er din bestillingsinformasjon</h2>
     <br />
 
     <form action="/Home/Bestilling" method="post">
-        <table class="table">
-
+        <h5>Reiserute</h5>
+        <table>
             <tr>
                 <th>
-                    Fra stasjon
+                    Avgang
                 </th>
-                <th>
-                    Til stasjon
-                </th>
-                <th>
-                    Dato
-                </th>
-                <th>
-                    Avgangstid
-                </th>
-            </tr>
-
-            <tr>
                 <td name="fraStasjon">
                     @Model.fraStasjon
                 </td>
+            </tr>
+            <tr>
+                <th>
+                    Ankomst
+                </th>
                 <td name="tilStasjon">
                     @Model.tilStasjon
-                </td>
-
-                <td name="dato">
-                    @Model.dato.ToString("dd/MM/yyyy")
-                </td>
-                <td name="avgang">
-                    @Model.avgang
-                </td>
-            </tr>
-        </table>
-
-        <h5>Retur</h5>
-        <table class="table">
-            <tr>
-                <th>
-                    Returdato
-                </th>
-                <th>
-                    Returtid
-                </th>
-            </tr>
-
-            <tr>
-                <td name="returDato">
-                    @Model.returDato.ToString("dd/MM/yyyy")
-                </td>
-                <td name="returAvgang">
-                    @Model.returAvgang
                 </td>
             </tr>
         </table>
 
         <br />
 
-        <div class="form-group">
-            <h4><label for="exampleFormControlInput1">Oppgi din epostadresse</label></h4>
-            <input type="email" class="form-control" id="epost" required placeholder="Skriv epostadresse her">
+        <h5>Utreise</h5>
+        <table>
+            <tr>
+                <th>
+                    Dato
+                </th>
+                <td name="dato">
+                    @Model.dato.ToString("dd/MM/yyyy")
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Avgangstid
+                </th>
+                <td name="avgang">
+                    @Model.avgang
+                </td>
+            </tr>
+        </table>
+
+        <br />
+
+        @if (!String.IsNullOrEmpty(Model.returDato))
+        {
+            <h5>Returreise</h5>
+            <table>
+                <tr>
+                    <th>
+                        Dato
+                    </th>
+                    <td name="returDato">
+                        @Model.returDato
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Avgangstid
+                    </th>
+                    <td name="returAvgang">
+                        @Model.returAvgang
+                    </td>
+                </tr>
+            </table>
+        }
+
+        <br />
+
+        <h6><strong>Skriv inn din epostadresse for å kjøp av billett</strong></h6>
+        <div class="form-group col-md-4">
+            <input type="email" class="form-control" id="epost" name="epost" placeholder="Skriv din e-postadresse her">
         </div>
 
-        <div class="form-horizontal">
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10" id="knappKnapp">
-                    <input type="submit" name="bestill" value="Kjøp billett" class="btn btn-success" id="bestillKnapp" />
+        <div class="form-row">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10" id="knappKnapp">
+                        <input type="submit" name="Bestilling" value="Kjøp billett" class="btn btn-success" id="bestillKnapp" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -96,5 +110,4 @@
     </form>
 </body>
 </html>
-
 

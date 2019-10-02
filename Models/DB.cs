@@ -39,9 +39,7 @@ namespace Oppg1.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime dato { get; set; }
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime returDato { get; set; }
+        public String returDato { get; set; }
         public String avgang { get; set; }
         public String returAvgang { get; set; }
         public String epost { get; set; }

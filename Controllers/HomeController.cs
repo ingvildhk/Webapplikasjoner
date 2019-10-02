@@ -47,6 +47,13 @@ namespace Oppg1.Controllers
         public ActionResult Bestilling()
         {
             var bestilling = (BestillingHjelp)Session["Bestillingen"];
+            if (!String.IsNullOrEmpty(bestilling.returDato))
+            {
+                string[] s = bestilling.returDato.Split('-');
+                var formatertReturDato = s[2] + "." + s[1] + "." + s[0];
+                bestilling.returDato = formatertReturDato;
+            }
+
             return View(bestilling);
         }
 
@@ -68,11 +75,11 @@ namespace Oppg1.Controllers
 
             try
             {
-                var senderEmail = new MailAddress("niklasbae@gmail.com", "Niklas");
-                var receiverEmail = new MailAddress("caroline.kavli@live.no", "Receiver");
+                var senderEmail = new MailAddress("niklasbae@gmail.com", "VY Oppgave1");
+                var receiverEmail = new MailAddress(epost, "Receiver");
                 var password = "dlqrpxdouoaautzc";
                 var sub = "Bestillingsbekreftelse";
-                var body = "Takk for bestillingen!";
+                var body = "Takk for din bestilling!";
                 var smtp = new SmtpClient
                 {
                     Host = "smtp.gmail.com",
