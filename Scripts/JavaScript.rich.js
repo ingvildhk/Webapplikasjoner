@@ -161,6 +161,8 @@
 })
 
 /* --------------------- klient-side validering på index----------------------*/
+
+/* validerer tidsvalget */
 function validateTime() {
     var x = document.forms["myForm"]["avgang"].value;
     if (x == "Velg tidspunkt" || x == null || x == "dd.mm.åååå") {
@@ -169,6 +171,7 @@ function validateTime() {
     }
     return true;
 }
+/* validerer frastasjon */
 function validateFrom() {
     var x = document.forms["myForm"]["fraStasjon"].value;
     if (x == "" || x == "Velg stasjon") {
@@ -185,6 +188,7 @@ function validateTo() {
     }
     return true;
 }
+/* validerer datovalg */
 function validateDate() {
     var x = document.forms["myForm"]["dato"].value;
     if (x == "") {
@@ -193,6 +197,7 @@ function validateDate() {
     }
     return true;
 }
+/* validerer returdato */
 function validateReturDate() {
     var x = document.forms["myForm"]["returDato"].value;
     if (x == "" || x == "dd.mm.åååå") {
@@ -201,6 +206,7 @@ function validateReturDate() {
     }
     return true;
 }
+/* validerer validerer returtid */
 function validateReturTime() {
 
     var x = document.forms["myForm"]["returAvgang"].value;
@@ -211,7 +217,7 @@ function validateReturTime() {
     return true;
 }
 
-
+/* kjører alle valideringene i feltene ved submit button og stopper sending av skjema ved feil */
 function validateAll() {
     var okFra = validateFrom();
     var okTil = validateTo();
