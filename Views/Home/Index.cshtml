@@ -84,6 +84,7 @@
                     }
                 </div>
             </div>
+            
 
 
             <div class="form-group col-md-4" id="dropDown">
@@ -101,51 +102,52 @@
                     }
                 </div>
             </div>
-
-            <div class="form-group col-md-6" id="visReturDato">
-                <label for="exampleFormControlSelect1">Returdato</label>
-                <input class="form-control" id="returDato" name="returDato" type="date">
-                <div class="editor-field">
-                    @if (!ViewData.ModelState.IsValid)
-                    {
-                        <span class="field-validation-error">
-                            @if (@ViewData.ModelState["returDato"].Errors.Count > 0)
-                            {
-                                @ViewData.ModelState["returDato"].Errors[0].ErrorMessage
-                            }
-                        </span>
-                    }
-                </div>
-            </div>
-
-
-            <div class="form-group col-md-6" id="visReturTidspunkt">
-                <label for="exampleFormControlSelect1">Returtidspunkt</label>
-                <select class="form-control" id="returAvgang" name="returAvgang"></select>
-                <div class="editor-field">
-                    @if (!ViewData.ModelState.IsValid)
-                    {
-                        <span class="field-validation-error">
-                            @if (ViewData.ModelState["returAvgang"] != null && @ViewData.ModelState["returAvgang"].Errors.Count > 0)
-                            {
-                                @ViewData.ModelState["returAvgang"].Errors[0].ErrorMessage
-                            }
-                        </span>
-                    }
-                </div>
-            </div>
         </div>
 
             <div class="form-row">
-                <div class="form-horizontal">
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10" id="knappKnapp">
-                            <input type="submit" onclick="return validateAll()"  name="Bestilling" value="Gå til bestilling" class="btn btn-success" id="bestillKnapp" />
+                <div class="form-group col-md-4" id="visReturDato">
+                    <label for="exampleFormControlSelect1">Returdato</label>
+                    <input class="form-control" id="returDato" name="returDato" type="date">
+                    <div class="editor-field">
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            <span class="field-validation-error">
+                                @if (@ViewData.ModelState["returDato"].Errors.Count > 0)
+                                {
+                                    @ViewData.ModelState["returDato"].Errors[0].ErrorMessage
+                                }
+                            </span>
+                        }
+                    </div>
+                </div>
+                
+                    <div class="form-group col-md-4" id="visReturTidspunkt">
+                        <label for="exampleFormControlSelect1">Returtidspunkt</label>
+                        <select class="form-control" id="returAvgang" name="returAvgang"></select>
+                        <div class="editor-field">
+                            @if (!ViewData.ModelState.IsValid)
+                            {
+                                <span class="field-validation-error">
+                                    @if (ViewData.ModelState["returAvgang"] != null && @ViewData.ModelState["returAvgang"].Errors.Count > 0)
+                                    {
+                                        @ViewData.ModelState["returAvgang"].Errors[0].ErrorMessage
+                                    }
+                                </span>
+                            }
                         </div>
                     </div>
                 </div>
-            </div>
-    </form>
+
+                <div class="form-row">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10" id="knappKnapp">
+                                <input type="submit" onclick="return validateAll()" name="Bestilling" value="Gå til bestilling" class="btn btn-success" id="bestillKnapp" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+</form>
 </body>
 </html>
 
