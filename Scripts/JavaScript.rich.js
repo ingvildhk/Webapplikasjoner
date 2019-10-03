@@ -1,36 +1,5 @@
 ﻿$(function () {
 
-    //gjemmer og viser tur/retur
-    $(document).ready(function () {
-        $('input[type="radio"]').click(function () {
-            if ($(this).attr('id') == 'retur') {
-                $('#visReturDato').show();
-                $('#visReturTidspunkt').show();
-                $('#returDato').attr("required", "true");
-                $('#returAvgang').attr("required", "true");
-            }
-            else {
-                document.getElementById("returDato").value = "";
-                $('#returDato').removeAttr('required');
-                $('#returAvgang').empty('#returAvgang');
-                $('#returAvgang').removeAttr('required');
-                $('#visReturDato').hide();
-                $('#visReturTidspunkt').hide();
-
-            }
-        });
-    });
-
-    // sørger for at man ikke kan velge dato tidligere enn dagens dato
-    // 2019-09-29T11:45:15.764Z
-    $("#dato").attr("min", new Date().toISOString().split("T")[0]);
-
-    // sørger for at man ikke kan velge returdato tidligere enn utreisedato
-    $("#dato").change(function () {
-        var minDate = $("#dato").val();
-        $("#returDato").attr("min", minDate);
-    });
-
     //henter alle stasjoner man kan reise fra ved oppstart
     $.ajax({
         url: '/Home/hentFraStasjoner',
@@ -42,7 +11,16 @@
         }
     });
 
-    //henter stasjoner man kan reise til basert på velgt frastasjon
+    //Legger alle stasjoner i frastasjon sin dropdownliste
+    function VisFraDropDown(stasjon) {
+        var utStreng = "<option value'' selected hidden>Velg stasjon</option>";
+        for (var i in stasjon) {
+            utStreng += "<option value='" + stasjon[i].StasjonsID + "'>" + stasjon[i].Stasjonsnavn + "</option>";
+        }
+        $("#fraStasjon").append(utStreng);
+    }
+
+    //henter stasjoner man kan reise til basert på valgt frastasjon
     $("#fraStasjon").change(function () {
         var id = $("#fraStasjon").val();
         $.ajax({
@@ -56,18 +34,8 @@
         });
     });
 
-    //Legger frastasjoner i dropdownliste
-    function VisFraDropDown(stasjon) {
-        var utStreng = "<option value'' selected hidden>Velg stasjon</option>";
-        for (var i in stasjon) {
-            utStreng += "<option value='" + stasjon[i].StasjonsID + "'>" + stasjon[i].Stasjonsnavn + "</option>";
-
-        }
-        $("#fraStasjon").append(utStreng);
-    }
-
-    //Legger tilstasjoner i dropdownliste. Hvis man endrer frastasjon, og det er en stasjon man kan reise fra
-    //for å komme til allerede valgt tilstasjon, så beholdes verdien i tilstasjon
+    //Legger tilstasjoner i dropdownliste. Hvis frastasjon endres, og valgt stasjonen kan reises fra 
+    // for å komme til valgt tilstasjon, beholdes verdien i tilstasjon
     function VisTilDropDown(stasjon) {
         var utStreng = "<option value'' selected hidden>Velg stasjon</option>";
         var finnes = false;
@@ -84,11 +52,8 @@
         VisTidspunkt();
     }
 
-    $("#tilStasjon").change(VisTidspunkt);
-    $("#dato").change(VisTidspunkt);
-
-    //legger tidspunkt i dropdownliste. Kjøres ved change både på til, fra og dato, men fullføres kun hvis
-    //alle variablene har data
+    //henter og legger tidspunkt i dropdownliste. Kjøres ved change både på frastasjon, tilstasjon og dato, 
+    //men fullføres kun hvis alle variablene har data
     function VisTidspunkt() {
         var fraStasjon = $("#fraStasjon").val();
         var tilStasjon = $("#tilStasjon").val();
@@ -109,6 +74,9 @@
         }
     }
 
+    $("#tilStasjon").change(VisTidspunkt);
+    $("#dato").change(VisTidspunkt);
+
     function VisTidspunktDropDown(avgang) {
         if (Array.isArray(avgang) && avgang.length) {
             var utStreng = "<option value'' selected hidden>Velg tidspunkt</option>";
@@ -118,12 +86,44 @@
             $("#Tidspunkt").empty();
             $("#Tidspunkt").append(utStreng);
         }
+        // Hvis det ikke er flere tilgjengelige tidspunkt på dagens dato får bruker beskjed
         else {
             var utStreng = "<option value'' selected hidden>Ingen flere avganger i dag</option>";
             $("#Tidspunkt").empty();
             $("#Tidspunkt").append(utStreng);
         }
     }
+
+    // sørger for at man ikke kan velge dato tidligere enn dagens dato
+    // 2019-09-29T11:45:15.764Z
+    $("#dato").attr("min", new Date().toISOString().split("T")[0]);
+
+    //gjemmer/viser tur/retur inputfeltene
+    $(document).ready(function () {
+        $('input[type="radio"]').click(function () {
+            if ($(this).attr('id') == 'retur') {
+                $('#visReturDato').show();
+                $('#visReturTidspunkt').show();
+                $('#returDato').attr("required", "true");
+                $('#returAvgang').attr("required", "true");
+            }
+            else {
+                document.getElementById("returDato").value = "";
+                $('#returDato').removeAttr('required');
+                $('#returAvgang').empty('#returAvgang');
+                $('#returAvgang').removeAttr('required');
+                $('#visReturDato').hide();
+                $('#visReturTidspunkt').hide();
+
+            }
+        });
+    });
+
+    // sørger for at man ikke kan velge returdato tidligere enn utreisedato
+    $("#dato").change(function () {
+        var minDate = $("#dato").val();
+        $("#returDato").attr("min", minDate);
+    });
 
     //Onchange funksjoner for visning av returavgang
     $("#tilStasjon").change(VisReturTidspunkt);
@@ -132,7 +132,6 @@
     $("#dato").change(VisReturTidspunkt);
     $("#returDato").change(VisReturTidspunkt);
 
-    //Viser returtidspunkt
     function VisReturTidspunkt() {
         var fraStasjon = $("#tilStasjon").val();
         var tilStasjon = $("#fraStasjon").val();
@@ -173,17 +172,7 @@
 
 })
 
-/* --------------------- klient-side validering på index----------------------*/
-
-/* validerer tidsvalget */
-function validateTime() {
-    var x = document.forms["myForm"]["Tidspunkt"].value;
-    if (x == "Velg tidspunkt" || x == null || x == "") {
-        document.getElementById("feilTidspunkt").innerHTML = "Vennligst velg tidspunkt for avreise";
-        return false;
-    }
-    return true;
-}
+/* ---------- klient-side validering på Index.cshtml og epost på Bestilling.cshtml---------------*/
 
 /* validerer frastasjon */
 function validateFrom() {
@@ -194,6 +183,8 @@ function validateFrom() {
     }
     return true;
 }
+
+// Validerer tilstasjon
 function validateTo() {
     var x = document.forms["myForm"]["tilStasjon"].value;
     if (x == "" || x == "Velg stasjon") {
@@ -213,7 +204,16 @@ function validateDate() {
     return true;
 }
 
-/* validerer returdato */
+/* validerer tidsvalget */
+function validateTime() {
+    var x = document.forms["myForm"]["Tidspunkt"].value;
+    if (x == "Velg tidspunkt" || x == null || x == "") {
+        document.getElementById("feilTidspunkt").innerHTML = "Vennligst velg tidspunkt for avreise";
+        return false;
+    }
+    return true;
+}
+
 function validateReturDate() {
     var x = document.forms["myForm"]["returDato"].value;
     if (x == "" || x == "dd.mm.åååå" ) {
@@ -223,7 +223,6 @@ function validateReturDate() {
     return true;
 }
 
-/* validerer validerer returtid */
 function validateReturTime() {
 
     var x = document.forms["myForm"]["returAvgang"].value;
@@ -256,9 +255,6 @@ function validateAll() {
     return false;
 }
 
-/* --------------------- klientvalidering bestilling ---------------*/
-
-/* validerer epost */
 function validateEmail() {
     var regEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     var OK = regEx.test(document.getElementById("epost").value);
@@ -269,6 +265,7 @@ function validateEmail() {
     return true;
 }
 
+// Fjerner feilmeldinger til klient umiddelbart når input i felter er riktig
 $(document).ready(function () {
     $("#dato").change(function () {
         document.getElementById("feilDato").innerHTML = "";
@@ -291,5 +288,4 @@ $(document).ready(function () {
     $("#epost").change(function () {
         document.getElementById("feilEpost").innerHTML = "";
     });
-
 });

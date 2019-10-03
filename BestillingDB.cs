@@ -356,14 +356,12 @@ namespace Oppg1
                 }
                 return true;
             }
-
         }
 
         public bool lagreBestilling(BestillingHjelp innBestilling)
         {
             using (var db = new DB())
             {
-
                 Bestilling bestilling = new Bestilling()
                 {
                     fraStasjon = innBestilling.fraStasjon,
@@ -382,7 +380,7 @@ namespace Oppg1
                     return true;
                 }
 
-                catch (Exception feil)
+                catch (Exception)
                 {
                     return false;
                 }
