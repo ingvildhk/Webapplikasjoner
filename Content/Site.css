@@ -65,6 +65,10 @@ textarea {
     padding-left: 5px;
 }
 
+.feilmeldinger{
+    color: red;
+}
+
 /* CSS fra Bestilling.cshtml */
 #epost:focus {
     border-color: #029678;

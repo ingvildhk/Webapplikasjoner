@@ -26,6 +26,7 @@
             <div class="form-group col-md-4" id="dropDown">
                 <label for="exampleFormControlSelect1">Reise fra</label>
                 <select class="form-control" id="fraStasjon" name="fraStasjon" required></select>
+                <div id="feilFrastasjon" class="feilmeldinger"></div>
                 <div class="editor-field">
                     @if (!ViewData.ModelState.IsValid)
                     {
@@ -43,15 +44,16 @@
             <div class="form-group col-md-4" id="dropDown">
                 <label for="exampleFormControlSelect1">Reise til</label>
                 <select class="form-control" id="tilStasjon" name="tilStasjon" required></select>
+                <div id="feilTilstasjon" class="feilmeldinger"></div>
                 <div class="editor-field">
                     @if (!ViewData.ModelState.IsValid)
                     {
-                    <span class="field-validation-error">
-                        @if (@ViewData.ModelState["tilStasjon"].Errors.Count > 0)
-                        {
-                            @ViewData.ModelState["tilStasjon"].Errors[0].ErrorMessage
-                        }
-                    </span>
+                        <span class="field-validation-error">
+                            @if (@ViewData.ModelState["tilStasjon"].Errors.Count > 0)
+                            {
+                                @ViewData.ModelState["tilStasjon"].Errors[0].ErrorMessage
+                            }
+                        </span>
                     }
                 </div>
             </div>
@@ -72,6 +74,7 @@
             <div class="form-group col-md-4">
                 <label for="exampleFormControlSelect1">Dato</label>
                 <input class="form-control" id="dato" name="dato" type="date" required>
+                <div id="feilDato" class="feilmeldinger"></div>
                 <div class="editor-field">
                     @if (!ViewData.ModelState.IsValid)
                     {
@@ -90,6 +93,7 @@
             <div class="form-group col-md-4" id="dropDown">
                 <label for="exampleFormControlSelect1">Tid</label>
                 <select class="form-control" id="Tidspunkt" name="avgang" required></select>
+                <div id="feilTidspunkt" class="feilmeldinger"></div>
                 <div class="editor-field">
                     @if (!ViewData.ModelState.IsValid)
                     {
@@ -108,6 +112,7 @@
                 <div class="form-group col-md-4" id="visReturDato">
                     <label for="exampleFormControlSelect1">Returdato</label>
                     <input class="form-control" id="returDato" name="returDato" type="date">
+                    <div id="feilReturdato" class="feilmeldinger"></div>
                     <div class="editor-field">
                         @if (!ViewData.ModelState.IsValid)
                         {
@@ -121,21 +126,22 @@
                     </div>
                 </div>
                 
-                    <div class="form-group col-md-4" id="visReturTidspunkt">
-                        <label for="exampleFormControlSelect1">Returtidspunkt</label>
-                        <select class="form-control" id="returAvgang" name="returAvgang"></select>
-                        <div class="editor-field">
-                            @if (!ViewData.ModelState.IsValid)
-                            {
-                                <span class="field-validation-error">
-                                    @if (ViewData.ModelState["returAvgang"] != null && @ViewData.ModelState["returAvgang"].Errors.Count > 0)
-                                    {
-                                        @ViewData.ModelState["returAvgang"].Errors[0].ErrorMessage
-                                    }
-                                </span>
-                            }
-                        </div>
+                <div class="form-group col-md-4" id="visReturTidspunkt">
+                    <label for="exampleFormControlSelect1">Returtidspunkt</label>
+                    <select class="form-control" id="returAvgang" name="returAvgang"></select>
+                    <div id="feilReturtidspunkt" class="feilmeldinger"></div>
+                    <div class="editor-field">
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            <span class="field-validation-error">
+                                @if (ViewData.ModelState["returAvgang"] != null && @ViewData.ModelState["returAvgang"].Errors.Count > 0)
+                                {
+                                    @ViewData.ModelState["returAvgang"].Errors[0].ErrorMessage
+                                }
+                            </span>
+                        }
                     </div>
+                </div>
                 </div>
 
                 <div class="form-row">
