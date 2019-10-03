@@ -255,42 +255,42 @@ namespace Oppg1.Models
             {
                 Stasjon = OsloS,
                 Bane = R20,
-                Avgang = "17.00"
+                Avgang = "17:00"
             };
 
             var OslosR20kl19 = new StasjonPaaBane
             {
                 Stasjon = OsloS,
                 Bane = R20,
-                Avgang = "19.00"
+                Avgang = "19:00"
             };
 
             var FredR20kl18 = new StasjonPaaBane
             {
                 Stasjon = Fredrikstad,
                 Bane = R20,
-                Avgang = "18.00"
+                Avgang = "18:00"
             };
 
             var FredR20kl20 = new StasjonPaaBane
             {
                 Stasjon = Fredrikstad,
                 Bane = R20,
-                Avgang = "20.00"
+                Avgang = "20:00"
             };
 
             var GarR20kl16 = new StasjonPaaBane
             {
                 Stasjon = Gardermoen,
                 Bane = R20,
-                Avgang = "16.00"
+                Avgang = "16:00"
             };
 
             var GarR20kl18 = new StasjonPaaBane
             {
                 Stasjon = Gardermoen,
                 Bane = R20,
-                Avgang = "18.00"
+                Avgang = "18:00"
             };
 
             R20.StasjonPaaBane.Add(OslosR20kl17);
