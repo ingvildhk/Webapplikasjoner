@@ -339,7 +339,7 @@ namespace Oppg1
                 }
             }
 
-            if (epost == null)
+            if (epost == null || epost == "")
             {
                 return false;
             }

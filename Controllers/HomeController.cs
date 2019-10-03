@@ -138,20 +138,22 @@ namespace Oppg1.Controllers
         {
             var bestilling = (BestillingHjelp)Session["Bestillingen"];
 
-            if (string.IsNullOrEmpty(epost) || epost == "Skriv epostadresse her")
+            if (string.IsNullOrEmpty(epost) || epost == "Skriv epostadresse her" || epost == "")
             {
                 ModelState.AddModelError("epost", "Skriv inn epostadresse");
             }
 
-            try
+            else
             {
-                MailAddress m = new MailAddress(epost);
+                try
+                {
+                    MailAddress m = new MailAddress(epost);
+                }
+                catch (FormatException)
+                {
+                    ModelState.AddModelError("epost", "epost må være på korrekt format");
+                }
             }
-            catch (FormatException)
-            {
-                ModelState.AddModelError("epost", "epost må være på korrekt format");
-            }
-
 
             var innBestilling = new BestillingHjelp()
             {
