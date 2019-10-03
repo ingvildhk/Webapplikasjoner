@@ -75,7 +75,7 @@ namespace Oppg1.Controllers
 
             try
             {
-                var senderEmail = new MailAddress("Watchful.OsloMet@gmail.com", "VY Oppgave1");
+                var senderEmail = new MailAddress("Watchful.OsloMet@gmail.com", "VY Oppgave-1");
                 var receiverEmail = new MailAddress(epost, "Receiver");
                 var password = "ovwkmahkayjcbpxb";
                 var sub = "Bestillingsbekreftelse";
