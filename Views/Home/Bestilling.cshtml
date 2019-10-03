@@ -24,7 +24,7 @@
 
     <h2>Her er din bestillingsinformasjon</h2>
     <br />
-    <hr>
+
     <form action="/Home/Bestilling" method="post" name="myForm2">
         <h5>Reiserute</h5>
         <table>
@@ -92,13 +92,15 @@
                 </tr>
             </table>
         }
-        <hr>
+
         <br />
 
         <h6><strong>Skriv inn din epostadresse for kjøp av billett</strong></h6>
         <div class="form-group">
-            <input type="email" class="form-control" name="epost" placeholder="Skriv epostadresse her">
-            <div class="editor-field" color="red">
+            <label for="exampleFormControlInput1">Skriv din epostadresse om du ønsker bekreftelse på mail</label>
+            <input type="email" class="form-control" id="epost" name="epost" placeholder="Skriv epostadresse her">
+            <div id="feilEpost" class="feilmeldinger"></div>
+            <div class="editor-field">
                 @if (!ViewData.ModelState.IsValid)
                 {
                     <span class="field-validation-error">
