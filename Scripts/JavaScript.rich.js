@@ -110,12 +110,19 @@
     }
 
     function VisTidspunktDropDown(avgang) {
-        var utStreng = "<option value'' selected hidden>Velg tidspunkt</option>";
-        for (var i in avgang.sort()) {
-            utStreng += "<option value='" + avgang[i] + "'>" + avgang[i] + "</option>";
+        if (Array.isArray(avgang) && avgang.length) {
+            var utStreng = "<option value'' selected hidden>Velg tidspunkt</option>";
+            for (var i in avgang.sort()) {
+                utStreng += "<option value='" + avgang[i] + "'>" + avgang[i] + "</option>";
+            }
+            $("#Tidspunkt").empty();
+            $("#Tidspunkt").append(utStreng);
         }
-        $("#Tidspunkt").empty();
-        $("#Tidspunkt").append(utStreng);
+        else {
+            var utStreng = "<option value'' selected hidden>Ingen flere avganger i dag</option>";
+            $("#Tidspunkt").empty();
+            $("#Tidspunkt").append(utStreng);
+        }
     }
 
 
@@ -150,12 +157,19 @@
     }
 
     function VisReturTidspunktDropDown(avgang) {
-        var utStreng = "<option value'' selected hidden>Velg tidspunkt</option>";
-        for (var i in avgang.sort()) {
-            utStreng += "<option value='" + avgang[i] + "'>" + avgang[i] + "</option>";
+        if (Array.isArray(avgang) && avgang.length) {
+            var utStreng = "<option value'' selected hidden>Velg tidspunkt</option>";
+            for (var i in avgang.sort()) {
+                utStreng += "<option value='" + avgang[i] + "'>" + avgang[i] + "</option>";
+            }
+            $("#returAvgang").empty();
+            $("#returAvgang").append(utStreng);
         }
-        $("#returAvgang").empty();
-        $("#returAvgang").append(utStreng);
+        else {
+            var utStreng = "<option value'' selected hidden>Ingen flere avganger i dag</option>";
+            $("#returAvgang").empty();
+            $("#returAvgang").append(utStreng);
+        }
     }
 
 })

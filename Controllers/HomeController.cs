@@ -91,7 +91,7 @@ namespace Oppg1.Controllers
                     ModelState.AddModelError("returAvgang", "Tidspunkt må være på korrekt format");
                 }
             }
-            //Sender videre stasjonsnavn og ikke stasjonsindeks
+            //Sender videre stasjonsnavn og ikke stasjonsindeks, setter id til 1 om parsing ikke virker
             int fraId;
             if (!int.TryParse(innBestilling.fraStasjon, out fraId))
             {
@@ -107,6 +107,7 @@ namespace Oppg1.Controllers
             }
             String tilStasjon = Bdb.hentStasjonsNavn(tilId);
             innBestilling.tilStasjon = tilStasjon;
+
             if (ModelState.IsValid)
             {
                 return RedirectToAction("Bestilling");
@@ -175,6 +176,15 @@ namespace Oppg1.Controllers
                         var password = "ovwkmahkayjcbpxb";
                         var sub = "Bestillingsbekreftelse";
                         var body = "Takk for din bestilling!";
+                        body += "\n\nFra Stasjon: " + innBestilling.fraStasjon;
+                        body += "\nTil Stasjon: " + innBestilling.tilStasjon;
+                        body += "\nDato: " + innBestilling.dato;
+                        body += "\nKlokkeslett: " + innBestilling.avgang;
+                        if (innBestilling.returAvgang != null)
+                        {
+                            body += "\nReturdato: " + innBestilling.returDato;
+                            body += "\nReturklokkeslett: " + innBestilling.returAvgang;
+                        }
                         var smtp = new SmtpClient
                         {
                             Host = "smtp.gmail.com",
