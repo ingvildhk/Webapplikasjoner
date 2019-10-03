@@ -4,213 +4,28 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
+    <title>Vy</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" /> <!-- Her ligger prosjektets CSS kode -->
+    <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap-reboot.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap-grid.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/jquery-3.4.1.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-    <script type="text/javascript">
-        $(function () {
-
-            //gjemmer og viser tur/retur
-            $(document).ready(function () {
-                $('input[type="radio"]').click(function () {
-                    if ($(this).attr('id') == 'retur') {
-                        $('#visReturDato').show();
-                        $('#visReturTidspunkt').show();
-                    }
-                    else {
-                        $('#visReturDato').hide();
-                        $('#visReturTidspunkt').hide();
-                    }
-                });
-            });
-
-            // sørger for at man ikke kan velge dato tidligere enn dagens dato
-            // 2019-09-29T11:45:15.764Z
-            $("#dato").attr("min", new Date().toISOString().split("T")[0]);
-
-            // sørger for at man ikke kan velge returdato tidligere enn utreisedato
-            $("#dato").change(function () {
-                var minDate = $("#dato").val();
-                $("#returDato").attr("min", minDate);
-            });
-
-            //henter alle stasjoner man kan reise fra ved oppstart
-            $.ajax({
-                url: '/Home/hentFraStasjoner',
-                type: 'GET',
-                dataType: 'json',
-                success: VisFraDropDown,
-                error: function (x, y, z) {
-                    alert(x + '\n' + y + '\n' + z);
-                }
-            });
-
-            //henter stasjoner man kan reise til basert på velgt frastasjon
-            $("#fraStasjon").change(function () {
-                var id = $("#fraStasjon").val();
-                $.ajax({
-                    url: '/Home/hentTilStasjoner/' + id,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: VisTilDropDown,
-                    error: function (x, y, z) {
-                        alert(x + '\n' + y + '\n' + z);
-                    }
-                });
-            });
-
-            //Legger frastasjoner i dropdownliste
-            function VisFraDropDown(stasjon) {
-                var utStreng = "<option value'' selected hidden>Velg stasjon</option>";
-                for (var i in stasjon) {
-                    utStreng += "<option value='" + stasjon[i].StasjonsID + "'>" + stasjon[i].Stasjonsnavn + "</option>";
-
-                }
-                $("#fraStasjon").append(utStreng);
-            }
-
-            //Legger tilstasjoner i dropdownliste. Hvis man endrer frastasjon, og det er en stasjon man kan reise fra
-            //for å komme til allerede valgt tilstasjon, så beholdes verdien i tilstasjon
-            function VisTilDropDown(stasjon) {
-                var utStreng = "<option value'' selected hidden>Velg stasjon</option>";
-                var finnes = false;
-                var tilStasjon = parseInt($("#tilStasjon").val())
-                for (var i in stasjon) {
-                    utStreng += "<option value='" + stasjon[i].StasjonsID + "'>" + stasjon[i].Stasjonsnavn + "</option>";
-                    if (stasjon[i].StasjonsID === tilStasjon) {
-                        finnes = true;
-                    }
-                }
-                $("#tilStasjon").empty();
-                $("#tilStasjon").append(utStreng);
-                $("#tilStasjon").val(finnes ? tilStasjon : "Velg stasjon");
-                VisTidspunkt();
-            }
-
-            $("#tilStasjon").change(VisTidspunkt);
-            $("#dato").change(VisTidspunkt);
-
-            //legger tidspunkt i dropdownliste. Kjøres ved change både på til, fra og dato, men fullføres kun hvis
-            //alle variablene har data
-            function VisTidspunkt() {
-                var fraStasjon = $("#fraStasjon").val();
-                var tilStasjon = $("#tilStasjon").val();
-                var dato = $("#dato").val();
-
-                if (fraStasjon && tilStasjon && tilStasjon !== "Velg stasjon" && dato) {
-                    $.ajax({
-                        url: '/Home/hentTidspunkt?fraStasjon=' + fraStasjon + "&tilStasjon=" + tilStasjon + "&dato=" + dato,
-                        type: 'GET',
-                        dataType: 'json',
-                        success: VisTidspunktDropDown,
-                        error: function (x, y, z) {
-                            alert(x + '\n' + y + '\n' + z);
-                        }
-                    });
-                } else {
-                    $("#Tidspunkt").empty();
-                }
-            }
-
-            function VisTidspunktDropDown(avgang) {
-                var utStreng = "<option value'' selected hidden>Velg tidspunkt</option>";
-                for (var i in avgang.sort()) {
-                    utStreng += "<option value='" + avgang[i] + "'>" + avgang[i] + "</option>";
-                }
-                $("#Tidspunkt").empty();
-                $("#Tidspunkt").append(utStreng);
-            }
-
-
-            //Onchange funksjoner for visning av returavgang
-            $("#tilStasjon").change(VisReturTidspunkt);
-            $("#fraStasjon").change(VisReturTidspunkt);
-            $("#Tidspunkt").change(VisReturTidspunkt);
-            $("#dato").change(VisReturTidspunkt);
-            $("#returDato").change(VisReturTidspunkt);
-
-            //Viser returtidspunkt
-            function VisReturTidspunkt() {
-                var fraStasjon = $("#tilStasjon").val();
-                var tilStasjon = $("#fraStasjon").val();
-                var dato = $("#dato").val();
-                var returdato = $("#returDato").val();
-                var avgang = $("#Tidspunkt").val();
-
-                if (fraStasjon && tilStasjon && tilStasjon !== "Velg stasjon" && fraStasjon !== "Velg stasjon" && dato && returdato && avgang) {
-                    $.ajax({
-                        url: '/Home/hentReturTidspunkt?fraStasjon=' + fraStasjon + "&tilStasjon=" + tilStasjon + "&dato=" + dato + "&returdato=" + returdato + "&avgang=" + avgang,
-                        type: 'GET',
-                        dataType: 'json',
-                        success: VisReturTidspunktDropDown,
-                        error: function (x, y, z) {
-                            alert(x + '\n' + y + '\n' + z);
-                        }
-                    });
-                } else {
-                    $("#returAvgang").empty();
-                }
-            }
-
-            function VisReturTidspunktDropDown(avgang) {
-                var utStreng = "<option value'' selected hidden>Velg tidspunkt</option>";
-                for (var i in avgang.sort()) {
-                    utStreng += "<option value='" + avgang[i] + "'>" + avgang[i] + "</option>";
-                }
-                $("#returAvgang").empty();
-                $("#returAvgang").append(utStreng);
-            }
-        })
-    </script>
+    <script src="~/Scripts/JavaScript.rich.js"></script> <!-- her ligger prosjektets js/ajax/json kode -->
 </head>
-
-<style type="text/css">
-
-    #fraStasjon:focus {
-        border-color: #029678;
-        box-shadow: inset 0 1px 1px rgba(2,150,120, 0.8), 0 0 8px rgba(2,150,120, 0.86);
-    }
-
-    #tilStasjon:focus {
-        border-color: #029678;
-        box-shadow: inset 0 1px 1px rgba(2,150,120, 0.8), 0 0 8px rgba(2,150,120, 0.86);
-    }
-
-    #dato:focus {
-        border-color: #029678;
-        box-shadow: inset 0 1px 1px rgba(2,150,120, 0.8), 0 0 8px rgba(2,150,120, 0.86);
-    }
-
-    #Tidspunkt:focus {
-        border-color: #029678;
-        box-shadow: inset 0 1px 1px rgba(2,150,120, 0.8), 0 0 8px rgba(2,150,120, 0.86);
-    }
-
-    #bestillKnapp {
-        background-color: #029678;
-    }
-
-    #visReturDato {
-        display: none;
-    }
-
-    #visReturTidspunkt {
-        display: none;
-    }
-</style>
-
 
 <body>
 
-    <form action="/Home/Index" method="post">
+    <form action="/Home/Index" method="post" id="myForm">
         <h2>Hei, hvor ønsker du å reise?</h2>
         <br />
 
         <div class="form-row">
-
-            <div class="form-group col-md-6" id="dropDown">
+            <div class="form-group col-md-4" id="dropDown">
                 <label for="exampleFormControlSelect1">Reise fra</label>
-                <select class="form-control" id="fraStasjon" name="fraStasjon"></select>
+                <select class="form-control" id="fraStasjon" name="fraStasjon" required></select>
                 <div class="editor-field">
                     @if (!ViewData.ModelState.IsValid)
                     {
@@ -225,9 +40,9 @@
             </div>
 
 
-            <div class="form-group col-md-6" id="dropDown">
+            <div class="form-group col-md-4" id="dropDown">
                 <label for="exampleFormControlSelect1">Reise til</label>
-                <select class="form-control" id="tilStasjon" name="tilStasjon"></select>
+                <select class="form-control" id="tilStasjon" name="tilStasjon" required></select>
                 <div class="editor-field">
                     @if (!ViewData.ModelState.IsValid)
                     {
@@ -240,51 +55,51 @@
                     }
                 </div>
             </div>
+        </div>
 
+        <div class="form-horizontal">
+            <table class="form-check">
+                <tr>
+                    <td class="radio" id="turRetur" >
+                        <input type="radio" name="tur" value="en vei" checked> En vei<br>
+                        <input type="radio" name="tur" value="tur/retur" id="retur"> Tur/Retur<br>
+                    </td>
+                </tr>
+            </table>
+        </div>
 
-            <div class="form-group col-md-6">
+        <div class="form-row">
+            <div class="form-group col-md-4">
                 <label for="exampleFormControlSelect1">Dato</label>
-                <input class="form-control" id="dato" name="dato" type="date">
+                <input class="form-control" id="dato" name="dato" type="date" required>
                 <div class="editor-field">
                     @if (!ViewData.ModelState.IsValid)
                     {
-                    <span class="field-validation-error">
-                        @if (@ViewData.ModelState["dato"].Errors.Count > 0)
-                        {
-                            @ViewData.ModelState["dato"].Errors[0].ErrorMessage
-                        }
-                    </span>
+                        <span class="field-validation-error">
+                            @if (@ViewData.ModelState["dato"].Errors.Count > 0)
+                            {
+                                @ViewData.ModelState["dato"].Errors[0].ErrorMessage
+                            }
+                        </span>
                     }
                 </div>
             </div>
 
 
-            <div class="form-group col-md-6" id="dropDown">
+            <div class="form-group col-md-4" id="dropDown">
                 <label for="exampleFormControlSelect1">Tid</label>
-                <select class="form-control" id="Tidspunkt" name="avgang"></select>
+                <select class="form-control" id="Tidspunkt" name="avgang" required></select>
                 <div class="editor-field">
                     @if (!ViewData.ModelState.IsValid)
                     {
-                    <span class="field-validation-error">
-                        @if (@ViewData.ModelState["avgang"].Errors.Count > 0)
-                        {
-                            @ViewData.ModelState["avgang"].Errors[0].ErrorMessage
-                        }
-                    </span>
+                        <span class="field-validation-error">
+                            @if (@ViewData.ModelState["avgang"].Errors.Count > 0)
+                            {
+                                @ViewData.ModelState["avgang"].Errors[0].ErrorMessage
+                            }
+                        </span>
                     }
                 </div>
-            </div>
-
-
-            <div class="form-horizontal">
-                <table class="table">
-                    <tr>
-                        <td class="radio">
-                            <input type="radio" name="returKnapp" value="en vei" checked>En vei<br>
-                            <input type="radio" name="returKnapp" value="tur/retur" id="retur">Tur/Retur<br>
-                        </td>
-                    </tr>
-                </table>
             </div>
 
             <div class="form-group col-md-6" id="visReturDato">
@@ -319,16 +134,18 @@
                     }
                 </div>
             </div>
+        </div>
 
-
-            <div class="form-horizontal">
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" name="Bestilling" value="Gå til bestilling" class="btn btn-success" id="bestillKnapp" />
+            <div class="form-row">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10" id="knappKnapp">
+                            <input type="submit" onclick="return validateAll()"  name="Bestilling" value="Gå til bestilling" class="btn btn-success" id="bestillKnapp" />
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
     </form>
 </body>
 </html>
+

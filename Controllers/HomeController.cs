@@ -2,10 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Net;
+using System.Net.Mail;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
-using System.Text.RegularExpressions;
-using System.Net.Mail;
 
 namespace Oppg1.Controllers
 {
@@ -117,6 +117,18 @@ namespace Oppg1.Controllers
         public ActionResult Bestilling()
         {
             var bestilling = (BestillingHjelp)Session["Bestillingen"];
+
+            string[] sdato = bestilling.dato.Split('-');
+            var formatertDato = sdato[2] + "." + sdato[1] + "." + sdato[0];
+            bestilling.dato = formatertDato;
+
+            if (!String.IsNullOrEmpty(bestilling.returDato))
+            {
+                string[] s = bestilling.returDato.Split('-');
+                var formatertReturDato = s[2] + "." + s[1] + "." + s[0];
+                bestilling.returDato = formatertReturDato;
+            }
+
             return View(bestilling);
         }
 
@@ -151,11 +163,43 @@ namespace Oppg1.Controllers
                 epost = epost
             };
 
+           
+
             var Bdb = new BestillingDB();
             if (Bdb.sjekkBestilling(innBestilling))
             {
                 if (Bdb.lagreBestilling(innBestilling))
                 {
+                    try
+                    {
+                        var senderEmail = new MailAddress("niklasbae@gmail.com", "VY Oppgave1");
+                        var receiverEmail = new MailAddress(epost, "Receiver");
+                        var password = "dlqrpxdouoaautzc";
+                        var sub = "Bestillingsbekreftelse";
+                        var body = "Takk for din bestilling!";
+                        var smtp = new SmtpClient
+                        {
+                            Host = "smtp.gmail.com",
+                            Port = 587,
+                            EnableSsl = true,
+                            DeliveryMethod = SmtpDeliveryMethod.Network,
+                            UseDefaultCredentials = false,
+                            Credentials = new NetworkCredential(senderEmail.Address, password)
+                        };
+                        using (var mess = new MailMessage(senderEmail, receiverEmail)
+                        {
+                            Subject = sub,
+                            Body = body
+                        })
+                        {
+                            smtp.Send(mess);
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        ViewBag.save = "Kunne ikke sende bekreftelse på mail";
+                    }
+
                     return View("Bekreftelse");
                 }
                 else

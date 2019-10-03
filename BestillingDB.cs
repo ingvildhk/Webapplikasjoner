@@ -300,7 +300,7 @@ namespace Oppg1
             //sjekker at dato er på korrekt format
             DateTime date;
             bool validDate = DateTime.TryParseExact(
-                dato, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out date);
+                dato, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out date);
             if (!validDate)
             {
                 return false;
@@ -320,7 +320,7 @@ namespace Oppg1
             {
                 DateTime returDate;
                 bool validReturDate = DateTime.TryParseExact(
-                    returDato, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out returDate);
+                    returDato, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out returDate);
                 if (!validReturDate)
                 {
                     return false;

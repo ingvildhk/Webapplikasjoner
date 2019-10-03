@@ -1,113 +1,129 @@
 ﻿@model Oppg1.Models.BestillingHjelp
 
-@{ 
-    ViewBag.Title = "";
-}
+<!DOCTYPE html>
 
-<!--For å komme tilbake til bestillingsvindu-->
-<div>
-    @Html.ActionLink("Tilbake til bestilling", "Index")
-</div>
+<html>
+<head>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-reboot.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-grid.css" rel="stylesheet" />
+    <script src="~/Scripts/JavaScript.rich.js"></script>
 
-<br />
+</head>
 
-<h1>@ViewBag.save</h1>
-
-<h2>Her er din bestillingsinformasjon</h2>
-<br />
-
-<form action="/Home/Bestilling" method="post">
-    <table>
-
-        <tr>
-            <th>
-                Fra stasjon
-            </th>
-            <th>
-                Til stasjon
-            </th>
-            <th>
-                Dato
-            </th>
-            <th>
-                Avgangstid
-            </th>
-            <th>
-                Returdato
-            </th>
-            <th>
-                Returtid
-            </th>
-        </tr>
-
-        <tr>
-            <td name="fraStasjon">
-                @Model.fraStasjon
-            </td>
-            <td name="tilStasjon">
-                @Model.tilStasjon
-            </td>
-
-            <td name="dato">
-                @Model.dato
-            </td>
-            <td name="avgang">
-                @Model.avgang
-            </td>
-            <td name="returDato">
-                @Model.returDato
-            </td>
-            <td name="returAvgang">
-                @Model.returAvgang
-            </td>
-        </tr>
-    </table>
-
-
-<br />
-
-<div class="form-group">
-    <label for="exampleFormControlInput1">Skriv din epostadresse om du ønsker bekreftelse på mail</label>
-    <input type="email" class="form-control" name="epost" placeholder="Skriv epostadresse her">
-    <div class="editor-field">
-        @if (!ViewData.ModelState.IsValid)
-        {
-            <span class="field-validation-error">
-                @if (@ViewData.ModelState["epost"].Errors.Count > 0)
-                {
-                    @ViewData.ModelState["epost"].Errors[0].ErrorMessage
-                }
-            </span>
-        }
-    </div>
-</div>
-
-    <div class="form-horizontal">
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" name="bestill" value="Bekreft bestilling" class="btn btn-success" id="bestill" />
-            </div>
-        </div>
+<body>
+    <!--For å komme tilbake til bestillingsvindu-->
+    <div>
+        @Html.ActionLink("Tilbake til bestilling", "Index")
     </div>
 
     <br />
 
-</form>
+    <h3>@ViewBag.save</h3>
 
-<style type="text/css">
+    <h2>Her er din bestillingsinformasjon</h2>
+    <br />
 
-    #epost:focus {
-        border-color: #029678;
-        box-shadow: inset 0 1px 1px rgba(2,150,120, 0.8), 0 0 8px rgba(2,150,120, 0.86);
-    }
+    <form action="/Home/Bestilling" method="post" name="myForm2">
+        <h5>Reiserute</h5>
+        <table>
+            <tr>
+                <th>
+                    Avgang
+                </th>
+                <td name="fraStasjon">
+                    @Model.fraStasjon
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Ankomst
+                </th>
+                <td name="tilStasjon">
+                    @Model.tilStasjon
+                </td>
+            </tr>
+        </table>
 
-    #bestill {
-        background-color: #029678;
-    }
+        <br />
 
-    td, th {
-        text-align: left;
-        padding-right: 40px;
-    }
-</style>
+        <h5>Utreise</h5>
+        <table>
+            <tr>
+                <th>
+                    Dato
+                </th>
+                <td name="dato">
+                    @Model.dato
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Avgangstid
+                </th>
+                <td name="avgang">
+                    @Model.avgang
+                </td>
+            </tr>
+        </table>
+
+        <br />
+
+        @if (!String.IsNullOrEmpty(Model.returDato))
+        {
+            <h5>Returreise</h5>
+            <table>
+                <tr>
+                    <th>
+                        Dato
+                    </th>
+                    <td name="returDato">
+                        @Model.returDato
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Avgangstid
+                    </th>
+                    <td name="returAvgang">
+                        @Model.returAvgang
+                    </td>
+                </tr>
+            </table>
+        }
+
+        <br />
+
+        <h6><strong>Skriv inn din epostadresse for kjøp av billett</strong></h6>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Skriv din epostadresse om du ønsker bekreftelse på mail</label>
+            <input type="email" class="form-control" name="epost" placeholder="Skriv epostadresse her">
+            <div class="editor-field">
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <span class="field-validation-error">
+                        @if (@ViewData.ModelState["epost"].Errors.Count > 0)
+                        {
+                            @ViewData.ModelState["epost"].Errors[0].ErrorMessage
+                        }
+                    </span>
+                }
+            </div>
+            </div>
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10" id="knappKnapp">
+                        <input type="submit" name="bestill" onclick="return validateEmail()" value="Kjøp billett" class="btn btn-success" id="bestillKnapp" />
+                    </div>
+                </div>
+            </div>
+
+            <br />
+
+    </form>
+    </body>
+</html>
+
 
