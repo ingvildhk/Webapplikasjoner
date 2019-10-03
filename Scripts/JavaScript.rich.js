@@ -178,8 +178,8 @@
 
 /* validerer tidsvalget */
 function validateTime() {
-    var x = document.forms["myForm"]["avgang"].value;
-    if (x == "Velg tidspunkt" || x == null || x == "dd.mm.åååå") {
+    var x = document.forms["myForm"]["Tidspunkt"].value;
+    if (x == "Velg tidspunkt" || x == null || x == "") {
         document.getElementById("feilTidspunkt").innerHTML = "Vennligst velg tidspunkt for avreise";
         return false;
     }
@@ -205,7 +205,7 @@ function validateTo() {
 /* validerer datovalg */
 function validateDate() {
     var x = document.forms["myForm"]["dato"].value;
-    if (x == "") {
+    if (x == "" || x == "dd.mm.åååå") {
         document.getElementById("feilDato").innerHTML = "Vennligst velg dato for avreise";
         return false;
     }
@@ -214,7 +214,7 @@ function validateDate() {
 /* validerer returdato */
 function validateReturDate() {
     var x = document.forms["myForm"]["returDato"].value;
-    if (x == "" || x == "dd.mm.åååå") {
+    if (x == "" || x == "dd.mm.åååå" ) {
         document.getElementById("feilReturdato").innerHTML = "Vennligst velg returdato for avreise";
         return false;
     }
@@ -241,7 +241,7 @@ function validateAll() {
     var x = document.forms["myForm"]["tur"].value;
     if (x == "tur/retur" || x == "Tur/Retur" || x == "retur") {
         var okTidRetur = validateReturTime();
-        var okDatoRetur = validateReturTime();
+        var okDatoRetur = validateReturDate();
         if (okTidRetur && okDatoRetur) {
             return true;
         }
