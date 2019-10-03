@@ -264,3 +264,28 @@ function validateEmail() {
     }
     return true;
 }
+
+$(document).ready(function () {
+    $("#dato").change(function () {
+        document.getElementById("feilDato").innerHTML = "";
+    });
+    $("#fraStasjon").change(function () {
+        document.getElementById("feilFrastasjon").innerHTML = "";
+    });
+    $("#tilStasjon").change(function () {
+        document.getElementById("feilTilstasjon").innerHTML = "";
+    });
+    $("#Tidspunkt").change(function () {
+        document.getElementById("feilTidspunkt").innerHTML = "";
+    });
+    $("#returDato").change(function () {
+        document.getElementById("feilReturdato").innerHTML = "";
+    });
+    $("#returAvgang").change(function () {
+        document.getElementById("feilReturtidspunkt").innerHTML = "";
+    });
+    $("#epost").change(function () {
+        document.getElementById("feilEpost").innerHTML = "";
+    });
+
+});
