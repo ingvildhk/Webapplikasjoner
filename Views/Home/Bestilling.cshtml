@@ -17,7 +17,6 @@
     <div>
         @Html.ActionLink("Tilbake til bestilling", "Index")
     </div>
-
     <br />
 
     <h3>@ViewBag.save</h3>
@@ -44,7 +43,6 @@
                 </td>
             </tr>
         </table>
-
         <br />
 
         <h5>Utreise</h5>
@@ -66,7 +64,6 @@
                 </td>
             </tr>
         </table>
-
         <br />
 
         @if (!String.IsNullOrEmpty(Model.returDato))
@@ -109,20 +106,19 @@
                     </span>
                 }
             </div>
-            </div>
+        </div>
 
-            <div class="form-horizontal">
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10" id="knappKnapp">
-                        <input type="submit" name="bestill" onclick="return validateEmail()" value="Kjøp billett" class="btn btn-success" id="bestillKnapp" />
-                    </div>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10" id="knappKnapp">
+                    <input type="submit" name="bestill" onclick="return validateEmail()" value="Kjøp billett" class="btn btn-success" id="bestillKnapp" />
                 </div>
             </div>
-
-            <br />
+        </div>
+        <br />
 
     </form>
-    </body>
+</body>
 </html>
 
 

@@ -227,7 +227,6 @@ namespace Oppg1.Controllers
             }
         }
         
-
         public string hentFraStasjoner()
         {
             var Bdb = new BestillingDB();

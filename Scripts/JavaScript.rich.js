@@ -125,7 +125,6 @@
         }
     }
 
-
     //Onchange funksjoner for visning av returavgang
     $("#tilStasjon").change(VisReturTidspunkt);
     $("#fraStasjon").change(VisReturTidspunkt);
@@ -185,6 +184,7 @@ function validateTime() {
     }
     return true;
 }
+
 /* validerer frastasjon */
 function validateFrom() {
     var x = document.forms["myForm"]["fraStasjon"].value;
@@ -202,6 +202,7 @@ function validateTo() {
     }
     return true;
 }
+
 /* validerer datovalg */
 function validateDate() {
     var x = document.forms["myForm"]["dato"].value;
@@ -211,6 +212,7 @@ function validateDate() {
     }
     return true;
 }
+
 /* validerer returdato */
 function validateReturDate() {
     var x = document.forms["myForm"]["returDato"].value;
@@ -220,6 +222,7 @@ function validateReturDate() {
     }
     return true;
 }
+
 /* validerer validerer returtid */
 function validateReturTime() {
 
@@ -252,6 +255,7 @@ function validateAll() {
     }
     return false;
 }
+
 /* --------------------- klientvalidering bestilling ---------------*/
 
 /* validerer epost */
