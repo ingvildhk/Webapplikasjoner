@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model Oppg1.Models.BestillingHjelp
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -13,7 +14,6 @@
     <script src="~/Scripts/jquery-3.4.1.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="~/Scripts/JavaScript.rich.js"></script> <!-- her ligger prosjektets js/ajax/json kode -->
-
 </head>
 
 <body>
@@ -23,18 +23,37 @@
         <br />
 
         <div class="form-row">
-
             <div class="form-group col-md-4" id="dropDown">
                 <label for="exampleFormControlSelect1">Reise fra</label>
                 <select class="form-control" id="fraStasjon" name="fraStasjon" required></select>
-                <div id="feilFrastasjon" class="feilmeldinger"></div>
+                <div class="editor-field">
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                    <span class="field-validation-error">
+                        @if (@ViewData.ModelState["fraStasjon"].Errors.Count > 0)
+                        {
+                            @ViewData.ModelState["fraStasjon"].Errors[0].ErrorMessage
+                        }
+                    </span>
+                    }
+                </div>
             </div>
 
 
             <div class="form-group col-md-4" id="dropDown">
                 <label for="exampleFormControlSelect1">Reise til</label>
-                <select class="form-control" id="tilStasjon" name="tilStasjon"required></select>
-                <div id="feilTilstasjon" class="feilmeldinger"></div>
+                <select class="form-control" id="tilStasjon" name="tilStasjon" required></select>
+                <div class="editor-field">
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                    <span class="field-validation-error">
+                        @if (@ViewData.ModelState["tilStasjon"].Errors.Count > 0)
+                        {
+                            @ViewData.ModelState["tilStasjon"].Errors[0].ErrorMessage
+                        }
+                    </span>
+                    }
+                </div>
             </div>
         </div>
 
@@ -53,41 +72,82 @@
             <div class="form-group col-md-4">
                 <label for="exampleFormControlSelect1">Dato</label>
                 <input class="form-control" id="dato" name="dato" type="date" required>
-                <div id="feilDato" class="feilmeldinger"></div>
+                <div class="editor-field">
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <span class="field-validation-error">
+                            @if (@ViewData.ModelState["dato"].Errors.Count > 0)
+                            {
+                                @ViewData.ModelState["dato"].Errors[0].ErrorMessage
+                            }
+                        </span>
+                    }
+                </div>
             </div>
+            
 
 
             <div class="form-group col-md-4" id="dropDown">
                 <label for="exampleFormControlSelect1">Tid</label>
                 <select class="form-control" id="Tidspunkt" name="avgang" required></select>
-                <div id="feilTidspunkt" class="feilmeldinger"></div>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-4" id="visReturDato">
-                <label for="exampleFormControlSelect1">Returdato</label>
-                <input class="form-control" id="returDato" name="returDato" type="date">
-                <div id="feilReturdato" class="feilmeldinger"></div>
-            </div>
-
-
-            <div class="form-group col-md-4" id="visReturTidspunkt">
-                <label for="exampleFormControlSelect1">Returtidspunkt</label>
-                <select class="form-control" id="returAvgang" name="returAvgang" ></select>
-                <div id="feilReturtidspunkt" class="feilmeldinger"></div>
+                <div class="editor-field">
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <span class="field-validation-error">
+                            @if (@ViewData.ModelState["avgang"].Errors.Count > 0)
+                            {
+                                @ViewData.ModelState["avgang"].Errors[0].ErrorMessage
+                            }
+                        </span>
+                    }
+                </div>
             </div>
         </div>
 
             <div class="form-row">
-                <div class="form-horizontal">
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10" id="knappKnapp">
-                            <input type="submit" onclick="return validateAll()"  name="Bestilling" value="Gå til bestilling" class="btn btn-success" id="bestillKnapp" />
+                <div class="form-group col-md-4" id="visReturDato">
+                    <label for="exampleFormControlSelect1">Returdato</label>
+                    <input class="form-control" id="returDato" name="returDato" type="date">
+                    <div class="editor-field">
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            <span class="field-validation-error">
+                                @if (@ViewData.ModelState["returDato"].Errors.Count > 0)
+                                {
+                                    @ViewData.ModelState["returDato"].Errors[0].ErrorMessage
+                                }
+                            </span>
+                        }
+                    </div>
+                </div>
+                
+                    <div class="form-group col-md-4" id="visReturTidspunkt">
+                        <label for="exampleFormControlSelect1">Returtidspunkt</label>
+                        <select class="form-control" id="returAvgang" name="returAvgang"></select>
+                        <div class="editor-field">
+                            @if (!ViewData.ModelState.IsValid)
+                            {
+                                <span class="field-validation-error">
+                                    @if (ViewData.ModelState["returAvgang"] != null && @ViewData.ModelState["returAvgang"].Errors.Count > 0)
+                                    {
+                                        @ViewData.ModelState["returAvgang"].Errors[0].ErrorMessage
+                                    }
+                                </span>
+                            }
                         </div>
                     </div>
                 </div>
-            </div>
-    </form>
+
+                <div class="form-row">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10" id="knappKnapp">
+                                <input type="submit" onclick="return validateAll()" name="Bestilling" value="Gå til bestilling" class="btn btn-success" id="bestillKnapp" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+</form>
 </body>
 </html>
 
