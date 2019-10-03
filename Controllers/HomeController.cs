@@ -163,8 +163,6 @@ namespace Oppg1.Controllers
                 epost = epost
             };
 
-           
-
             var Bdb = new BestillingDB();
             if (Bdb.sjekkBestilling(innBestilling))
             {
@@ -172,9 +170,9 @@ namespace Oppg1.Controllers
                 {
                     try
                     {
-                        var senderEmail = new MailAddress("niklasbae@gmail.com", "VY Oppgave1");
+                        var senderEmail = new MailAddress("Watchful.OsloMet@gmail.com", "VY Oppgave-1");
                         var receiverEmail = new MailAddress(epost, "Receiver");
-                        var password = "dlqrpxdouoaautzc";
+                        var password = "ovwkmahkayjcbpxb";
                         var sub = "Bestillingsbekreftelse";
                         var body = "Takk for din bestilling!";
                         var smtp = new SmtpClient
@@ -195,25 +193,28 @@ namespace Oppg1.Controllers
                             smtp.Send(mess);
                         }
                     }
+
                     catch (Exception)
                     {
                         ViewBag.save = "Kunne ikke sende bekreftelse på mail";
                     }
-
                     return View("Bekreftelse");
                 }
+
                 else
                 {
                     ViewBag.save = "Kjøp ikke gjennomført, kunne ikke lagre til database";
                     return View(innBestilling);
                 }
             }
+
             else
             {
                 ViewBag.save = "Kjøp ikke gjennomført, feil i kjøpsdata";
                 return View(innBestilling);
             }
         }
+        
 
         public string hentFraStasjoner()
         {

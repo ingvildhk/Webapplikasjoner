@@ -328,7 +328,7 @@ namespace Oppg1
             }
 
             //hvis det er bestilr retur, sjekker at returavgang er på korrekt format
-            if(returAvgang != null)
+            if (returAvgang != null)
             {
                 DateTime returTime;
                 bool validReturTime = DateTime.TryParseExact(
@@ -343,7 +343,8 @@ namespace Oppg1
             {
                 return false;
             }
-            else { 
+            else
+            {
                 //sjekker at epost er på korrekt format
                 try
                 {
@@ -355,7 +356,7 @@ namespace Oppg1
                 }
                 return true;
             }
-            
+
         }
 
         public bool lagreBestilling(BestillingHjelp innBestilling)
