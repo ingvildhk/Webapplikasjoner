@@ -382,11 +382,7 @@ namespace Oppg1
                     return true;
                 }
 
-<<<<<<< HEAD
                 catch (Exception)
-=======
-                catch (Exception feil)
->>>>>>> parent of a3ff31f... .
                 {
                     return false;
                 }
