@@ -110,12 +110,19 @@
     }
 
     function VisTidspunktDropDown(avgang) {
-        var utStreng = "<option value'' selected hidden>Velg tidspunkt</option>";
-        for (var i in avgang.sort()) {
-            utStreng += "<option value='" + avgang[i] + "'>" + avgang[i] + "</option>";
+        if (Array.isArray(avgang) && avgang.length) {
+            var utStreng = "<option value'' selected hidden>Velg tidspunkt</option>";
+            for (var i in avgang.sort()) {
+                utStreng += "<option value='" + avgang[i] + "'>" + avgang[i] + "</option>";
+            }
+            $("#Tidspunkt").empty();
+            $("#Tidspunkt").append(utStreng);
         }
-        $("#Tidspunkt").empty();
-        $("#Tidspunkt").append(utStreng);
+        else {
+            var utStreng = "<option value'' selected hidden>Ingen flere avganger i dag</option>";
+            $("#Tidspunkt").empty();
+            $("#Tidspunkt").append(utStreng);
+        }
     }
 
 
@@ -150,12 +157,19 @@
     }
 
     function VisReturTidspunktDropDown(avgang) {
-        var utStreng = "<option value'' selected hidden>Velg tidspunkt</option>";
-        for (var i in avgang.sort()) {
-            utStreng += "<option value='" + avgang[i] + "'>" + avgang[i] + "</option>";
+        if (Array.isArray(avgang) && avgang.length) {
+            var utStreng = "<option value'' selected hidden>Velg tidspunkt</option>";
+            for (var i in avgang.sort()) {
+                utStreng += "<option value='" + avgang[i] + "'>" + avgang[i] + "</option>";
+            }
+            $("#returAvgang").empty();
+            $("#returAvgang").append(utStreng);
         }
-        $("#returAvgang").empty();
-        $("#returAvgang").append(utStreng);
+        else {
+            var utStreng = "<option value'' selected hidden>Ingen flere avganger i dag</option>";
+            $("#returAvgang").empty();
+            $("#returAvgang").append(utStreng);
+        }
     }
 
 })
@@ -166,7 +180,7 @@
 function validateTime() {
     var x = document.forms["myForm"]["avgang"].value;
     if (x == "Velg tidspunkt" || x == null || x == "dd.mm.åååå") {
-        alert("Vennligst velg tidspunkt for avreise");
+        document.getElementById("feilTidspunkt").innerHTML = "Vennligst velg tidspunkt for avreise";
         return false;
     }
     return true;
@@ -175,7 +189,7 @@ function validateTime() {
 function validateFrom() {
     var x = document.forms["myForm"]["fraStasjon"].value;
     if (x == "" || x == "Velg stasjon") {
-        alert("Vennligst velg stasjon du reiser fra");
+        document.getElementById("feilFrastasjon").innerHTML = "Vennligst velg stasjon du reiser fra";
         return false;
     }
     return true;
@@ -183,7 +197,7 @@ function validateFrom() {
 function validateTo() {
     var x = document.forms["myForm"]["tilStasjon"].value;
     if (x == "" || x == "Velg stasjon") {
-        alert("Vennligst velg stasjon du reiser til");
+        document.getElementById("feilTilstasjon").innerHTML = "Vennligst velg stasjon du reiser til";
         return false;
     }
     return true;
@@ -192,7 +206,7 @@ function validateTo() {
 function validateDate() {
     var x = document.forms["myForm"]["dato"].value;
     if (x == "") {
-        alert("Vennligst velg dato for avreise");
+        document.getElementById("feilDato").innerHTML = "Vennligst velg dato for avreise";
         return false;
     }
     return true;
@@ -201,7 +215,7 @@ function validateDate() {
 function validateReturDate() {
     var x = document.forms["myForm"]["returDato"].value;
     if (x == "" || x == "dd.mm.åååå") {
-        alert("Vennligst velg returdato for avreise");
+        document.getElementById("feilReturdato").innerHTML = "Vennligst velg returdato for avreise";
         return false;
     }
     return true;
@@ -211,7 +225,7 @@ function validateReturTime() {
 
     var x = document.forms["myForm"]["returAvgang"].value;
     if (x == "Velg tidspunkt" || x == null || x == "") {
-        alert("Vennligst velg returtidspunkt for avreise");
+        document.getElementById("feilReturtidspunkt").innerHTML = "Vennligst velg returtidspunkt for avreise";
         return false;
     }
     return true;

@@ -1,6 +1,8 @@
 ﻿using Oppg1.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Net.Mail;
 
 namespace Oppg1
 {
@@ -236,7 +238,7 @@ namespace Oppg1
                 }
             }
 
-            //Hvis avgangsdato og returdato er like, lister kun ut tidspunkt som ikke har vært
+            //Hvis avgangsdato og returdato er like, lister kun ut tidspunkt som er senere enn avgangstiden
             if (sammenligning == 0)
             {
                 foreach (Bane bane in FraTilBaner)
@@ -265,6 +267,96 @@ namespace Oppg1
                 }
             }
             return Avgangstider;
+        }
+
+        public bool sjekkBestilling(BestillingHjelp innBestilling)
+        {
+            var fraStasjon = innBestilling.fraStasjon;
+            var tilStasjon = innBestilling.tilStasjon;
+            var dato = innBestilling.dato;
+            var returDato = innBestilling.returDato;
+            var avgang = innBestilling.avgang;
+            var returAvgang = innBestilling.returAvgang;
+            var epost = innBestilling.epost;
+
+            List<String> alleStasjonesnavn = new List<String>();
+            foreach (Stasjon s in db.Stasjon)
+            {
+                alleStasjonesnavn.Add(s.Stasjonsnavn);
+            }
+
+            //sjekker om fra og til stasjoner finnes i databasen
+            if (!alleStasjonesnavn.Contains(fraStasjon) || !alleStasjonesnavn.Contains(tilStasjon))
+            {
+                return false;
+            }
+
+            //sjekker om til og fra stasjon er lik
+            if (fraStasjon == tilStasjon)
+            {
+                return false;
+            }
+
+            //sjekker at dato er på korrekt format
+            DateTime date;
+            bool validDate = DateTime.TryParseExact(
+                dato, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out date);
+            if (!validDate)
+            {
+                return false;
+            }
+
+            //sjekker at avgang er på korrekt format
+            DateTime time;
+            bool validTime = DateTime.TryParseExact(
+                avgang, "HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out time);
+            if (!validTime)
+            {
+                return false;
+            }
+
+            //hvis det er bestilt retur, sjekker at returdato er på korrekt format
+            if (returDato != null)
+            {
+                DateTime returDate;
+                bool validReturDate = DateTime.TryParseExact(
+                    returDato, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out returDate);
+                if (!validReturDate)
+                {
+                    return false;
+                }
+            }
+
+            //hvis det er bestilr retur, sjekker at returavgang er på korrekt format
+            if (returAvgang != null)
+            {
+                DateTime returTime;
+                bool validReturTime = DateTime.TryParseExact(
+                    returAvgang, "HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out returTime);
+                if (!validReturTime)
+                {
+                    return false;
+                }
+            }
+
+            if (epost == null)
+            {
+                return false;
+            }
+            else
+            {
+                //sjekker at epost er på korrekt format
+                try
+                {
+                    MailAddress m = new MailAddress(epost);
+                }
+                catch (FormatException)
+                {
+                    return false;
+                }
+                return true;
+            }
+
         }
 
         public bool lagreBestilling(BestillingHjelp innBestilling)

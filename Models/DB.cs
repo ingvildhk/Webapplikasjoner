@@ -36,9 +36,7 @@ namespace Oppg1.Models
         public int BestillingsID { get; set; }
         public String fraStasjon { get; set; }
         public String tilStasjon { get; set; }
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime dato { get; set; }
+        public String dato { get; set; }
         public String returDato { get; set; }
         public String avgang { get; set; }
         public String returAvgang { get; set; }

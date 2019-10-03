@@ -1,6 +1,7 @@
 ﻿using Oppg1.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Net;
 using System.Net.Mail;
 using System.Web.Mvc;
@@ -25,6 +26,72 @@ namespace Oppg1.Controllers
             var Bdb = new BestillingDB();
             Session["Bestillingen"] = innBestilling;
 
+            if (string.IsNullOrEmpty(innBestilling.fraStasjon) || innBestilling.fraStasjon == "Velg stasjon")
+            {
+                ModelState.AddModelError("fraStasjon", "Velg stasjon å reise fra");
+            }
+
+            if (string.IsNullOrEmpty(innBestilling.tilStasjon) || innBestilling.tilStasjon == "Velg stasjon")
+            {
+                ModelState.AddModelError("tilStasjon", "Velg stasjon å reise til ");
+            }
+
+            DateTime date;
+            bool validDate = DateTime.TryParseExact(
+                innBestilling.dato, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out date);
+
+            if (string.IsNullOrEmpty(innBestilling.dato) || innBestilling.dato == "dd.mm.åååå")
+            {
+                ModelState.AddModelError("dato", "Velg dato");
+            }
+            else if (!validDate)
+            {
+                ModelState.AddModelError("dato", "Dato må være på korrekt format");
+            }
+
+            DateTime time;
+            bool validTime = DateTime.TryParseExact(
+                innBestilling.avgang, "HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out time);
+
+            if (string.IsNullOrEmpty(innBestilling.avgang) || innBestilling.avgang == "Velg tidspunkt")
+            {
+                ModelState.AddModelError("avgang", "Velg tidspunkt");
+            }
+            else if (!validTime)
+            {
+                ModelState.AddModelError("avgang", "Tidspunkt må være på korrekt format");
+            }
+
+            //sjekker om tur/retur er valgt og kontrollerer at returdato og klokkeslett er valgt
+            if (innBestilling.returKnapp == "tur/retur")
+            {
+                DateTime returDate;
+                bool validReturDate = DateTime.TryParseExact(
+                    innBestilling.returDato, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out returDate);
+
+                if (string.IsNullOrEmpty(innBestilling.returDato) || innBestilling.returDato == "dd.mm.åååå")
+                {
+                    ModelState.AddModelError("returDato", "Velg returdato");
+                }
+                else if (!validReturDate)
+                {
+                    ModelState.AddModelError("returdato", "Dato må være på korrekt format");
+                }
+
+                DateTime returTime;
+                bool validReturTime = DateTime.TryParseExact(
+                    innBestilling.returAvgang, "HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out returTime);
+
+                if (string.IsNullOrEmpty(innBestilling.returAvgang) || innBestilling.returAvgang == "Velg tidspunkt")
+                {
+                    ModelState.AddModelError("returAvgang", "Velg returtidspunkt");
+                }
+                else if (!validReturTime)
+                {
+                    ModelState.AddModelError("returAvgang", "Tidspunkt må være på korrekt format");
+                }
+            }
+            //Sender videre stasjonsnavn og ikke stasjonsindeks, setter id til 1 om parsing ikke virker
             int fraId;
             if (!int.TryParse(innBestilling.fraStasjon, out fraId))
             {
@@ -41,12 +108,21 @@ namespace Oppg1.Controllers
             String tilStasjon = Bdb.hentStasjonsNavn(tilId);
             innBestilling.tilStasjon = tilStasjon;
 
-            return RedirectToAction("Bestilling");
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("Bestilling");
+            }
+            return View(innBestilling);
         }
 
         public ActionResult Bestilling()
         {
             var bestilling = (BestillingHjelp)Session["Bestillingen"];
+
+            string[] sdato = bestilling.dato.Split('-');
+            var formatertDato = sdato[2] + "." + sdato[1] + "." + sdato[0];
+            bestilling.dato = formatertDato;
+
             if (!String.IsNullOrEmpty(bestilling.returDato))
             {
                 string[] s = bestilling.returDato.Split('-');
@@ -62,6 +138,21 @@ namespace Oppg1.Controllers
         {
             var bestilling = (BestillingHjelp)Session["Bestillingen"];
 
+            if (string.IsNullOrEmpty(epost) || epost == "Skriv epostadresse her")
+            {
+                ModelState.AddModelError("epost", "Skriv inn epostadresse");
+            }
+
+            try
+            {
+                MailAddress m = new MailAddress(epost);
+            }
+            catch (FormatException)
+            {
+                ModelState.AddModelError("epost", "epost må være på korrekt format");
+            }
+
+
             var innBestilling = new BestillingHjelp()
             {
                 fraStasjon = bestilling.fraStasjon,
@@ -73,47 +164,67 @@ namespace Oppg1.Controllers
                 epost = epost
             };
 
-            try
+            var Bdb = new BestillingDB();
+            if (Bdb.sjekkBestilling(innBestilling))
             {
-                var senderEmail = new MailAddress("niklasbae@gmail.com", "VY Oppgave1");
-                var receiverEmail = new MailAddress(epost, "Receiver");
-                var password = "dlqrpxdouoaautzc";
-                var sub = "Bestillingsbekreftelse";
-                var body = "Takk for din bestilling!";
-                var smtp = new SmtpClient
+                if (Bdb.lagreBestilling(innBestilling))
                 {
-                    Host = "smtp.gmail.com",
-                    Port = 587,
-                    EnableSsl = true,
-                    DeliveryMethod = SmtpDeliveryMethod.Network,
-                    UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential(senderEmail.Address, password)
-                };
-                using (var mess = new MailMessage(senderEmail, receiverEmail)
+                    try
+                    {
+                        var senderEmail = new MailAddress("Watchful.OsloMet@gmail.com", "VY Oppgave-1");
+                        var receiverEmail = new MailAddress(epost, "Receiver");
+                        var password = "ovwkmahkayjcbpxb";
+                        var sub = "Bestillingsbekreftelse";
+                        var body = "Takk for din bestilling!";
+                        body += "\n\nFra Stasjon: " + innBestilling.fraStasjon;
+                        body += "\nTil Stasjon: " + innBestilling.tilStasjon;
+                        body += "\nDato: " + innBestilling.dato;
+                        body += "\nKlokkeslett: " + innBestilling.avgang;
+                        if (innBestilling.returAvgang != null)
+                        {
+                            body += "\nReturdato: " + innBestilling.returDato;
+                            body += "\nReturklokkeslett: " + innBestilling.returAvgang;
+                        }
+                        var smtp = new SmtpClient
+                        {
+                            Host = "smtp.gmail.com",
+                            Port = 587,
+                            EnableSsl = true,
+                            DeliveryMethod = SmtpDeliveryMethod.Network,
+                            UseDefaultCredentials = false,
+                            Credentials = new NetworkCredential(senderEmail.Address, password)
+                        };
+                        using (var mess = new MailMessage(senderEmail, receiverEmail)
+                        {
+                            Subject = sub,
+                            Body = body
+                        })
+                        {
+                            smtp.Send(mess);
+                        }
+                    }
+
+                    catch (Exception)
+                    {
+                        ViewBag.save = "Kunne ikke sende bekreftelse på mail";
+                    }
+                    return View("Bekreftelse");
+                }
+
+                else
                 {
-                    Subject = sub,
-                    Body = body
-                })
-                {
-                    smtp.Send(mess);
+                    ViewBag.save = "Kjøp ikke gjennomført, kunne ikke lagre til database";
+                    return View(innBestilling);
                 }
             }
-            catch (Exception)
-            {
-                ViewBag.Error = "Some Error";
-            }
 
-            var Bdb = new BestillingDB();
-            if (Bdb.lagreBestilling(innBestilling))
-            {
-                return View("Bekreftelse");
-            }
             else
             {
-                // Prøve å returnere noe fornuftig her :):):)
-                return ViewBag("Hei");
+                ViewBag.save = "Kjøp ikke gjennomført, feil i kjøpsdata";
+                return View(innBestilling);
             }
         }
+        
 
         public string hentFraStasjoner()
         {
