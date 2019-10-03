@@ -356,12 +356,14 @@ namespace Oppg1
                 }
                 return true;
             }
+
         }
 
         public bool lagreBestilling(BestillingHjelp innBestilling)
         {
             using (var db = new DB())
             {
+
                 Bestilling bestilling = new Bestilling()
                 {
                     fraStasjon = innBestilling.fraStasjon,
@@ -380,7 +382,11 @@ namespace Oppg1
                     return true;
                 }
 
+<<<<<<< HEAD
                 catch (Exception)
+=======
+                catch (Exception feil)
+>>>>>>> parent of a3ff31f... .
                 {
                     return false;
                 }
