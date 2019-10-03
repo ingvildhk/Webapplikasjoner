@@ -27,12 +27,14 @@
             <div class="form-group col-md-4" id="dropDown">
                 <label for="exampleFormControlSelect1">Reise fra</label>
                 <select class="form-control" id="fraStasjon" name="fraStasjon" required></select>
+                <div id="feilFrastasjon" class="feilmeldinger"></div>
             </div>
 
 
             <div class="form-group col-md-4" id="dropDown">
                 <label for="exampleFormControlSelect1">Reise til</label>
                 <select class="form-control" id="tilStasjon" name="tilStasjon"required></select>
+                <div id="feilTilstasjon" class="feilmeldinger"></div>
             </div>
         </div>
 
@@ -51,24 +53,28 @@
             <div class="form-group col-md-4">
                 <label for="exampleFormControlSelect1">Dato</label>
                 <input class="form-control" id="dato" name="dato" type="date" required>
+                <div id="feilDato" class="feilmeldinger"></div>
             </div>
 
 
             <div class="form-group col-md-4" id="dropDown">
                 <label for="exampleFormControlSelect1">Tid</label>
                 <select class="form-control" id="Tidspunkt" name="avgang" required></select>
+                <div id="feilTidspunkt" class="feilmeldinger"></div>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-4" id="visReturDato">
                 <label for="exampleFormControlSelect1">Returdato</label>
-                <input class="form-control" id="returDato" name="returDato" type="date" >
+                <input class="form-control" id="returDato" name="returDato" type="date">
+                <div id="feilReturdato" class="feilmeldinger"></div>
             </div>
 
 
             <div class="form-group col-md-4" id="visReturTidspunkt">
                 <label for="exampleFormControlSelect1">Returtidspunkt</label>
                 <select class="form-control" id="returAvgang" name="returAvgang" ></select>
+                <div id="feilReturtidspunkt" class="feilmeldinger"></div>
             </div>
         </div>
 
