@@ -25,17 +25,20 @@ namespace Oppg1.Controllers
         {
             var Bdb = new BestillingDB();
             Session["Bestillingen"] = innBestilling;
-
+            
+            //sjekker om fraStasjon er valgt
             if (string.IsNullOrEmpty(innBestilling.fraStasjon) || innBestilling.fraStasjon == "Velg stasjon")
             {
                 ModelState.AddModelError("fraStasjon", "Velg stasjon å reise fra");
             }
 
+            //sjekker om tilStasjon er valgt
             if (string.IsNullOrEmpty(innBestilling.tilStasjon) || innBestilling.tilStasjon == "Velg stasjon")
             {
                 ModelState.AddModelError("tilStasjon", "Velg stasjon å reise til ");
             }
 
+            //sjekker om dato er valgt og på riktig format
             DateTime date;
             bool validDate = DateTime.TryParseExact(
                 innBestilling.dato, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out date);
@@ -49,6 +52,7 @@ namespace Oppg1.Controllers
                 ModelState.AddModelError("dato", "Dato må være på korrekt format");
             }
 
+            //sjekker om tidspunkt er valgt og på riktig format
             DateTime time;
             bool validTime = DateTime.TryParseExact(
                 innBestilling.avgang, "HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out time);
@@ -91,6 +95,7 @@ namespace Oppg1.Controllers
                     ModelState.AddModelError("returAvgang", "Tidspunkt må være på korrekt format");
                 }
             }
+
             //Sender videre stasjonsnavn og ikke stasjonsindeks, setter id til 1 om parsing ikke virker
             int fraId;
             if (!int.TryParse(innBestilling.fraStasjon, out fraId))
@@ -108,10 +113,12 @@ namespace Oppg1.Controllers
             String tilStasjon = Bdb.hentStasjonsNavn(tilId);
             innBestilling.tilStasjon = tilStasjon;
 
+            //hvis alt er i orden, sender videre til bestilling, ellers blir stående på siden
             if (ModelState.IsValid)
             {
                 return RedirectToAction("Bestilling");
             }
+
             return View(innBestilling);
         }
 
@@ -119,6 +126,7 @@ namespace Oppg1.Controllers
         {
             var bestilling = (BestillingHjelp)Session["Bestillingen"];
 
+            //Presenterer dato på dd.MM.yyyy format
             string[] sdato = bestilling.dato.Split('-');
             var formatertDato = sdato[2] + "." + sdato[1] + "." + sdato[0];
             bestilling.dato = formatertDato;
@@ -138,6 +146,7 @@ namespace Oppg1.Controllers
         {
             var bestilling = (BestillingHjelp)Session["Bestillingen"];
 
+            //sjekker om epost er fylt ut på korrekt format
             if (string.IsNullOrEmpty(epost) || epost == "Skriv epostadresse her" || epost == "")
             {
                 ModelState.AddModelError("epost", "Skriv inn epostadresse");
@@ -167,10 +176,12 @@ namespace Oppg1.Controllers
             };
 
             var Bdb = new BestillingDB();
+            //sjekker at alle bestillingsdata er korrekt før lagring til databasen
             if (Bdb.sjekkBestilling(innBestilling))
             {
                 if (Bdb.lagreBestilling(innBestilling))
                 {
+                    //sender bekreftelse på epost
                     try
                     {
                         var senderEmail = new MailAddress("Watchful.OsloMet@gmail.com", "VY Oppgave-1");

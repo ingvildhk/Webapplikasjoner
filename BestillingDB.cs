@@ -382,7 +382,7 @@ namespace Oppg1
                     return true;
                 }
 
-                catch (Exception feil)
+                catch (Exception)
                 {
                     return false;
                 }
