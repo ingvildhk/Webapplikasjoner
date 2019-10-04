@@ -52,7 +52,8 @@ namespace Oppg1.Controllers
                 tilStasjon = bestilling.tilStasjon,
                 dato = bestilling.dato,
                 avgang = bestilling.avgang,
-                epost = epost
+                epost = epost,
+                pris = bestilling.pris
             };
 
             var Bdb = new BestillingDB();

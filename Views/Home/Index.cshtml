@@ -67,7 +67,7 @@
             function VisTilDropDown(stasjon) {
                 var utStreng = "<option value'' disabled selected hidden>Velg stasjon</option>";
                 var finnes = false;
-                var tilStasjon = parseInt($("#tilStasjon").val())
+                var tilStasjon = parseInt($(".tilStasjon").val())
                 for (var i in stasjon) {
                     utStreng += "<option value='" + stasjon[i].StasjonsID + "'>" + stasjon[i].Stasjonsnavn + "</option>";
                     if (stasjon[i].StasjonsID === tilStasjon) {
@@ -82,6 +82,7 @@
 
             $("#tilStasjon").change(VisTidspunkt);
             $("#dato").change(VisTidspunkt);
+            
 
             //legger tidspunkt i dropdownliste. Kjøres ved change både på til, fra og dato, men fullføres kun hvis
             //alle variablene har data
@@ -149,8 +150,9 @@
             tilOK = validateTo();
             tidOK = validateTime();
             datoOK = validateDate();
-
         }
+
+        
 
         $(document).ready(function () {
             $('.count1').prop('disabled', true);
@@ -174,57 +176,28 @@
                     $('.count2').val(0);
                 }
             });
+            $(".plus1").click(regnUtPris);
+            $(".minus1").click(regnUtPris);
+            $(".plus2").click(regnUtPris);
+            $(".minus2").click(regnUtPris);
         });
+
+        function regnUtPris() {
+
+            var x = $(".count1").val();
+            var y = $(".count2").val();
+            if ((x == 0 || x == "0") && (y == 0 || y == "0")) {
+                document.getElementById("prisUt").innerHTML = "velg antall reisende";
+
+            } else {
+                var pris = (x * 53) + (y * 32);
+                document.getElementById("prisUt").innerHTML = pris;
+            }
+            
+        }
+        
     </script>
     <style>
-        .qty1 .qty2 .count1 .count2 {
-            color: #000;
-            display: inline-block;
-            vertical-align: top;
-            font-size: 25px;
-            font-weight: 700;
-            line-height: 30px;
-            padding: 0 2px;
-            min-width: 35px;
-            text-align: center;
-        }
-
-        .qty1 .qty2 .plus1 .plus2 {
-            cursor: pointer;
-            display: inline-block;
-            vertical-align: top;
-            color: white;
-            width: 30px;
-            height: 30px;
-            font: 30px/1 Arial,sans-serif;
-            text-align: center;
-            border-radius: 50%;
-        }
-
-        .qty1 .qty2 .minus1 .minus2 {
-            cursor: pointer;
-            display: inline-block;
-            vertical-align: top;
-            color: white;
-            width: 30px;
-            height: 30px;
-            font: 30px/1 Arial,sans-serif;
-            text-align: center;
-            border-radius: 50%;
-            background-clip: padding-box;
-        }
-
-        div {
-            text-align: center;
-        }
-
-        .minus1 .minus2 :hover {
-            background-color: #029678 !important;
-        }
-
-        .plus1 .plus2 :hover {
-            background-color: #029678 !important;
-        }
         /*Prevent text selection*/
         span {
             -webkit-user-select: none;
@@ -246,10 +219,112 @@
             input:disabled {
                 background-color: white;
             }
+            /* ---------------*/
+            .billettvelgerAntall {
+                float: left;
+            }
+            #bildettvelgerAntallPlassering {
+                margin-left: 0;
+                padding-left: 5px;
+                text-align: left;
+            }
+
+        .qty1 .count1 {
+            color: #000;
+            display: inline-block;
+            vertical-align: top;
+            font-size: 25px;
+            font-weight: 700;
+            line-height: 30px;
+            padding: 0 2px;
+            min-width: 35px;
+            text-align: center;
+        }
+        .qty2 .count2 {
+            color: #000;
+            display: inline-block;
+            vertical-align: top;
+            font-size: 25px;
+            font-weight: 700;
+            line-height: 30px;
+            padding: 0 2px;
+            min-width: 35px;
+            text-align: center;
+        }
+
+        .qty1 .plus1 {
+            cursor: pointer;
+            display: inline-block;
+            vertical-align: top;
+            color: white;
+            width: 30px;
+            height: 30px;
+            font: 30px/1 Arial,sans-serif;
+            text-align: center;
+            border-radius: 50%;
+        }
+
+        .qty2 .plus2 {
+            cursor: pointer;
+            display: inline-block;
+            vertical-align: top;
+            color: white;
+            width: 30px;
+            height: 30px;
+            font: 30px/1 Arial,sans-serif;
+            text-align: center;
+            border-radius: 50%;
+        }
+
+        .qty1 .minus1 {
+            cursor: pointer;
+            display: inline-block;
+            vertical-align: top;
+            color: white;
+            width: 30px;
+            height: 30px;
+            font: 30px/1 Arial,sans-serif;
+            text-align: center;
+            border-radius: 50%;
+            background-clip: padding-box;
+        }
+        .qty2 .minus2 {
+            cursor: pointer;
+            display: inline-block;
+            vertical-align: top;
+            color: white;
+            width: 30px;
+            height: 30px;
+            font: 30px/1 Arial,sans-serif;
+            text-align: center;
+            border-radius: 50%;
+            background-clip: padding-box;
+        }
+
+        div {
+            text-align: center;
+        }
+
+        .minus1 :hover {
+            background-color: #029678 !important;
+        }
+
+        .plus1 :hover {
+            background-color: #029678 !important;
+        }
+        .minus2 :hover {
+            background-color: #029678 !important;
+        }
+
+        .plus2 :hover {
+            background-color: #029678 !important;
+        }
+        
     </style>
 </head>
 
 <body>
+    
 
     <form action="/Home/Index" method="post" id="myForm">
         <h2>Hei, hvor ønsker du å reise?</h2>
@@ -269,6 +344,7 @@
             </div>
 
 
+
             <div class="form-group col-md-6">
                 <label for="exampleFormControlSelect1">Dato</label>
                 <input class="form-control" id="dato" name="dato" type="date" required>
@@ -282,31 +358,36 @@
                 <div id="feilTid"></div>
 
             </div>
-            <div class="qty1 mt-5">
-                <span class="minus1" style="background-color:#029678">-</span>
-                <input type="number" class="count1" name="voksen" value="0">
-                <span class="plus1" style="background-color:#029678">+</span>
-                <b>Voksen</b>
-            </div>
-            <br />
 
-            <div class="qty2 mt-5">
-                <span class="minus2" style="background-color:#029678">-</span>
-                <input type="number" class="count2" name="barn" value="0">
-                <span class="plus2" style="background-color:#029678">+</span>
-                <b>Barn</b>
+            <div class="billettvelgerAntall">
+                <div class="qty1 mt-5" id="bildettvelgerAntallPlassering">
+                    <span class="minus1" style="background-color:#029678">-</span>
+                    <input type="number" class="count1" name="voksen" value="0">
+                    <span class="plus1" style="background-color:#029678">+</span>
+                    <label for="exampleFormControlSelect1"><b>Voksen</b></label>
+
+                </div>
+
+                <div class="qty2 mt-5" id="bildettvelgerAntallPlassering">
+                    <span class="minus2" style="background-color:#029678">-</span>
+                    <input type="number" class="count2" name="barn" value="0">
+                    <span class="plus2" style="background-color:#029678">+</span>
+                    <label for="exampleFormControlSelect1"><b>Barn</b></label>
+                </div>
+                <label for="exampleFormControlSelect1"><b>Total pris:</b></label>
+                <div id="prisUt"></div>
             </div>
 
-            <div class="form-horizontal">
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10" id="knappKnapp">
-                        <input type="submit" onclick="return validateAll()" id="bestill" name="Bestilling" value="Bestill" class="btn btn-success" />
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10" id="knappKnapp">
+                            <input type="submit" id="bestill" name="Bestilling" value="Bestill" class="btn btn-success" />
+                        </div>
                     </div>
                 </div>
+
             </div>
-
-        </div>
-
+        <!-- onclick="return validateAll()" -->
     </form>
 </body>
 </html>
