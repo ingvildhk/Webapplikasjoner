@@ -127,6 +127,8 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
+    <None Include="Properties\PublishProfiles\WebappOppgave-Vy-1 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\WebappOppgave-vy-2 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\JavaScript.rich.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -147,6 +149,8 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Static\logo.png" />
+    <Content Include="Static\VyBilde.png" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -189,7 +193,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Static\" />
     <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>

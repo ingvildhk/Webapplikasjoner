@@ -3,7 +3,7 @@ using System.Data.Entity;
 
 namespace Oppg1.Models
 {
-    public class DBInit : DropCreateDatabaseAlways<DB>
+    public class DBInit : CreateDatabaseIfNotExists<DB>
     {
         protected override void Seed(DB context)
         {
@@ -299,6 +299,8 @@ namespace Oppg1.Models
             R20.StasjonPaaBane.Add(FredR20kl20);
             R20.StasjonPaaBane.Add(GarR20kl16);
             R20.StasjonPaaBane.Add(GarR20kl18);
+
+            // ---------------------- Legger til context i db ---------------------------------
 
             context.Bane.Add(L1);
             context.Bane.Add(S20);
