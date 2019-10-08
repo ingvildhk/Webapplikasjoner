@@ -202,12 +202,12 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BLL\BLL.csproj">
-      <Project>{9f87471c-f6ae-4e5b-9c71-1f331b6de553}</Project>
+    <ProjectReference Include="BLL\BLL.csproj">
+      <Project>{216fd04a-19c6-421f-a709-0740190784f0}</Project>
       <Name>BLL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Model\Model.csproj">
-      <Project>{b35cd448-7be2-4e67-b7eb-7965e4ea2a0c}</Project>
+    <ProjectReference Include="Model\Model.csproj">
+      <Project>{8de8155a-2974-4213-820b-4ba860a6b112}</Project>
       <Name>Model</Name>
     </ProjectReference>
   </ItemGroup>
