@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
-namespace Oppg1.Models
+namespace DAL
 {
     public class Bane
     {

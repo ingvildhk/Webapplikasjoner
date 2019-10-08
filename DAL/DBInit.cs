@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 
-namespace Oppg1.Models
+namespace DAL
 {
     public class DBInit : DropCreateDatabaseAlways<DB>
     {

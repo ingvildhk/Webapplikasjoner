@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Oppg1.Models
+namespace Model
 {
-    public class BestillingHjelp
+    public class bestilling
     {
         public String fraStasjon { get; set; }
         public String tilStasjon { get; set; }

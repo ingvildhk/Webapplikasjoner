@@ -155,16 +155,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="BestillingDB.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LoggInnController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AdminLoggInn.cs" />
-    <Compile Include="Models\BestillingHjelp.cs" />
-    <Compile Include="Models\DB.cs" />
-    <Compile Include="Models\DBInit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -186,7 +180,6 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Home\Bestilling.cshtml" />
     <Content Include="Views\Home\Bekreftelse.cshtml" />
-    <Content Include="Views\LoggInn\LoggInn.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -196,6 +189,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
     <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>
@@ -203,6 +197,16 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="BLL\BLL.csproj">
+      <Project>{216fd04a-19c6-421f-a709-0740190784f0}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="Model\Model.csproj">
+      <Project>{8de8155a-2974-4213-820b-4ba860a6b112}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
