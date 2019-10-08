@@ -73,6 +73,11 @@ textarea {
     color: red;
 }
 
+.loggInn {
+    color:black;
+    font-weight:bold;
+}
+
 /* CSS fra Bestilling.cshtml */
 #epost:focus {
     border-color: #029678;
@@ -95,3 +100,5 @@ h5 {
     padding-left: 0px;
     padding-bottom: 30px;
 }
+
+
