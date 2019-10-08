@@ -3,7 +3,7 @@ using System.Data.Entity;
 
 namespace Oppg1.Models
 {
-    public class DBInit : CreateDatabaseIfNotExists<DB>
+    public class DBInit : DropCreateDatabaseAlways<DB>
     {
         protected override void Seed(DB context)
         {
