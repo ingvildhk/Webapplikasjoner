@@ -10,6 +10,9 @@ namespace DAL
     {
         DB db = new DB();
 
+        // -----------------------------------------------------------------------------------------
+        //Metoder for å hente stasjonsnavn, tidspunkt o.l. til bestillingsview
+
         public String hentStasjonsNavn(int id)
         {
             Stasjon stasjon = db.Stasjon.Find(id);
@@ -282,6 +285,9 @@ namespace DAL
             return Avgangstider;
         }
 
+        // --------------------------------------------------------------------------------
+        //Metoder for å sjekke bestilling og lagre bestilling til database
+
         public bool sjekkBestilling(bestilling innBestilling)
         {
             var fraStasjon = innBestilling.fraStasjon;
@@ -399,5 +405,10 @@ namespace DAL
                 }
             }
         }
+
+        // ---------------------------------------------------------------------------------------
+        // Metoder for å endre, slette og legge til stasjoner i DB 
+
+
     }
 }
