@@ -15,7 +15,7 @@
     function VisFraDropDown(stasjon) {
         var utStreng = "<option value'' selected hidden>Velg stasjon</option>";
         for (var i in stasjon) {
-            utStreng += "<option value='" + stasjon[i].StasjonsID + "'>" + stasjon[i].Stasjonsnavn + "</option>";
+            utStreng += "<option value='" + stasjon[i] + "'>" + stasjon[i] + "</option>";
         }
         $("#fraStasjon").append(utStreng);
     }
@@ -41,7 +41,7 @@
         var finnes = false;
         var tilStasjon = parseInt($("#tilStasjon").val())
         for (var i in stasjon) {
-            utStreng += "<option value='" + stasjon[i].StasjonsID + "'>" + stasjon[i].Stasjonsnavn + "</option>";
+            utStreng += "<option value='" + stasjon[i] + "'>" + stasjon[i] + "</option>";
             if (stasjon[i].StasjonsID === tilStasjon) {
                 finnes = true;
             }

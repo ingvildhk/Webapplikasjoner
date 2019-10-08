@@ -1,12 +1,12 @@
-﻿using Oppg1.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Mail;
+using Model;
 
-namespace Oppg1
+namespace DAL
 {
-    public class BestillingDB
+    public class VyDBmetoder
     {
         DB db = new DB();
 
@@ -17,20 +17,33 @@ namespace Oppg1
             return stasjonNavn;
         }
 
-        public List<Stasjon> hentAlleStasjoner()
+        public Stasjon hentStasjon(String Stasjonsnavn)
         {
-            List<Stasjon> alleStasjoner = new List<Stasjon>();
+            Stasjon stasjon = new Stasjon();
+            foreach (Stasjon s in db.Stasjon)
+            {
+                if (s.Stasjonsnavn == Stasjonsnavn)
+                {
+                    stasjon = s;
+                }
+            }
+            return stasjon;
+        }
+
+        public List<String> hentalleStasjonsNavn()
+        {
+            List<String> alleStasjoner = new List<String>();
 
             foreach (Stasjon stasjon in db.Stasjon)
             {
-                alleStasjoner.Add(stasjon);
+                alleStasjoner.Add(stasjon.Stasjonsnavn);
             }
             return alleStasjoner;
         }
 
-        public List<Stasjon> hentTilStasjoner(int id)
+        public List<String> hentTilStasjonsNavn(String fraStasjonNavn)
         {
-            Stasjon fraStasjon = db.Stasjon.Find(id);
+            Stasjon fraStasjon = hentStasjon(fraStasjonNavn);
 
             var fraStasjonBaneListe = new List<Bane>();
 
@@ -47,7 +60,7 @@ namespace Oppg1
                 }
             }
 
-            var tilStasjoner = new List<Stasjon>();
+            var tilStasjoner = new List<String>();
 
             //legger til alle stasjonene som kjører fra FraStasjon i en liste
             foreach (Bane bane in fraStasjonBaneListe)
@@ -57,9 +70,9 @@ namespace Oppg1
                     //hindrer at FraStasjon blir lagt til i lista
                     if (stasjonPaaBane.Stasjon != fraStasjon)
                     {
-                        if (!tilStasjoner.Contains(stasjonPaaBane.Stasjon))
+                        if (!tilStasjoner.Contains(stasjonPaaBane.Stasjon.Stasjonsnavn))
                         {
-                            tilStasjoner.Add(stasjonPaaBane.Stasjon);
+                            tilStasjoner.Add(stasjonPaaBane.Stasjon.Stasjonsnavn);
                         }
                     }
                 }
@@ -67,10 +80,10 @@ namespace Oppg1
             return tilStasjoner;
         }
 
-        public List<String> hentTidspunkt(int fraStasjon, int tilStasjon, string dato)
+        public List<String> hentTidspunkt(String fraStasjon, String tilStasjon, String dato)
         {
-            Stasjon FraStasjon = db.Stasjon.Find(fraStasjon);
-            Stasjon TilStasjon = db.Stasjon.Find(tilStasjon);
+            Stasjon FraStasjon = hentStasjon(fraStasjon);
+            Stasjon TilStasjon = hentStasjon(tilStasjon);
 
             var FraBaner = new List<Bane>();
 
@@ -169,10 +182,10 @@ namespace Oppg1
             return Avgangstider;
         }
 
-        public List<String> hentReturTidspunkt(int fraStasjon, int tilStasjon, string dato, string returDato, string avgang)
+        public List<String> hentReturTidspunkt(String fraStasjon, String tilStasjon, string dato, string returDato, string avgang)
         {
-            Stasjon FraStasjon = db.Stasjon.Find(fraStasjon);
-            Stasjon TilStasjon = db.Stasjon.Find(tilStasjon);
+            Stasjon FraStasjon = hentStasjon(fraStasjon);
+            Stasjon TilStasjon = hentStasjon(tilStasjon);
 
             var FraBaner = new List<Bane>();
 
@@ -269,7 +282,7 @@ namespace Oppg1
             return Avgangstider;
         }
 
-        public bool sjekkBestilling(BestillingHjelp innBestilling)
+        public bool sjekkBestilling(bestilling innBestilling)
         {
             var fraStasjon = innBestilling.fraStasjon;
             var tilStasjon = innBestilling.tilStasjon;
@@ -358,7 +371,7 @@ namespace Oppg1
             }
         }
 
-        public bool lagreBestilling(BestillingHjelp innBestilling)
+        public bool lagreBestilling(bestilling innBestilling)
         {
             using (var db = new DB())
             {
