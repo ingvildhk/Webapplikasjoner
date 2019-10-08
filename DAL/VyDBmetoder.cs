@@ -408,7 +408,51 @@ namespace DAL
 
         // ---------------------------------------------------------------------------------------
         // Metoder for å endre, slette og legge til stasjoner i DB 
+       
+        public void leggTilStasjon()
+        {
 
+        }
 
+        public void endreStasjon()
+        {
+
+        }
+        public void slettStasjon()
+        {
+
+        }
+
+        public void leggTilAvgang()
+        {
+
+        }
+
+        public void endreAvgang()
+        {
+
+        }
+
+        public void slettAvgang()
+        {
+
+        }
+
+        public void leggTilBane()
+        {
+
+        }
+
+        public void endreBane()
+        {
+
+        }
+
+        public void slettBane()
+        {
+
+        }
+
+        
     }
 }
