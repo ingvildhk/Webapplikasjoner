@@ -1,4 +1,5 @@
-﻿using Oppg1.Models;
+﻿using BLL;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -11,19 +12,17 @@ namespace Oppg1.Controllers
 {
     public class HomeController : Controller
     {
-        private DB db = new DB();
-
         public ActionResult Index()
         {
             // For å kunne ta vare på bestillingsobjektet 
-            Session["Bestillingen"] = new BestillingHjelp();
+            Session["Bestillingen"] = new bestilling();
             return View();
         }
 
         [HttpPost]
-        public ActionResult Index(BestillingHjelp innBestilling)
+        public ActionResult Index(bestilling innBestilling)
         {
-            var Bdb = new BestillingDB();
+            var BLL = new VyBLL();
             Session["Bestillingen"] = innBestilling;
             
             //sjekker om fraStasjon er valgt
@@ -96,23 +95,6 @@ namespace Oppg1.Controllers
                 }
             }
 
-            //Sender videre stasjonsnavn og ikke stasjonsindeks, setter id til 1 om parsing ikke virker
-            int fraId;
-            if (!int.TryParse(innBestilling.fraStasjon, out fraId))
-            {
-                fraId = 1;
-            }
-            String fraStasjon = Bdb.hentStasjonsNavn(fraId);
-            innBestilling.fraStasjon = fraStasjon;
-
-            int tilId;
-            if (!int.TryParse(innBestilling.tilStasjon, out tilId))
-            {
-                tilId = 1;
-            }
-            String tilStasjon = Bdb.hentStasjonsNavn(tilId);
-            innBestilling.tilStasjon = tilStasjon;
-
             //hvis alt er i orden, sender videre til bestilling, ellers blir stående på siden
             if (ModelState.IsValid)
             {
@@ -124,7 +106,7 @@ namespace Oppg1.Controllers
 
         public ActionResult Bestilling()
         {
-            var bestilling = (BestillingHjelp)Session["Bestillingen"];
+            var bestilling = (bestilling)Session["Bestillingen"];
 
             //Presenterer dato på dd.MM.yyyy format
             string[] sdato = bestilling.dato.Split('-');
@@ -144,7 +126,7 @@ namespace Oppg1.Controllers
         [HttpPost]
         public ActionResult Bestilling(String epost)
         {
-            var bestilling = (BestillingHjelp)Session["Bestillingen"];
+            var bestilling = (bestilling)Session["Bestillingen"];
 
             //sjekker om epost er fylt ut på korrekt format
             if (string.IsNullOrEmpty(epost) || epost == "Skriv epostadresse her" || epost == "")
@@ -164,7 +146,7 @@ namespace Oppg1.Controllers
                 }
             }
 
-            var innBestilling = new BestillingHjelp()
+            var innBestilling = new bestilling()
             {
                 fraStasjon = bestilling.fraStasjon,
                 tilStasjon = bestilling.tilStasjon,
@@ -175,11 +157,11 @@ namespace Oppg1.Controllers
                 epost = epost
             };
 
-            var Bdb = new BestillingDB();
+            var BLL = new VyBLL();
             //sjekker at alle bestillingsdata er korrekt før lagring til databasen
-            if (Bdb.sjekkBestilling(innBestilling))
+            if (BLL.sjekkBestilling(innBestilling))
             {
-                if (Bdb.lagreBestilling(innBestilling))
+                if (BLL.lagreBestilling(innBestilling))
                 {
                     //sender bekreftelse på epost
                     try
@@ -240,37 +222,36 @@ namespace Oppg1.Controllers
         
         public string hentFraStasjoner()
         {
-            var Bdb = new BestillingDB();
-            List<Stasjon> alleStasjoner = Bdb.hentAlleStasjoner();
+            var BLL = new VyBLL();
+            List<String> alleStasjoner = BLL.hentAlleStasjonsNavn();
             var jsonSerializer = new JavaScriptSerializer();
             string json = jsonSerializer.Serialize(alleStasjoner);
             return json;
         }
 
-        public string hentTilStasjoner(int id)
+        public string hentTilStasjoner(String id)
         {
-            var Bdb = new BestillingDB();
-            List<Stasjon> tilStasjoner = Bdb.hentTilStasjoner(id);
+            var BLL = new VyBLL();
+            List<String> tilStasjoner = BLL.hentTilStasjonsNavn(id);
             var jsonSerializer = new JavaScriptSerializer();
             string json = jsonSerializer.Serialize(tilStasjoner);
             return json;
         }
 
-        public string hentTidspunkt(int fraStasjon, int tilStasjon, string dato)
+        public string hentTidspunkt(String fraStasjon, String tilStasjon, string dato)
         {
-            var Bdb = new BestillingDB();
+            var BLL = new VyBLL();
             string test = dato;
-            List<String> Avganger = Bdb.hentTidspunkt(fraStasjon, tilStasjon, dato);
+            List<String> Avganger = BLL.hentTidspunkt(fraStasjon, tilStasjon, dato);
             var jsonSerializer = new JavaScriptSerializer();
             string json = jsonSerializer.Serialize(Avganger);
             return json;
         }
 
-        public string hentReturTidspunkt(int fraStasjon, int tilStasjon, string dato, string returDato, string avgang)
+        public string hentReturTidspunkt(String fraStasjon, String tilStasjon, string dato, string returDato, string avgang)
         {
-            var Bdb = new BestillingDB();
-            string test = dato;
-            List<String> Avganger = Bdb.hentReturTidspunkt(fraStasjon, tilStasjon, dato, returDato, avgang);
+            var BLL = new VyBLL();
+            List<String> Avganger = BLL.hentReturTidspunkt(fraStasjon, tilStasjon, dato, returDato, avgang);
             var jsonSerializer = new JavaScriptSerializer();
             string json = jsonSerializer.Serialize(Avganger);
             return json;
