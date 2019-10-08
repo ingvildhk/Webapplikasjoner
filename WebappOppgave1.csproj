@@ -157,9 +157,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BestillingDB.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoggInnController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AdminLoggInn.cs" />
     <Compile Include="Models\BestillingHjelp.cs" />
     <Compile Include="Models\DB.cs" />
     <Compile Include="Models\DBInit.cs" />
@@ -184,6 +186,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Home\Bestilling.cshtml" />
     <Content Include="Views\Home\Bekreftelse.cshtml" />
+    <Content Include="Views\LoggInn\LoggInn.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
