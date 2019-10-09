@@ -6,6 +6,14 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace DAL
 {
+    public class dbAdminLoggInn
+    {
+        [Key]
+        public String Brukernavn { get; set; }
+        public String Passord { get; set; }
+        public String Salt { get; set; }
+    }
+
     public class Bane
     {
         [Key]
@@ -59,5 +67,6 @@ namespace DAL
         public virtual DbSet<StasjonPaaBane> StasjonPaaBane { get; set; }
         public virtual DbSet<Stasjon> Stasjon { get; set; }
         public virtual DbSet<Bestilling> Bestilling { get; set; }
+        public virtual DbSet<dbAdminLoggInn> dbAdminLoggInn { get; set; }
     }
 }

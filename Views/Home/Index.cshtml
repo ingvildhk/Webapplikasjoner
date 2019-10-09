@@ -17,7 +17,6 @@
 </head>
 
 <body>
-
     <form action="/Home/Index" method="post" id="myForm">
 
         <!--Logg inn link-->
@@ -39,12 +38,12 @@
                 <div class="editor-field">
                     @if (!ViewData.ModelState.IsValid)
                     {
-                        <span class="field-validation-error">
-                            @if (@ViewData.ModelState["fraStasjon"].Errors.Count > 0)
-                            {
-                                @ViewData.ModelState["fraStasjon"].Errors[0].ErrorMessage
-                            }
-                        </span>
+                    <span class="field-validation-error">
+                        @if (@ViewData.ModelState["fraStasjon"].Errors.Count > 0)
+                        {
+                        @ViewData.ModelState["fraStasjon"].Errors[0].ErrorMessage
+                        }
+                    </span>
                     }
                 </div>
             </div>
@@ -56,12 +55,12 @@
                 <div class="editor-field">
                     @if (!ViewData.ModelState.IsValid)
                     {
-                        <span class="field-validation-error">
-                            @if (@ViewData.ModelState["tilStasjon"].Errors.Count > 0)
+                    <span class="field-validation-error">
+                        @if (@ViewData.ModelState["tilStasjon"].Errors.Count > 0)
                             {
-                                @ViewData.ModelState["tilStasjon"].Errors[0].ErrorMessage
+                        @ViewData.ModelState["tilStasjon"].Errors[0].ErrorMessage
                             }
-                        </span>
+                    </span>
                     }
                 </div>
             </div>
@@ -86,12 +85,12 @@
                 <div class="editor-field">
                     @if (!ViewData.ModelState.IsValid)
                     {
-                        <span class="field-validation-error">
-                            @if (@ViewData.ModelState["dato"].Errors.Count > 0)
+                    <span class="field-validation-error">
+                        @if (@ViewData.ModelState["dato"].Errors.Count > 0)
                             {
-                                @ViewData.ModelState["dato"].Errors[0].ErrorMessage
+                        @ViewData.ModelState["dato"].Errors[0].ErrorMessage
                             }
-                        </span>
+                    </span>
                     }
                 </div>
             </div>
@@ -103,12 +102,12 @@
                 <div class="editor-field">
                     @if (!ViewData.ModelState.IsValid)
                     {
-                        <span class="field-validation-error">
-                            @if (@ViewData.ModelState["avgang"].Errors.Count > 0)
+                    <span class="field-validation-error">
+                        @if (@ViewData.ModelState["avgang"].Errors.Count > 0)
                             {
-                                @ViewData.ModelState["avgang"].Errors[0].ErrorMessage
+                        @ViewData.ModelState["avgang"].Errors[0].ErrorMessage
                             }
-                        </span>
+                    </span>
                     }
                 </div>
             </div>
@@ -122,12 +121,12 @@
                 <div class="editor-field">
                     @if (!ViewData.ModelState.IsValid)
                     {
-                        <span class="field-validation-error">
-                            @if (@ViewData.ModelState["returDato"].Errors.Count > 0)
+                    <span class="field-validation-error">
+                        @if (@ViewData.ModelState["returDato"].Errors.Count > 0)
                             {
-                                @ViewData.ModelState["returDato"].Errors[0].ErrorMessage
+                        @ViewData.ModelState["returDato"].Errors[0].ErrorMessage
                             }
-                        </span>
+                    </span>
                     }
                 </div>
             </div>
@@ -139,12 +138,12 @@
                 <div class="editor-field">
                     @if (!ViewData.ModelState.IsValid)
                     {
-                        <span class="field-validation-error">
-                            @if (ViewData.ModelState["returAvgang"] != null && @ViewData.ModelState["returAvgang"].Errors.Count > 0)
+                    <span class="field-validation-error">
+                        @if (ViewData.ModelState["returAvgang"] != null && @ViewData.ModelState["returAvgang"].Errors.Count > 0)
                             {
-                                @ViewData.ModelState["returAvgang"].Errors[0].ErrorMessage
+                        @ViewData.ModelState["returAvgang"].Errors[0].ErrorMessage
                             }
-                        </span>
+                    </span>
                     }
                 </div>
             </div>
@@ -160,6 +159,12 @@
             </div>
         </div>
     </form>
+
+
+    @using(Html.BeginForm("LoggInn", "LoggInn")){
+
+    <input type="submit" value="Innlogging for admin" />
+    }
 
 </body>
 </html>
