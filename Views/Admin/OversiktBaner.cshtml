@@ -1,0 +1,43 @@
+﻿@model List<Model.bane>
+
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+    <!--Blir en session_destroy mohaah-->
+    <div>
+        @Html.ActionLink("Logg ut", "../Home/Index")
+    </div>
+
+    <div>
+        <!--Må ha med new tom for å få knapp? -->
+        @Html.ActionLink("Se alle stasjoner", "OversiktStasjoner", new { tom=""}, new { @class = "btn btn-success"})
+        @Html.ActionLink("Se alle baner", "OversiktBaner", new { tom=""}, new { @class = "btn btn-success" })
+
+    </div>
+
+    <table class="table">
+        <tr>
+            <th>
+                Banenavn
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @item.Banenavn
+            </td>
+            <td>
+                @Html.ActionLink("Til endreView", "EndreBane", new { id= item.BaneID}, new { @class = "btn btn-success" })
+                @Html.ActionLink("Til sletteview", "SlettBane", new { id= item.BaneID}, new { @class = "btn btn-success" })
+
+            </td>
+        </tr>
+        }
+    </table>
+</body>
+</html>

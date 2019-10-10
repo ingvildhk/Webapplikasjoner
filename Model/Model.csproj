@@ -43,8 +43,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminLoggInn.cs" />
+    <Compile Include="bane.cs" />
     <Compile Include="bestilling.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="stasjon.cs" />
+    <Compile Include="stasjonPaaBane.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

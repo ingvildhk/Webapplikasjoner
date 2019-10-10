@@ -1,0 +1,45 @@
+﻿@model List<Model.stasjon>
+
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+    <!--Blir en session_destroy mohaah-->
+    <div>
+        @Html.ActionLink("Logg ut", "../Home/Index")
+    </div>
+
+    <div>
+        @Html.ActionLink("Se alle stasjoner", "OversiktStasjoner", new { tom=""}, new { @class = "btn btn-success" })
+        @Html.ActionLink("Se alle baner", "OversiktBaner", new { tom=""}, new { @class = "btn btn-success" })
+
+    </div>
+
+    <table class="table">
+        <tr>
+            <th>
+                Stasjonsnavn
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @item.Stasjonsnavn
+            </td>
+            <td>
+                @Html.ActionLink("Til endreView", "EndreStasjon", new { id= item.StasjonID},  new { @class = "btn btn-success" })
+                @Html.ActionLink("Til sletteview", "SlettStasjon", new { id = item.StasjonID},  new { @class = "btn btn-success" })
+                @Html.ActionLink("Se alle avganger til stasjon", "OversiktAvgangerPaStasjon", new { id = item.StasjonID}, new { @class = "btn btn-success" })
+            </td>
+        </tr>
+        }
+    </table>
+</body>
+</html>
+
+
+

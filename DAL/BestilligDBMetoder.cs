@@ -1,14 +1,19 @@
-﻿using System;
+﻿using Model;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Mail;
-using Model;
 
 namespace DAL
 {
-    public class VyDBmetoder
+
+    //Metoder fra Oppgave del 1)
+    public class BestilligDBMetoder
     {
         DB db = new DB();
+
+        // -----------------------------------------------------------------------------------------
+        //Metoder for å hente stasjonsnavn, tidspunkt o.l. til bestillingsview
 
         public String hentStasjonsNavn(int id)
         {
@@ -281,6 +286,9 @@ namespace DAL
             }
             return Avgangstider;
         }
+
+        // --------------------------------------------------------------------------------
+        //Metoder for å sjekke bestilling og lagre bestilling til database
 
         public bool sjekkBestilling(bestilling innBestilling)
         {
