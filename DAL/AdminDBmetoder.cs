@@ -64,6 +64,29 @@ namespace DAL
             }
         }
 
+        // Metode for å hente EN stasjon, EN bane
+
+        public stasjon hentEnStasjon(int id)
+        {
+            using(var db = new DB())
+            {
+                var enDbStasjon = db.Stasjon.Find(id);
+                if(enDbStasjon == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    var utStasjon = new stasjon()
+                    {
+                        StasjonID = enDbStasjon.StasjonsID,
+                        Stasjonsnavn = enDbStasjon.Stasjonsnavn
+                    };
+                    return utStasjon;
+                }
+            }
+        }
+
 
         // ------------------------------------------------------------------------------------
         // Metoder for å endre, slette og legge til stasjoner i DB 

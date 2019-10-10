@@ -12,16 +12,38 @@ namespace Oppg1.Controllers
         // GET: Admin
         public ActionResult OversiktStasjoner()
         {
-            return View();
+            var vyDB = new VyBLL();
+            List<Model.stasjon> alleStasjoner = vyDB.hentAlleStasjoner();
+            return View(alleStasjoner);
         }
+
 
         public ActionResult OversiktBaner()
         {
-            return View();
+            var vyDB = new VyBLL();
+            List<Model.bane> alleBaner = vyDB.hentAlleBaner();
+            return View(alleBaner);
         }
 
-        public ActionResult EndreStasjon()
+        public ActionResult EndreStasjon(int id)
         {
+            var vyDB = new VyBLL();
+            Model.stasjon enstasjon = vyDB.hentEnStasjon(id);
+            return View(enstasjon);
+        }
+
+        [HttpPost]
+        public ActionResult Endre(int id, Model.stasjon endreStasjon)
+        {
+            if (ModelState.IsValid)
+            {
+                var stasjonDB = new VyBLL();
+                bool endringOK = stasjonDB.endreStasjon(id, endreStasjon);
+                if (endringOK)
+                {
+                    return RedirectToAction("OversiktStasjoner");
+                }
+            }
             return View();
         }
 

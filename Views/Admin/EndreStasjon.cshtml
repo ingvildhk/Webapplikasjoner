@@ -1,24 +1,32 @@
 ﻿@model Model.stasjon
 
-<!DOCTYPE html>
-<html>
-<head>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Endre stasjon</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.StasjonID)
 
-</head>
-<body>
-    <form action="/Admin/Endre" method="post">
-        <h2>Endre stasjon</h2>
-        <input name="id" value="@Model.StasjonID" hidden />
-        <table>
-            <tr>
-                <td> Stasjonsnavn</td>
-                <td><input name="stasjonsnavn" value="@Model.Stasjonsnavn" /></td>
-            </tr>
-        </table>
-        <div>
-            <input type="submit" name="lagreEndring" value="Endre" class="btn btn-info" />
-            @Html.ActionLink("Tilbake til oversikten", "/Admin/EndreStasjon")
+        <div class="form-group">
+            @Html.LabelFor(model => model.Stasjonsnavn, htmlAttributes: new { @class = "control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Stasjonsnavn, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Stasjonsnavn, "", new {@class = "text-danger"})
+            </div>
         </div>
-    </form>
-</body>
-</html>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Lagre" class="btn btn-success" />
+                @Html.ActionLink("Endre? eller tilbake", "OversiktStasjoner", new { tom= ""}, new { @class = "btn btn-success"})
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "OversiktStasjoner")
+</div>

@@ -1,4 +1,4 @@
-﻿<!--Tar in model av type Model.stasjon-->
+﻿@model List<Model.stasjon>
 
 <!DOCTYPE html>
 <html>
@@ -22,35 +22,22 @@
             <th>
                 Stasjonsnavn
             </th>
-            <th>
-
-            </th>
         </tr>
 
-        <!@foreach (var item in Model)
+        @foreach (var item in Model)
         {
         <tr>
             <td>
-                <!@item
+                @item.Stasjonsnavn
             </td>
             <td>
-                @Html.ActionLink("Til endreView", "EndreStasjon", new { tom=""},  new { @class = "btn btn-success" })
-                @Html.ActionLink("Til sletteview", "SlettStasjon", new { tom=""},  new { @class = "btn btn-success" })
-                @Html.ActionLink("Se alle avganger til stasjon", "OversiktAvgangerPaStasjon", new { tom=""}, new { @class = "btn btn-success" })
-
-                <!@Html.ActionLink("Se avganger", "Avganger", new )>
-                <!@Html.ActionLink("Endre", "Endre", new { id = item.id}, new { ><!@class = "btn btn-success"})>
-                <!@Html.ActionLink("Slette", "Slett", new { id = item.id }, new { ><!@class = "btn btn-danger" })>
+                @Html.ActionLink("Til endreView", "EndreStasjon", new { id= item.StasjonID},  new { @class = "btn btn-success" })
+                @Html.ActionLink("Til sletteview", "SlettStasjon", new { id = item.StasjonID},  new { @class = "btn btn-success" })
+                @Html.ActionLink("Se alle avganger til stasjon", "OversiktAvgangerPaStasjon", new { id = item.StasjonID}, new { @class = "btn btn-success" })
             </td>
         </tr>
         }
     </table>
-
-
-
-
-
-
 </body>
 </html>
 

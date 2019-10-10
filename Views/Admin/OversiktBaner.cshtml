@@ -1,4 +1,4 @@
-﻿<!--Tar in model av type Model.bane-->
+﻿@model List<Model.bane>
 
 <!DOCTYPE html>
 <html>
@@ -10,7 +10,6 @@
     <div>
         @Html.ActionLink("Logg ut", "../Home/Index")
     </div>
-
 
     <div>
         <!--Må ha med new tom for å få knapp? -->
@@ -24,30 +23,21 @@
             <th>
                 Banenavn
             </th>
-            <th>
-
-            </th>
         </tr>
 
-        <!@foreach (var item in Model)
+        @foreach (var item in Model)
         {
         <tr>
             <td>
-                <!@item
+                @item.Banenavn
             </td>
             <td>
-                @Html.ActionLink("Til endreView", "EndreBane", new { tom=""}, new { @class = "btn btn-success" })
-                @Html.ActionLink("Til sletteview", "SlettBane", new { tom=""}, new { @class = "btn btn-success" })
+                @Html.ActionLink("Til endreView", "EndreBane", new { id= item.BaneID}, new { @class = "btn btn-success" })
+                @Html.ActionLink("Til sletteview", "SlettBane", new { id= item.BaneID}, new { @class = "btn btn-success" })
 
             </td>
         </tr>
         }
     </table>
-
-
-
-
-
-
 </body>
 </html>
