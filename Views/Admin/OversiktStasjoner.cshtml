@@ -1,0 +1,58 @@
+﻿<!--Tar in model av type Model.stasjon-->
+
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+    <!--Blir en session_destroy mohaah-->
+    <div>
+        @Html.ActionLink("Logg ut", "../Home/Index")
+    </div>
+
+    <div>
+        @Html.ActionLink("Se alle stasjoner", "OversiktStasjoner", new { tom=""}, new { @class = "btn btn-success" })
+        @Html.ActionLink("Se alle baner", "OversiktBaner", new { tom=""}, new { @class = "btn btn-success" })
+
+    </div>
+
+    <table class="table">
+        <tr>
+            <th>
+                Stasjonsnavn
+            </th>
+            <th>
+
+            </th>
+        </tr>
+
+        <!@foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                <!@item
+            </td>
+            <td>
+                @Html.ActionLink("Til endreView", "EndreStasjon", new { tom=""},  new { @class = "btn btn-success" })
+                @Html.ActionLink("Til sletteview", "SlettStasjon", new { tom=""},  new { @class = "btn btn-success" })
+                @Html.ActionLink("Se alle avganger til stasjon", "OversiktAvgangerPaStasjon", new { tom=""}, new { @class = "btn btn-success" })
+
+                <!@Html.ActionLink("Se avganger", "Avganger", new )>
+                <!@Html.ActionLink("Endre", "Endre", new { id = item.id}, new { ><!@class = "btn btn-success"})>
+                <!@Html.ActionLink("Slette", "Slett", new { id = item.id }, new { ><!@class = "btn btn-danger" })>
+            </td>
+        </tr>
+        }
+    </table>
+
+
+
+
+
+
+</body>
+</html>
+
+
+

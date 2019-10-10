@@ -1,0 +1,24 @@
+﻿@model Model.stasjon
+
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+    <form action="/Admin/Endre" method="post">
+        <h2>Endre stasjon</h2>
+        <input name="id" value="@Model.StasjonID" hidden />
+        <table>
+            <tr>
+                <td> Stasjonsnavn</td>
+                <td><input name="stasjonsnavn" value="@Model.Stasjonsnavn" /></td>
+            </tr>
+        </table>
+        <div>
+            <input type="submit" name="lagreEndring" value="Endre" class="btn btn-info" />
+            @Html.ActionLink("Tilbake til oversikten", "/Admin/EndreStasjon")
+        </div>
+    </form>
+</body>
+</html>

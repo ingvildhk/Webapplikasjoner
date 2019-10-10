@@ -1,0 +1,32 @@
+﻿<!--Tar in model.stasjon-->
+
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+    <h2>Er du sikker på at du vil slette stasjonen?</h2>
+    <div>
+        <h4>Stasjon</h4>
+        <dl class="dl-horizontal">
+            <dt>
+                Stasjonsnavn
+            </dt>
+            <dd>
+               model . stasjonsnavn
+            </dd>
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Slett" class="btn btn-danger" />
+                @Html.ActionLink("Tilbake til oversikten", "/Admin/EndreStasjon")
+            </div>
+        }
+    </div>
+</body>
+</html>

@@ -1,6 +1,6 @@
 ﻿@model Model.AdminLoggInn
 
-@using (Html.BeginForm("AdminOversikt", "Admin")) 
+@using (Html.BeginForm("OversiktStasjoner", "Admin")) 
 {
     @Html.AntiForgeryToken()
     
@@ -27,7 +27,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Logg inn" class="btn btn-default" />
+                <input type="submit" value="Logg inn" class="btn btn-success" />
             </div>
         </div>
     </div>
