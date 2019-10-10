@@ -1,12 +1,14 @@
-﻿using System;
+﻿using Model;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Mail;
-using Model;
 
 namespace DAL
 {
-    public class VyDBmetoder
+
+    //Metoder fra Oppgave del 1)
+    public class BestilligDBMetoder
     {
         DB db = new DB();
 
@@ -405,54 +407,5 @@ namespace DAL
                 }
             }
         }
-
-        // ---------------------------------------------------------------------------------------
-        // Metoder for å endre, slette og legge til stasjoner i DB 
-       
-        public void leggTilStasjon()
-        {
-
-        }
-
-        public void endreStasjon()
-        {
-
-        }
-        public void slettStasjon()
-        {
-
-        }
-
-        public void leggTilAvgang()
-        {
-
-        }
-
-        public void endreAvgang()
-        {
-
-        }
-
-        public void slettAvgang()
-        {
-
-        }
-
-        public void leggTilBane()
-        {
-
-        }
-
-        public void endreBane()
-        {
-
-        }
-
-        public void slettBane()
-        {
-
-        }
-
-        
     }
 }

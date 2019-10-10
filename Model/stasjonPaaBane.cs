@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    class stasjonPaaBane
+    public class stasjonPaaBane
     {
         public int stasjonPaaBaneID { get; set; }
         public string Stasjon { get; set; }
