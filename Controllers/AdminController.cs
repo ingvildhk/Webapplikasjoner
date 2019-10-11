@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BLL;
+using Model;
 
 namespace Oppg1.Controllers
 {
@@ -21,19 +22,19 @@ namespace Oppg1.Controllers
         public ActionResult OversiktBaner()
         {
             var vyDB = new VyBLL();
-            List<Model.bane> alleBaner = vyDB.hentAlleBaner();
+            List<bane> alleBaner = vyDB.hentAlleBaner();
             return View(alleBaner);
         }
 
         public ActionResult EndreStasjon(int id)
         {
             var vyDB = new VyBLL();
-            Model.stasjon enstasjon = vyDB.hentEnStasjon(id);
+            stasjon enstasjon = vyDB.hentEnStasjon(id);
             return View(enstasjon);
         }
 
         [HttpPost]
-        public ActionResult Endre(int id, Model.stasjon endreStasjon)
+        public ActionResult EndreStasjon(int id, stasjon endreStasjon)
         {
             if (ModelState.IsValid)
             {
@@ -47,8 +48,42 @@ namespace Oppg1.Controllers
             return View();
         }
 
-        public ActionResult SlettStasjon()
+        public ActionResult SlettStasjon(int id)
         {
+            var vyDB = new VyBLL();
+            stasjon enStasjon = vyDB.hentEnStasjon(id);
+            return View(enStasjon);
+        }
+
+        [HttpPost]
+        public ActionResult SlettStasjon(int id, stasjon slettstasjon)
+        {
+            var vyDB = new VyBLL();
+            bool slettOK = vyDB.slettStasjon(id);
+            if (slettOK)
+            {
+                return RedirectToAction("OversiktStasjoner");
+            }
+            return View();
+        }
+
+        public ActionResult LeggTilStasjon()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult LeggTilStasjon(stasjon stasjon)
+        {
+            if (ModelState.IsValid)
+            {
+                var vyDB = new VyBLL();
+                bool leggTilOK = vyDB.leggTilStasjon(stasjon);
+                if (leggTilOK)
+                {
+                    return RedirectToAction("OversiktStasjoner");
+                }
+            }
             return View();
         }
 

@@ -13,6 +13,6 @@ namespace Model
 
         [Display(Name = "Banenavn")]
         [Required(ErrorMessage = "Banenavn må oppgis")]
-        public string Banenavn;
+        public string Banenavn { get; set; }
     }
 }

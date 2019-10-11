@@ -5,6 +5,14 @@
     <h4>stasjon</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Stasjonsnavn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Stasjonsnavn)
+        </dd>
+
     </dl>
 
     @using (Html.BeginForm()) {
@@ -12,7 +20,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Tilbake til oversikt", "OversiktStasjoner")
         </div>
     }
 </div>

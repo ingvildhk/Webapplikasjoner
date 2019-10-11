@@ -139,7 +139,7 @@ namespace DAL
                 try
                 {
                     Stasjon stasjon = db.Stasjon.Find(stasjonID);
-                    db.Stasjon.Remove(stasjon);
+                    
 
                     //sletter alle StasjonPaaBane som inneholder stasjonen som slettes
                     List<StasjonPaaBane> slettStasjonPaaBaner = new List<StasjonPaaBane>();
@@ -154,6 +154,8 @@ namespace DAL
                     {
                         db.StasjonPaaBane.Remove(s);
                     }
+                    db.Stasjon.Remove(stasjon);
+
 
                     db.SaveChanges();
                     return true;
@@ -297,7 +299,7 @@ namespace DAL
                 try
                 {
                     Bane bane = db.Bane.Find(baneID);
-                    db.Bane.Remove(bane);
+                    
 
                     //sletter alle StasjonPaaBaner som inneholder Banen som slettes
                     List<StasjonPaaBane> slettStasjonPaaBaner = new List<StasjonPaaBane>();
@@ -312,6 +314,7 @@ namespace DAL
                     {
                         db.StasjonPaaBane.Remove(s);
                     }
+                    db.Bane.Remove(bane);
 
                     db.SaveChanges();
                     return true;

@@ -14,6 +14,6 @@ namespace Model
         public string Bane { get; set; }
         [Display(Name = "Tidspunkt")]
         [Required(ErrorMessage = "Tidspunkt må oppgis")]
-        public string Avgang;
+        public string Avgang { get; set; }
     }
 }

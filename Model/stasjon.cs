@@ -13,6 +13,6 @@ namespace Model
 
         [Display(Name = "Stasjonsnavn")]
         [Required(ErrorMessage = "Stasjonsnavn må oppgis")]
-        public string Stasjonsnavn;
+        public string Stasjonsnavn { get; set; }
     }
 }
