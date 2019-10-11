@@ -123,5 +123,10 @@ namespace Oppg1.Controllers
             List<stasjonPaaBane> listen = vyDB.hentStasjonPaaBane(id);
             return View(listen);
         }
+
+        public ActionResult LeggTilAvgang()
+        {
+            return View();
+        }
     }
 }
