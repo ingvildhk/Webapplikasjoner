@@ -192,6 +192,7 @@
     <Content Include="Views\Admin\LeggTilStasjon.cshtml" />
     <Content Include="Views\Admin\SlettStasjon.cshtml" />
     <Content Include="Views\Admin\LeggTilBane.cshtml" />
+    <Content Include="Views\Admin\AvgangerPaStasjon.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

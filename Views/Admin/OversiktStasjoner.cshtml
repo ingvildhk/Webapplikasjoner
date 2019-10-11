@@ -37,7 +37,7 @@
             <td>
                 @Html.ActionLink("Til endreView", "EndreStasjon", new { id= item.StasjonID},  new { @class = "btn btn-success" })
                 @Html.ActionLink("Til sletteview", "SlettStasjon", new { id = item.StasjonID},  new { @class = "btn btn-success" })
-                @Html.ActionLink("Se alle avganger til stasjon", "OversiktAvgangerPaStasjon", new { id = item.StasjonID}, new { @class = "btn btn-success" })
+                @Html.ActionLink("Se alle avganger til stasjon", "AvgangerPaStasjon", new { id = item.StasjonID}, new { @class = "btn btn-success" })
             </td>
         </tr>
         }

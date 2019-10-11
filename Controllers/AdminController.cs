@@ -116,5 +116,12 @@ namespace Oppg1.Controllers
         {
             return View();
         }
+
+        public ActionResult AvgangerPaStasjon(int id)
+        {
+            var vyDB = new VyBLL();
+            List<stasjonPaaBane> listen = vyDB.hentStasjonPaaBane(id);
+            return View(listen);
+        }
     }
 }

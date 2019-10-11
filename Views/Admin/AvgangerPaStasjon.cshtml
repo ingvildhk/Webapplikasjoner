@@ -1,0 +1,37 @@
+﻿@model List<Model.stasjonPaaBane>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model[0].Bane)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].Avgang)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Bane)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Avgang)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.stasjonPaaBaneID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.stasjonPaaBaneID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.stasjonPaaBaneID })
+        </td>
+    </tr>
+}
+
+</table>
+
+<div>
+    @Html.ActionLink("Tilbake til oversikt over stasjoner", "OversiktStasjoner")
+</div>
