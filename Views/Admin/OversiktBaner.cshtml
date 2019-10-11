@@ -12,9 +12,13 @@
     </div>
 
     <div>
+        @Html.ActionLink("Har du skikkelig lyst å legge til en Bane?:D:D", "LeggTilBane", new { tom = "" }, new { @class = "btn btn-success" })
+    </div>
+
+    <div>
         <!--Må ha med new tom for å få knapp? -->
-        @Html.ActionLink("Se alle stasjoner", "OversiktStasjoner", new { tom=""}, new { @class = "btn btn-success"})
-        @Html.ActionLink("Se alle baner", "OversiktBaner", new { tom=""}, new { @class = "btn btn-success" })
+        @Html.ActionLink("Se alle stasjoner", "OversiktStasjoner", new { tom = "" }, new { @class = "btn btn-success" })
+        @Html.ActionLink("Se alle baner", "OversiktBaner", new { tom = "" }, new { @class = "btn btn-success" })
 
     </div>
 
@@ -27,16 +31,16 @@
 
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @item.Banenavn
-            </td>
-            <td>
-                @Html.ActionLink("Til endreView", "EndreBane", new { id= item.BaneID}, new { @class = "btn btn-success" })
-                @Html.ActionLink("Til sletteview", "SlettBane", new { id= item.BaneID}, new { @class = "btn btn-success" })
+            <tr>
+                <td>
+                    @item.Banenavn
+                </td>
+                <td>
+                    @Html.ActionLink("Til endreView", "EndreBane", new { id = item.BaneID }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Til sletteview", "SlettBane", new { id = item.BaneID }, new { @class = "btn btn-success" })
 
-            </td>
-        </tr>
+                </td>
+            </tr>
         }
     </table>
 </body>

@@ -87,6 +87,26 @@ namespace Oppg1.Controllers
             return View();
         }
 
+        public ActionResult LeggTilBane()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult LeggTilBane(bane bane)
+        {
+            if (ModelState.IsValid)
+            {
+                var vyDB = new VyBLL();
+                bool leggTilOK = vyDB.leggTilBane(bane);
+                if (leggTilOK)
+                {
+                    return RedirectToAction("OversiktBaner");
+                }
+            }
+            return View();
+        }
+
         public ActionResult EndreBane()
         {
             return View();
