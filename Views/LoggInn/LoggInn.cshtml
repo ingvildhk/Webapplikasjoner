@@ -5,13 +5,13 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>AdminLoggInn</h4>
-        <hr />
+        <h3>Innlogging for administratorer</h3>
+        <br/>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.Brukernavn, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Brukernavn, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Brukernavn, new { htmlAttributes = new { @class = "form-control", @id = "inputBoks", @placeholder = "Brukernavn" } })
                 @Html.ValidationMessageFor(model => model.Brukernavn, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -19,15 +19,14 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Passord, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Passord, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Passord, new { htmlAttributes = new { @class = "form-control", @id = "inputBoks", @placeholder = "Passord" } })
                 @Html.ValidationMessageFor(model => model.Passord, "", new { @class = "text-danger" })
             </div>
         </div>
 
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Logg inn" class="btn btn-success" />
+                <input type="submit" value="Logg inn" id="bestillKnapp" class="btn btn-success" />
             </div>
         </div>
     </div>
@@ -36,3 +35,4 @@
 <div>
     @Html.ActionLink("Tilbake til forsiden", "../Home/Index")
 </div>
+
