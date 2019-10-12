@@ -78,10 +78,10 @@ namespace BLL
             return AdminDal.leggTilStasjonPaaBane(innStasjonPaaBane, stasjonID, baneID);
         }
 
-        public bool endreStasjonPaaBane(stasjonPaaBane innStasjonPaaBane, int stasjonID, int baneID, int stasjonPaaBaneID)
+        public bool endreStasjonPaaBane(stasjonPaaBane innStasjonPaaBane, int stasjonPaaBaneID)
         {
             var AdminDal = new AdminDBmetoder();
-            return AdminDal.endreStasjonPaaBane(innStasjonPaaBane, stasjonID, baneID, stasjonPaaBaneID);
+            return AdminDal.endreStasjonPaaBane(innStasjonPaaBane, stasjonPaaBaneID);
         }
 
         public bool slettStasjonPaaBane(int stasjonPaaBaneID, int baneID)
@@ -106,6 +106,26 @@ namespace BLL
         {
             var AdminDal = new AdminDBmetoder();
             return AdminDal.slettBane(baneID);
+        }
+
+        //----------------------------------------------------------------
+        //Valideringsmetoder
+        public bool sjekkStasjonOK (stasjon innStasjon)
+        {
+            var AdminDal = new AdminDBmetoder();
+            return AdminDal.sjekkStasjonOK(innStasjon);
+        }
+
+        public bool sjekkBaneOK (bane innBane)
+        {
+            var AdminDal = new AdminDBmetoder();
+            return AdminDal.sjekkBaneOK(innBane);
+        }
+
+        public bool sjekkAvgangOK (stasjonPaaBane innStasjonPaaBane)
+        {
+            var AdminDal = new AdminDBmetoder();
+            return AdminDal.sjekkAvgangOK(innStasjonPaaBane);
         }
 
         //----------------------------------------------------------------

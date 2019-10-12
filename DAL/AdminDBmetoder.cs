@@ -53,7 +53,9 @@ namespace DAL
                         stasjonPaaBane stasjonPaaBane = new stasjonPaaBane()
                         {
                             stasjonPaaBaneID = s.StasjonPaaBaneID,
+                            StasjonsID =  s.Stasjon.StasjonsID,
                             Stasjon = s.Stasjon.Stasjonsnavn,
+                            BaneID = s.Bane.BaneID,
                             Bane = s.Bane.Banenavn,
                             Avgang = s.Avgang
                         };
@@ -122,7 +124,9 @@ namespace DAL
                     var utAvgang = new stasjonPaaBane()
                     {
                         stasjonPaaBaneID = enDbAvgang.StasjonPaaBaneID,
+                        StasjonsID = enDbAvgang.Stasjon.StasjonsID,
                         Stasjon = enDbAvgang.Stasjon.Stasjonsnavn,
+                        BaneID = enDbAvgang.Bane.BaneID,
                         Bane = enDbAvgang.Bane.Banenavn,
                         Avgang = enDbAvgang.Avgang
 
@@ -246,15 +250,15 @@ namespace DAL
             }
         }
 
-        public bool endreStasjonPaaBane(stasjonPaaBane innStasjonPaaBane, int stasjonID, int baneID, int stasjonPaaBaneID)
+        public bool endreStasjonPaaBane(stasjonPaaBane innStasjonPaaBane, int stasjonPaaBaneID)
         {
             using (var db = new DB())
             {
                 try
                 {
                     StasjonPaaBane EndreStasjonPaaBane = db.StasjonPaaBane.Find(stasjonPaaBaneID);
-                    Stasjon innStasjon = db.Stasjon.Find(stasjonID);
-                    Bane innBane = db.Bane.Find(baneID);
+                    Stasjon innStasjon = db.Stasjon.Find(innStasjonPaaBane.StasjonsID);
+                    Bane innBane = db.Bane.Find(innStasjonPaaBane.BaneID);
 
                     EndreStasjonPaaBane.Stasjon = innStasjon;
                     EndreStasjonPaaBane.Bane = innBane;
@@ -370,5 +374,67 @@ namespace DAL
                 }
             }
         } 
+
+        //------------------------------------------------------------------------------
+        //Valideringsmetoder
+
+
+        //returnerer false om stasjonen finnes fra før av
+        public bool sjekkStasjonOK (stasjon innStasjon)
+        {
+            using (var db = new DB())
+            {
+                foreach (Stasjon s in db.Stasjon)
+                {
+                    if (s.Stasjonsnavn == innStasjon.Stasjonsnavn)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+
+        //returnerer false om banen finnes fra før av
+        public bool sjekkBaneOK (bane innBane)
+        {
+            using (var db = new DB())
+            {
+                foreach (Bane b in db.Bane)
+                {
+                    if (b.Banenavn == innBane.Banenavn)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+
+        //returnerer false om avgangen finnes fra før av
+        public bool sjekkAvgangOK (stasjonPaaBane innStasjonPaaBane)
+        {
+            using (var db = new DB())
+            {
+                List<StasjonPaaBane> avganger = new List<StasjonPaaBane>();
+
+                foreach (StasjonPaaBane sb in db.StasjonPaaBane)
+                {
+                    if (sb.Bane.BaneID == innStasjonPaaBane.BaneID && sb.Stasjon.StasjonsID == innStasjonPaaBane.StasjonsID)
+                    {
+                        avganger.Add(sb);
+                    }
+                }
+
+                foreach (StasjonPaaBane sb in avganger)
+                {
+                    if (sb.Avgang == innStasjonPaaBane.Avgang)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
     }
 }

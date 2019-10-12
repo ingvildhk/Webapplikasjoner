@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using BLL;
 using Model;
+using Oppg1.Metoder;
 
 namespace Oppg1.Controllers
 {
@@ -53,10 +54,15 @@ namespace Oppg1.Controllers
             if (ModelState.IsValid)
             {
                 var stasjonDB = new VyBLL();
-                bool endringOK = stasjonDB.endreStasjon(id, endreStasjon);
-                if (endringOK)
+                //sjekker at stasjonen ikke finnes fra før
+                bool nyStasjonOK = stasjonDB.sjekkStasjonOK(endreStasjon);
+                if (nyStasjonOK)
                 {
-                    return RedirectToAction("OversiktStasjoner");
+                    bool endringOK = stasjonDB.endreStasjon(id, endreStasjon);
+                    if (endringOK)
+                    {
+                        return RedirectToAction("OversiktStasjoner");
+                    }
                 }
             }
             return View();
@@ -75,10 +81,15 @@ namespace Oppg1.Controllers
             if (ModelState.IsValid)
             {
                 var baneDB = new VyBLL();
-                bool endringOK = baneDB.endreBane(id, endreBane);
-                if (endringOK)
+                //sjekker at bane ikke finnes fra før
+                bool nyBaneOK = baneDB.sjekkBaneOK(endreBane);
+                if (nyBaneOK)
                 {
-                    return RedirectToAction("OversiktBaner");
+                    bool endringOK = baneDB.endreBane(id, endreBane);
+                    if (endringOK)
+                    {
+                        return RedirectToAction("OversiktBaner");
+                    }
                 }
             }
             return View();
@@ -89,6 +100,33 @@ namespace Oppg1.Controllers
             var vyDB = new VyBLL();
             var enAvgang = vyDB.hentEnAvgang(id);
             return View(enAvgang);
+        }
+
+        [HttpPost]
+        public ActionResult EndreAvgang(int id, stasjonPaaBane endreStasjonPaaBane)
+        {
+            if (ModelState.IsValid)
+            {
+                //sjekker at tidspunkt er på riktig format
+                var metodeSjekk = new ValideringsMetoder();
+                bool tidspunktOk = metodeSjekk.sjekkTidspunkt(endreStasjonPaaBane.Avgang);
+                if (tidspunktOk)
+                {
+                    var vyDB = new VyBLL();
+                    //sjekker at avgangen ikke finnes fra før (virker ikke enda da man ikke får med seg stasjonid og baneid fra httppost)
+                    bool nyAvgangOK = vyDB.sjekkAvgangOK(endreStasjonPaaBane);
+                    if (nyAvgangOK)
+                    {
+                        bool endringOK = vyDB.endreStasjonPaaBane(endreStasjonPaaBane, id);
+                        if (endringOK)
+                        {
+                            //må endre denne til oversikt over avgang på stasjon
+                            return RedirectToAction("OversiktStasjoner");
+                        }
+                    }
+                }  
+            }
+            return View();
         }
 
         public ActionResult SlettStasjon(int id)
@@ -140,11 +178,16 @@ namespace Oppg1.Controllers
             if (ModelState.IsValid)
             {
                 var vyDB = new VyBLL();
-                bool leggTilOK = vyDB.leggTilStasjon(stasjon);
-                if (leggTilOK)
+                //sjekker at stasjon ikke finnes fra før
+                bool nyStasjonOK = vyDB.sjekkStasjonOK(stasjon);
+                if (nyStasjonOK)
                 {
-                    return RedirectToAction("OversiktStasjoner");
-                }
+                    bool leggTilOK = vyDB.leggTilStasjon(stasjon);
+                    if (leggTilOK)
+                    {
+                        return RedirectToAction("OversiktStasjoner");
+                    }
+                }               
             }
             return View();
         }
@@ -160,18 +203,18 @@ namespace Oppg1.Controllers
             if (ModelState.IsValid)
             {
                 var vyDB = new VyBLL();
-                bool leggTilOK = vyDB.leggTilBane(bane);
-                if (leggTilOK)
+                //sjekker at banen ikke finnes fra før
+                bool nyBaneOK = vyDB.sjekkBaneOK(bane);
+                if (nyBaneOK)
                 {
-                    return RedirectToAction("OversiktBaner");
+                    bool leggTilOK = vyDB.leggTilBane(bane);
+                    if (leggTilOK)
+                    {
+                        return RedirectToAction("OversiktBaner");
+                    }
                 }
             }
             return View();
         }
-
-
-
     }
-
-
 }

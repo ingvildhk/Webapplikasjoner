@@ -10,7 +10,9 @@ namespace Model
     public class stasjonPaaBane
     {
         public int stasjonPaaBaneID { get; set; }
+        public int StasjonsID { get; set; }
         public string Stasjon { get; set; }
+        public int BaneID { get; set; }
         public string Bane { get; set; }
         [Display(Name = "Tidspunkt")]
         [Required(ErrorMessage = "Tidspunkt må oppgis")]
