@@ -87,6 +87,27 @@ namespace DAL
             }
         }
 
+        public bane hentEnBane (int id)
+        {
+            using (var db = new DB())
+            {
+                var enDbBane = db.Bane.Find(id);
+                if (enDbBane == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    var utBane = new bane()
+                    {
+                        BaneID = enDbBane.BaneID,
+                        Banenavn = enDbBane.Banenavn
+                    };
+                    return utBane;
+                }
+            }
+        }
+
 
         // ------------------------------------------------------------------------------------
         // Metoder for å endre, slette og legge til stasjoner i DB 

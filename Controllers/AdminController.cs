@@ -10,7 +10,7 @@ namespace Oppg1.Controllers
 {
     public class AdminController : Controller
     {
-        // GET: Admin
+        
         public ActionResult OversiktStasjoner()
         {
             var vyDB = new VyBLL();
@@ -48,6 +48,28 @@ namespace Oppg1.Controllers
             return View();
         }
 
+        public ActionResult EndreBane(int id)
+        {
+            var vyDB = new VyBLL();
+            bane enbane = vyDB.hentEnBane(id);
+            return View(enbane);
+        }
+
+        [HttpPost]
+        public ActionResult EndreBane(int id, bane endreBane)
+        {
+            if (ModelState.IsValid)
+            {
+                var baneDB = new VyBLL();
+                bool endringOK = baneDB.endreBane(id, endreBane);
+                if (endringOK)
+                {
+                    return RedirectToAction("OversiktBaner");
+                }
+            }
+            return View();
+        }
+
         public ActionResult SlettStasjon(int id)
         {
             var vyDB = new VyBLL();
@@ -63,6 +85,25 @@ namespace Oppg1.Controllers
             if (slettOK)
             {
                 return RedirectToAction("OversiktStasjoner");
+            }
+            return View();
+        }
+
+        public ActionResult SlettBane(int id)
+        {
+            var vyDB = new VyBLL();
+            var enBane = vyDB.hentEnBane(id);
+            return View(enBane);
+        }
+
+        [HttpPost]
+        public ActionResult SlettBane (int id, bane enBane)
+        {
+            var vyDB = new VyBLL();
+            bool slettOK = vyDB.slettBane(id);
+            if (slettOK)
+            {
+                return RedirectToAction("OversiktBaner");
             }
             return View();
         }
@@ -107,15 +148,9 @@ namespace Oppg1.Controllers
             return View();
         }
 
-        public ActionResult EndreBane()
-        {
-            return View();
-        }
 
-        public ActionResult SlettBane()
-        {
-            return View();
-        }
+
+
 
         public ActionResult AvgangerPaStasjon(int id)
         {

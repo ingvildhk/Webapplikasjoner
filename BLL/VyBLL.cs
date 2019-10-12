@@ -40,6 +40,12 @@ namespace BLL
 
         }
 
+        public bane hentEnBane(int id)
+        {
+            var BaneDAL = new AdminDBmetoder();
+            return BaneDAL.hentEnBane(id);
+        }
+
         //----------------------------------------------------------------
         //Metoder for å lagre, endre, slette i database
         public bool leggTilStasjon(stasjon innStasjon)
