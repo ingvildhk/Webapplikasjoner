@@ -46,6 +46,12 @@ namespace BLL
             return BaneDAL.hentEnBane(id);
         }
 
+        public stasjonPaaBane hentEnAvgang(int id)
+        {
+            var AvgangDAL = new AdminDBmetoder();
+            return AvgangDAL.hentEnAvgang(id);
+        }
+
         //----------------------------------------------------------------
         //Metoder for å lagre, endre, slette i database
         public bool leggTilStasjon(stasjon innStasjon)

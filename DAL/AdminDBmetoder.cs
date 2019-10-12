@@ -108,6 +108,30 @@ namespace DAL
             }
         }
 
+        public stasjonPaaBane hentEnAvgang(int id)
+        {
+            using (var db = new DB())
+            {
+                var enDbAvgang = db.StasjonPaaBane.Find(id);
+                if (enDbAvgang == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    var utAvgang = new stasjonPaaBane()
+                    {
+                        stasjonPaaBaneID = enDbAvgang.StasjonPaaBaneID,
+                        Stasjon = enDbAvgang.Stasjon.Stasjonsnavn,
+                        Bane = enDbAvgang.Bane.Banenavn,
+                        Avgang = enDbAvgang.Avgang
+
+                    };
+                    return utAvgang;
+                }
+            }
+        }
+
 
         // ------------------------------------------------------------------------------------
         // Metoder for å endre, slette og legge til stasjoner i DB 

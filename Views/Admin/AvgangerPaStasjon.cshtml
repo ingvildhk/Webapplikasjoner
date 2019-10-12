@@ -1,7 +1,7 @@
 ﻿@model List<Model.stasjonPaaBane>
 
 <p>
-    @Html.ActionLink("Create New", "LeggTilAvgang")
+    @Html.ActionLink("Legg til en helt ny avgang", "LeggTilAvgang")
 </p>
 <table class="table">
     <tr>
@@ -24,9 +24,9 @@
             @Html.DisplayFor(modelItem => item.Avgang)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.stasjonPaaBaneID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.stasjonPaaBaneID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.stasjonPaaBaneID })
+            @Html.ActionLink("Endre", "EndreAvgang", new { id=item.stasjonPaaBaneID }) |
+
+            @Html.ActionLink("Slett", "SlettAvgang", new { id=item.stasjonPaaBaneID })
         </td>
     </tr>
 }

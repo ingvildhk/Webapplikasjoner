@@ -26,7 +26,21 @@ namespace Oppg1.Controllers
             return View(alleBaner);
         }
 
-        public ActionResult EndreStasjon(int id)
+        //Oversikt avganger til stasjoner
+        public ActionResult AvgangerPaStasjon(int id)
+        {
+            var vyDB = new VyBLL();
+            List<stasjonPaaBane> listen = vyDB.hentStasjonPaaBane(id);
+            return View(listen);
+        }
+
+        public ActionResult LeggTilAvgang()
+        {
+            return View();
+        }
+  
+
+    public ActionResult EndreStasjon(int id)
         {
             var vyDB = new VyBLL();
             stasjon enstasjon = vyDB.hentEnStasjon(id);
@@ -68,6 +82,13 @@ namespace Oppg1.Controllers
                 }
             }
             return View();
+        }
+
+        public ActionResult EndreAvgang(int id)
+        {
+            var vyDB = new VyBLL();
+            var enAvgang = vyDB.hentEnAvgang(id);
+            return View(enAvgang);
         }
 
         public ActionResult SlettStasjon(int id)
@@ -150,18 +171,7 @@ namespace Oppg1.Controllers
 
 
 
-
-
-        public ActionResult AvgangerPaStasjon(int id)
-        {
-            var vyDB = new VyBLL();
-            List<stasjonPaaBane> listen = vyDB.hentStasjonPaaBane(id);
-            return View(listen);
-        }
-
-        public ActionResult LeggTilAvgang()
-        {
-            return View();
-        }
     }
+
+
 }
