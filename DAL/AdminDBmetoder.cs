@@ -375,6 +375,19 @@ namespace DAL
             }
         } 
 
+
+        public List <String> hentAlleBanenavn()
+        {
+            using (var db = new DB()) {
+                List<String> alleBaner = new List<String>();
+                foreach (Bane bane in db.Bane )
+                {
+                    alleBaner.Add(bane.Banenavn);
+                }
+                return alleBaner;
+            }
+        }
+
         //------------------------------------------------------------------------------
         //Valideringsmetoder
 

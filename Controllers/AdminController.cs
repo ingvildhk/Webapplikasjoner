@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using BLL;
 using Model;
 using Oppg1.Metoder;
+using System.Web.Script.Serialization;
 
 namespace Oppg1.Controllers
 {
@@ -215,6 +216,25 @@ namespace Oppg1.Controllers
                 }
             }
             return View();
+        }
+
+        // Helt lik metode i homecontroller, må vi ha en her også?
+        public string hentAlleStasjoner()
+        {
+            var BLL = new VyBLL();
+            List<String> alleStasjoner = BLL.hentAlleStasjonsNavn();
+            var jsonSerializer = new JavaScriptSerializer();
+            string json = jsonSerializer.Serialize(alleStasjoner);
+            return json;
+        }
+
+        public string hentAlleBanenavn()
+        {
+            var BLL = new VyBLL();
+            List<String> alleBaner = BLL.hentAlleBanenavn();
+            var jsonSerializer = new JavaScriptSerializer();
+            string json = jsonSerializer.Serialize(alleBaner);
+            return json;
         }
     }
 }
