@@ -5,30 +5,29 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Endre stasjon</h4>
+        <h4>Endre stasjonsnavn</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.StasjonID)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Stasjonsnavn, htmlAttributes: new { @class = "control-label col-md-2" })
+            <h5>@Html.LabelFor(model => model.Stasjonsnavn, htmlAttributes: new { @class = "control-label col-md-2" })</h5>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Stasjonsnavn, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Stasjonsnavn, new { htmlAttributes = new { @class = "form-control", @id = "inputBoks"  } })
                 @Html.ValidationMessageFor(model => model.Stasjonsnavn, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Lagre" class="btn btn-success" />
+                <input type="submit" value="Lagre nytt navn" class="btn btn-success" id="knapp" />
             </div>
         </div>
-
-
-        @Html.ActionLink("Tilbake til oversikt", "OversiktStasjoner", new { tom = "" }, new { @class = "btn btn-success" })
+        <br />
+        <div>
+            @Html.ActionLink("Tilbake til oversikt", "OversiktStasjoner")
+        </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "OversiktStasjoner")
-</div>
+

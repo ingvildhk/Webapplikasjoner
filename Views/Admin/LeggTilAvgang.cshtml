@@ -1,45 +1,141 @@
 ﻿@model Model.stasjonPaaBane
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>stasjonPaaBane</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Stasjon, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Stasjon, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Stasjon, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<!DOCTYPE html>
+<html>
+<head>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Bane, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Bane, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Bane, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<script type="text/javascript">
+    $(function () {
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Avgang, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Avgang, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Avgang, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        $.ajax({
+            url: '/Admin/hentAlleBanenavn',
+            type: 'GET',
+            dataType: 'json',
+            success: visBanerDropdown,
+            error: function (x, y, z) {
+                alert();
+            }
+        });
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+        function visBanerDropdown(bane) {
+            var utStreng = "<option value'' selected hidden>Velg bane</option>";
+            for (var i in bane) {
+                utStreng += "<option value = '" + bane[i] + "'>" + bane[i] + "</option>";
+            }
+            $("#bane").append(utStreng);
+        }
+
+
+            $.ajax({
+            url: '/Admin/hentAlleStasjoner',
+            type: 'GET',
+            dataType: 'json',
+            success: visStasjonerDropdown,
+            error: function (x, y, z) {
+                alert();
+            }
+        });
+
+        function visStasjonerDropdown(stasjon) {
+            var utStreng = "<option value'' selected hidden>Velg stasjon</option>";
+            for (var i in stasjon) {
+                utStreng += "<option value = '" + stasjon[i] + "'>" + stasjon[i] + "</option>";
+            }
+            $("#stasjon").append(utStreng);
+        }
+    });
+
+</script>
+
+</head>
+<body>
+
+    <h2>Legg til ny avgang:</h2>
+
+    <form action="/Admin/LeggTilAvgang" method="post" id="leggTilAvgangForm">
+        <div class="form-row">
+            <div class="form-group col-md-4" id="dropdown">
+                <label for="exampleFormControlSelect1">Stasjon</label>
+                <select class="form-control" id="stasjon" name="stasjon" required></select>
+                <div id="feilStasjon" class="feilmeldinger"></div>
+                <div class="editor-field">
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <span class="field-validation-error">
+                            @if (@ViewData.ModelState["stasjon"].Errors.Count > 0)
+                            {
+                                @ViewData.ModelState["stasjon"].Errors[0].ErrorMessage
+                            }
+                        </span>
+                    }
+                </div>
+            </div>
+
+            <div class="form-group col-md-4" id="dropdown">
+                <label for="exampleFormControlSelect1">Bane</label>
+                <select class="form-control" id="bane" name="bane" required></select>
+                <div id="feilBane" class="feilmeldinger"></div>
+                <div class="editor-field">
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <span class="field-validation-error">
+                            @if (@ViewData.ModelState["bane"].Errors.Count > 0)
+                            {
+                                @ViewData.ModelState["bane"].Errors[0].ErrorMessage
+                            }
+                        </span>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>stasjonPaaBane</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Stasjon, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Stasjon, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Stasjon, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Bane, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Bane, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Bane, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Avgang, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Avgang, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Avgang, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
             </div>
         </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
     </div>
-}
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+</body>
+</html>
+
