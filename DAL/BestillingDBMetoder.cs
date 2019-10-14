@@ -8,7 +8,7 @@ namespace DAL
 {
 
     //Metoder fra Oppgave del 1)
-    public class BestilligDBMetoder
+    public class BestillingDBMetoder
     {
         DB db = new DB();
 

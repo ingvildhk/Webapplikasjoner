@@ -11,27 +11,36 @@ namespace Oppg1.Controllers
 {
     public class AdminController : Controller
     {
+
+        private IVyBLL _vyBLL;
+
+        public AdminController()
+        {
+            _vyBLL = new VyBLL();
+        }
+
+        public AdminController(IVyBLL stub)
+        {
+            _vyBLL = stub;
+        }
         
         public ActionResult OversiktStasjoner()
         {
-            var vyDB = new VyBLL();
-            List<Model.stasjon> alleStasjoner = vyDB.hentAlleStasjoner();
+            List<Model.stasjon> alleStasjoner = _vyBLL.hentAlleStasjoner();
             return View(alleStasjoner);
         }
 
 
         public ActionResult OversiktBaner()
         {
-            var vyDB = new VyBLL();
-            List<bane> alleBaner = vyDB.hentAlleBaner();
+            List<bane> alleBaner = _vyBLL.hentAlleBaner();
             return View(alleBaner);
         }
 
         //Oversikt avganger til stasjoner
         public ActionResult AvgangerPaStasjon(int id)
         {
-            var vyDB = new VyBLL();
-            List<stasjonPaaBane> listen = vyDB.hentStasjonPaaBane(id);
+            List<stasjonPaaBane> listen = _vyBLL.hentStasjonPaaBane(id);
             return View(listen);
         }
 
@@ -43,8 +52,7 @@ namespace Oppg1.Controllers
 
     public ActionResult EndreStasjon(int id)
         {
-            var vyDB = new VyBLL();
-            stasjon enstasjon = vyDB.hentEnStasjon(id);
+            stasjon enstasjon = _vyBLL.hentEnStasjon(id);
             return View(enstasjon);
         }
 
@@ -53,12 +61,11 @@ namespace Oppg1.Controllers
         {
             if (ModelState.IsValid)
             {
-                var stasjonDB = new VyBLL();
                 //sjekker at stasjonen ikke finnes fra før
-                bool nyStasjonOK = stasjonDB.sjekkStasjonOK(endreStasjon);
+                bool nyStasjonOK = _vyBLL.sjekkStasjonOK(endreStasjon);
                 if (nyStasjonOK)
                 {
-                    bool endringOK = stasjonDB.endreStasjon(id, endreStasjon);
+                    bool endringOK = _vyBLL.endreStasjon(id, endreStasjon);
                     if (endringOK)
                     {
                         return RedirectToAction("OversiktStasjoner");
@@ -70,8 +77,7 @@ namespace Oppg1.Controllers
 
         public ActionResult EndreBane(int id)
         {
-            var vyDB = new VyBLL();
-            bane enbane = vyDB.hentEnBane(id);
+            bane enbane = _vyBLL.hentEnBane(id);
             return View(enbane);
         }
 
@@ -80,12 +86,11 @@ namespace Oppg1.Controllers
         {
             if (ModelState.IsValid)
             {
-                var baneDB = new VyBLL();
                 //sjekker at bane ikke finnes fra før
-                bool nyBaneOK = baneDB.sjekkBaneOK(endreBane);
+                bool nyBaneOK = _vyBLL.sjekkBaneOK(endreBane);
                 if (nyBaneOK)
                 {
-                    bool endringOK = baneDB.endreBane(id, endreBane);
+                    bool endringOK = _vyBLL.endreBane(id, endreBane);
                     if (endringOK)
                     {
                         return RedirectToAction("OversiktBaner");
@@ -97,8 +102,7 @@ namespace Oppg1.Controllers
 
         public ActionResult EndreAvgang(int id)
         {
-            var vyDB = new VyBLL();
-            var enAvgang = vyDB.hentEnAvgang(id);
+            var enAvgang = _vyBLL.hentEnAvgang(id);
             return View(enAvgang);
         }
 
@@ -112,12 +116,11 @@ namespace Oppg1.Controllers
                 bool tidspunktOk = metodeSjekk.sjekkTidspunkt(endreStasjonPaaBane.Avgang);
                 if (tidspunktOk)
                 {
-                    var vyDB = new VyBLL();
                     //sjekker at avgangen ikke finnes fra før (virker ikke enda da man ikke får med seg stasjonid og baneid fra httppost)
-                    bool nyAvgangOK = vyDB.sjekkAvgangOK(endreStasjonPaaBane);
+                    bool nyAvgangOK = _vyBLL.sjekkAvgangOK(endreStasjonPaaBane);
                     if (nyAvgangOK)
                     {
-                        bool endringOK = vyDB.endreStasjonPaaBane(endreStasjonPaaBane, id);
+                        bool endringOK = _vyBLL.endreStasjonPaaBane(endreStasjonPaaBane, id);
                         if (endringOK)
                         {
                             //må endre denne til oversikt over avgang på stasjon
@@ -131,16 +134,14 @@ namespace Oppg1.Controllers
 
         public ActionResult SlettStasjon(int id)
         {
-            var vyDB = new VyBLL();
-            stasjon enStasjon = vyDB.hentEnStasjon(id);
+            stasjon enStasjon = _vyBLL.hentEnStasjon(id);
             return View(enStasjon);
         }
 
         [HttpPost]
         public ActionResult SlettStasjon(int id, stasjon slettstasjon)
         {
-            var vyDB = new VyBLL();
-            bool slettOK = vyDB.slettStasjon(id);
+            bool slettOK = _vyBLL.slettStasjon(id);
             if (slettOK)
             {
                 return RedirectToAction("OversiktStasjoner");
@@ -150,16 +151,14 @@ namespace Oppg1.Controllers
 
         public ActionResult SlettBane(int id)
         {
-            var vyDB = new VyBLL();
-            var enBane = vyDB.hentEnBane(id);
+            var enBane = _vyBLL.hentEnBane(id);
             return View(enBane);
         }
 
         [HttpPost]
         public ActionResult SlettBane (int id, bane enBane)
         {
-            var vyDB = new VyBLL();
-            bool slettOK = vyDB.slettBane(id);
+            bool slettOK = _vyBLL.slettBane(id);
             if (slettOK)
             {
                 return RedirectToAction("OversiktBaner");
@@ -177,12 +176,11 @@ namespace Oppg1.Controllers
         {
             if (ModelState.IsValid)
             {
-                var vyDB = new VyBLL();
                 //sjekker at stasjon ikke finnes fra før
-                bool nyStasjonOK = vyDB.sjekkStasjonOK(stasjon);
+                bool nyStasjonOK = _vyBLL.sjekkStasjonOK(stasjon);
                 if (nyStasjonOK)
                 {
-                    bool leggTilOK = vyDB.leggTilStasjon(stasjon);
+                    bool leggTilOK = _vyBLL.leggTilStasjon(stasjon);
                     if (leggTilOK)
                     {
                         return RedirectToAction("OversiktStasjoner");
@@ -202,12 +200,11 @@ namespace Oppg1.Controllers
         {
             if (ModelState.IsValid)
             {
-                var vyDB = new VyBLL();
                 //sjekker at banen ikke finnes fra før
-                bool nyBaneOK = vyDB.sjekkBaneOK(bane);
+                bool nyBaneOK = _vyBLL.sjekkBaneOK(bane);
                 if (nyBaneOK)
                 {
-                    bool leggTilOK = vyDB.leggTilBane(bane);
+                    bool leggTilOK = _vyBLL.leggTilBane(bane);
                     if (leggTilOK)
                     {
                         return RedirectToAction("OversiktBaner");
