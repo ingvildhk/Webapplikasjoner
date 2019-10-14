@@ -376,13 +376,16 @@ namespace DAL
         } 
 
 
-        public List <String> hentAlleBanenavn()
+        public List <bane> hentAlleBanenavn()
         {
             using (var db = new DB()) {
-                List<String> alleBaner = new List<String>();
+                List<bane> alleBaner = new List<bane>();
                 foreach (Bane bane in db.Bane )
                 {
-                    alleBaner.Add(bane.Banenavn);
+                    var nyBane = new bane();
+                    nyBane.BaneID = bane.BaneID;
+                    nyBane.Banenavn = bane.Banenavn;
+                    alleBaner.Add(nyBane);
                 }
                 return alleBaner;
             }

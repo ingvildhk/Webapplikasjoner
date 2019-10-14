@@ -52,10 +52,10 @@ namespace BLL
             return AvgangDAL.hentEnAvgang(id);
         }
 
-        public List<String> hentAlleBanenavn()
+        public List<bane> hentAlleBanenavn()
         {
             var AdminDal = new AdminDBmetoder();
-            List<String> alleBaner = AdminDal.hentAlleBanenavn();
+            List<bane> alleBaner = AdminDal.hentAlleBanenavn();
             return alleBaner;
         }
 

@@ -114,6 +114,8 @@ namespace Oppg1.Controllers
                 if (tidspunktOk)
                 {
                     var vyDB = new VyBLL();
+                    var bane = vyDB.hentEnBane(endreStasjonPaaBane.BaneID);
+                    endreStasjonPaaBane.Bane = bane.Banenavn;
                     //sjekker at avgangen ikke finnes fra før (virker ikke enda da man ikke får med seg stasjonid og baneid fra httppost)
                     bool nyAvgangOK = vyDB.sjekkAvgangOK(endreStasjonPaaBane);
                     if (nyAvgangOK)
@@ -231,7 +233,7 @@ namespace Oppg1.Controllers
         public string hentAlleBanenavn()
         {
             var BLL = new VyBLL();
-            List<String> alleBaner = BLL.hentAlleBanenavn();
+            List<bane> alleBaner = BLL.hentAlleBanenavn();
             var jsonSerializer = new JavaScriptSerializer();
             string json = jsonSerializer.Serialize(alleBaner);
             return json;
