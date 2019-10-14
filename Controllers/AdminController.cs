@@ -30,7 +30,6 @@ namespace Oppg1.Controllers
             return View(alleStasjoner);
         }
 
-
         public ActionResult OversiktBaner()
         {
             List<bane> alleBaner = _vyBLL.hentAlleBaner();
