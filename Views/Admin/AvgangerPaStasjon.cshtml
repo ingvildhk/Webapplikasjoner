@@ -1,8 +1,10 @@
 ﻿@model List<Model.stasjonPaaBane>
 
-<p>
-    @Html.ActionLink("Legg til en helt ny avgang", "LeggTilAvgang")
-</p>
+<div class="form-horizontal">
+    <img alt="PlussIkon" src="~/Static/plussTegn.png" width="13" height="13">
+    @Html.ActionLink("Legg til ny avgang", "LeggTilAvgang", new { tom = "" }, htmlAttributes: new { @id = "lenker" })
+</div>
+<br />
 <table class="table">
     <tr>
         <th>
@@ -14,22 +16,23 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Bane)
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bane)
 
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Avgang)
-        </td>
-        <td>
-            @Html.ActionLink("Endre", "EndreAvgang", new { id=item.stasjonPaaBaneID }) |
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Avgang)
+            </td>
+            <td>
+                @Html.ActionLink("Endre", "EndreAvgang", new { id = item.stasjonPaaBaneID }) |
 
-            @Html.ActionLink("Slett", "SlettAvgang", new { id=item.stasjonPaaBaneID })
-        </td>
-    </tr>
-}
+                @Html.ActionLink("Slett", "SlettAvgang", new { id = item.stasjonPaaBaneID })
+            </td>
+        </tr>
+    }
 
 </table>
 

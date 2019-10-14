@@ -5,25 +5,29 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>stasjon</h4>
+        <h4>Legg til ny stasjon</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.Stasjonsnavn, htmlAttributes: new { @class = "control-label col-md-2" })
+            <h5>
+                @Html.LabelFor(model => model.Stasjonsnavn, htmlAttributes: new { @class = "control-label col-md-2" })
+            </h5>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Stasjonsnavn, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Stasjonsnavn, new { htmlAttributes = new { @class = "form-control", @id = "inputBoks" } })
                 @Html.ValidationMessageFor(model => model.Stasjonsnavn, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Legg til stasjon" class="btn btn-success" id="knapp" />
             </div>
+        </div>
+        <br />
+        <div>
+            @Html.ActionLink("Tilbake til oversikt", "OversiktStasjoner")
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Tilbake til oversikt", "OversiktStasjoner")
-</div>
+

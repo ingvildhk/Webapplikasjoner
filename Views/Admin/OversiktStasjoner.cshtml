@@ -10,39 +10,36 @@
     <div>
         @Html.ActionLink("Logg ut", "../Home/Index")
     </div>
-
-    <div>
-        @Html.ActionLink("Har du skikkelig lyst å legge til en stasjon?:D:D", "LeggTilStasjon", new { tom = "" }, new { @class = "btn btn-success" })
+    <br />
+    <div class="form-horizontal">
+        <h5>
+            <img alt="PlussIkon" src="~/Static/plussTegn.png" width="13" height="13">
+            @Html.ActionLink("Legg til ny stasjon", "LeggTilStasjon", new { tom = "" }, htmlAttributes: new { @id = "lenker" })
+        </h5>
     </div>
+    <br />
     <div>
-        @Html.ActionLink("Du kan også legge til en avgang!!!! Sykt sant? :D", "LeggTilAvgang", new { tom = ""}, new { @class = "btn btn-success"})
+        @Html.ActionLink("Se alle stasjoner", "OversiktStasjoner", new { tom = "" }, new { @class = "btn btn-success", @id = "knapp" })
+        @Html.ActionLink("Se alle baner", "OversiktBaner", new { tom = "" }, new { @class = "btn btn-success", @id = "knapp" })
     </div>
+    <br />
 
-    <div>
-        @Html.ActionLink("Se alle stasjoner", "OversiktStasjoner", new { tom=""}, new { @class = "btn btn-success" })
-        @Html.ActionLink("Se alle baner", "OversiktBaner", new { tom=""}, new { @class = "btn btn-success" })
 
-    </div>
+    <h4>Stasjoner</h4>
 
     <table class="table">
-        <tr>
-            <th>
-                Stasjonsnavn
-            </th>
-        </tr>
-
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @item.Stasjonsnavn
-            </td>
-            <td>
-                @Html.ActionLink("Til endreView", "EndreStasjon", new { id= item.StasjonID},  new { @class = "btn btn-success" })
-                @Html.ActionLink("Til sletteview", "SlettStasjon", new { id = item.StasjonID},  new { @class = "btn btn-success" })
-                @Html.ActionLink("Se alle avganger til stasjon", "AvgangerPaStasjon", new { id = item.StasjonID}, new { @class = "btn btn-success" })
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @item.Stasjonsnavn
+                </td>
+                <td>
+                    @Html.ActionLink("Endre navn", "EndreStasjon", new { id = item.StasjonID }, new { @class = "btn btn-info" })
+                    @Html.ActionLink("Slett stasjon", "SlettStasjon", new { id = item.StasjonID }, new { @class = "btn btn-danger" })
+                    @Html.ActionLink("Se alle avganger til stasjon", "AvgangerPaStasjon", new { id = item.StasjonID }, new { @class = "btn btn-secondary" })
+                </td>
+            </tr>
         }
     </table>
 </body>
