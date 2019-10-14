@@ -3,6 +3,10 @@
 <p>
     @Html.ActionLink("Legg til en helt ny avgang", "LeggTilAvgang")
 </p>
+
+<h2>
+    Oversikt over avganger fra @Html.DisplayFor(model => model[0].Stasjon)
+</h2>
 <table class="table">
     <tr>
         <th>
