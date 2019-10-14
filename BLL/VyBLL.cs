@@ -52,6 +52,13 @@ namespace BLL
             return AvgangDAL.hentEnAvgang(id);
         }
 
+        public List<bane> hentAlleBanenavn()
+        {
+            var AdminDal = new AdminDBmetoder();
+            List<bane> alleBaner = AdminDal.hentAlleBanenavn();
+            return alleBaner;
+        }
+
         //----------------------------------------------------------------
         //Metoder for å lagre, endre, slette i database
         public bool leggTilStasjon(stasjon innStasjon)
