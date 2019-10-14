@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using BLL;
 using Model;
 using Oppg1.Metoder;
@@ -115,6 +116,8 @@ namespace Oppg1.Controllers
                 bool tidspunktOk = metodeSjekk.sjekkTidspunkt(endreStasjonPaaBane.Avgang);
                 if (tidspunktOk)
                 {
+                    var bane = _vyBLL.hentEnBane(endreStasjonPaaBane.BaneID);
+                    endreStasjonPaaBane.Bane = bane.Banenavn;
                     //sjekker at avgangen ikke finnes fra før (virker ikke enda da man ikke får med seg stasjonid og baneid fra httppost)
                     bool nyAvgangOK = _vyBLL.sjekkAvgangOK(endreStasjonPaaBane);
                     if (nyAvgangOK)
@@ -211,6 +214,25 @@ namespace Oppg1.Controllers
                 }
             }
             return View();
+        }
+
+        // Helt lik metode i homecontroller, må vi ha en her også?
+        public string hentAlleStasjoner()
+        {
+            var BLL = new VyBLL();
+            List<String> alleStasjoner = BLL.hentAlleStasjonsNavn();
+            var jsonSerializer = new JavaScriptSerializer();
+            string json = jsonSerializer.Serialize(alleStasjoner);
+            return json;
+        }
+
+        public string hentAlleBanenavn()
+        {
+            var BLL = new VyBLL();
+            List<bane> alleBaner = BLL.hentAlleBanenavn();
+            var jsonSerializer = new JavaScriptSerializer();
+            string json = jsonSerializer.Serialize(alleBaner);
+            return json;
         }
     }
 }
