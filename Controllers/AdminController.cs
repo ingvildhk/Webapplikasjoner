@@ -27,7 +27,7 @@ namespace Oppg1.Controllers
         
         public ActionResult OversiktStasjoner()
         {
-            List<Model.stasjon> alleStasjoner = _vyBLL.hentAlleStasjoner();
+            List<stasjon> alleStasjoner = _vyBLL.hentAlleStasjoner();
             return View(alleStasjoner);
         }
 

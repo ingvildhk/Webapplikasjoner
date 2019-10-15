@@ -7,7 +7,7 @@ using Model;
 
 namespace DAL
 {
-    class AdminDBMetoderStubs : IAdminDBMetoder
+    public class AdminDBMetoderStubs : IAdminDBMetoder
     {
         public List<stasjon> hentAlleStasjoner()
         {
