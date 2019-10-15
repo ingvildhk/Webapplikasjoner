@@ -35,13 +35,7 @@ namespace Oppg1.Controllers
             List<stasjonPaaBane> listen = vyDB.hentStasjonPaaBane(id);
             return View(listen);
         }
-
-        public ActionResult LeggTilAvgang()
-        {
-            return View();
-        }
   
-
     public ActionResult EndreStasjon(int id)
         {
             var vyDB = new VyBLL();
@@ -170,6 +164,29 @@ namespace Oppg1.Controllers
             return View();
         }
 
+        public ActionResult SlettAvgang(int id)
+        {
+            var db = new VyBLL();
+            var enAvgang = db.hentEnAvgang(id);
+            return View(enAvgang);
+        }
+
+        [HttpPost]
+        public ActionResult SlettAvgang (int id, stasjonPaaBane avgang)
+        {
+
+            var db = new VyBLL();
+            var baneidTilAvgang = db.hentEnAvgang(id);
+
+            bool slettOK = db.slettStasjonPaaBane(id, baneidTilAvgang.BaneID);
+            if (slettOK)
+            {
+                return RedirectToAction("OversiktStasjoner");
+            }
+            return View();
+
+        }
+
         public ActionResult LeggTilStasjon()
         {
             return View();
@@ -220,11 +237,36 @@ namespace Oppg1.Controllers
             return View();
         }
 
+        public ActionResult LeggTilAvgang()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult LeggTilAvgang(stasjonPaaBane avgang, int StasjonsID, int baneID)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var db = new VyBLL();
+                // bool avgangOK = db.sjekkAvgangOK(avgang);
+               // if (avgangOK)
+              //  {
+                    bool leggtilOK = db.leggTilStasjonPaaBane(avgang, StasjonsID, baneID);
+                    if (leggtilOK)
+                    {
+                        return RedirectToAction("OversiktStasjoner");
+                    }
+               // }
+            }
+            return View();
+        }
+
         // Helt lik metode i homecontroller, må vi ha en her også?
         public string hentAlleStasjoner()
         {
             var BLL = new VyBLL();
-            List<String> alleStasjoner = BLL.hentAlleStasjonsNavn();
+            List<stasjon> alleStasjoner = BLL.hentAlleStasjonsnavn();
             var jsonSerializer = new JavaScriptSerializer();
             string json = jsonSerializer.Serialize(alleStasjoner);
             return json;

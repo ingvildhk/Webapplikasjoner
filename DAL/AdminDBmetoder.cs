@@ -374,8 +374,6 @@ namespace DAL
                 }
             }
         } 
-
-
         public List <bane> hentAlleBanenavn()
         {
             using (var db = new DB()) {
@@ -388,6 +386,22 @@ namespace DAL
                     alleBaner.Add(nyBane);
                 }
                 return alleBaner;
+            }
+        }
+
+        public List <stasjon> hentAlleStasjonsnavn()
+        {
+            using(var db = new DB())
+            {
+                List<stasjon> alleStasjoner = new List<stasjon>();
+                foreach( Stasjon stasjon in db.Stasjon)
+                {
+                    var nyStasjon = new stasjon();
+                    nyStasjon.StasjonID = stasjon.StasjonsID;
+                    nyStasjon.Stasjonsnavn = stasjon.Stasjonsnavn;
+                    alleStasjoner.Add(nyStasjon);
+                }
+                return alleStasjoner;
             }
         }
 
