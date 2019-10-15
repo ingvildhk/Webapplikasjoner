@@ -216,7 +216,7 @@ namespace DAL
             }
         }
 
-        public bool leggTilStasjonPaaBane(stasjonPaaBane innStasjonPaaBane, int stasjonID, int baneID)
+        public bool leggTilStasjonPaaBane(string avgang, int stasjonID, int baneID)
         {
             var db = new DB();
 
@@ -227,7 +227,7 @@ namespace DAL
             {
                 Stasjon = innStasjon,
                 Bane = innBane,
-                Avgang = innStasjonPaaBane.Avgang
+                Avgang = avgang
             };
 
             using (db)

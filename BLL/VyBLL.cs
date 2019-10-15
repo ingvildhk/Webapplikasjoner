@@ -86,10 +86,10 @@ namespace BLL
             return AdminDal.slettStasjon(stasjonID);
         }
 
-        public bool leggTilStasjonPaaBane(stasjonPaaBane innStasjonPaaBane, int stasjonID, int baneID)
+        public bool leggTilStasjonPaaBane(string avgang, int stasjonID, int baneID)
         {
             var AdminDal = new AdminDBmetoder();
-            return AdminDal.leggTilStasjonPaaBane(innStasjonPaaBane, stasjonID, baneID);
+            return AdminDal.leggTilStasjonPaaBane(avgang, stasjonID, baneID);
         }
 
         public bool endreStasjonPaaBane(stasjonPaaBane innStasjonPaaBane, int stasjonPaaBaneID)

@@ -41,7 +41,7 @@
             for (var i in stasjon) {
                 utStreng += "<option value = '" + stasjon[i].StasjonID + "'>" + stasjon[i].Stasjonsnavn + "</option>";
             }
-            $("#StasjonsID").append(utStreng);
+            $("#StasjonID").append(utStreng);
         }
     });
 
@@ -71,15 +71,15 @@
 
     <div class="form-group col-md-4" id="dropdown">
         <label for="exampleFormControlSelect1">Stasjon</label>
-        <select class="form-control" id="StasjonsID" name="StasjonsID" required></select>
+        <select class="form-control" id="StasjonID" name="StasjonID" required></select>
         <div id="feilStasjon" class="feilmeldinger"></div>
         <div class="editor-field">
             @if (!ViewData.ModelState.IsValid)
             {
                 <span class="field-validation-error">
-                    @if (@ViewData.ModelState["StasjonsID"].Errors.Count > 0)
+                    @if (@ViewData.ModelState["StasjonID"].Errors.Count > 0)
                     {
-                        @ViewData.ModelState["StasjonsID"].Errors[0].ErrorMessage
+                        @ViewData.ModelState["StasjonID"].Errors[0].ErrorMessage
                     }
                 </span>
             }
@@ -109,7 +109,7 @@
         @Html.LabelFor(model => model.Avgang, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.Avgang, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Avgang, "", new { @class = "text-danger" })
+            
         </div>
     </div>
 

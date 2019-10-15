@@ -243,22 +243,22 @@ namespace Oppg1.Controllers
         }
 
         [HttpPost]
-        public ActionResult LeggTilAvgang(stasjonPaaBane avgang, int StasjonsID, int baneID)
+        public ActionResult LeggTilAvgang(string avgang, int StasjonID, int baneID)
         {
 
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 var db = new VyBLL();
                 // bool avgangOK = db.sjekkAvgangOK(avgang);
                // if (avgangOK)
               //  {
-                    bool leggtilOK = db.leggTilStasjonPaaBane(avgang, StasjonsID, baneID);
+                    bool leggtilOK = db.leggTilStasjonPaaBane(avgang, StasjonID, baneID);
                     if (leggtilOK)
                     {
                         return RedirectToAction("OversiktStasjoner");
                     }
                // }
-            }
+            //}
             return View();
         }
 
