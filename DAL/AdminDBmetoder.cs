@@ -8,7 +8,7 @@ using Model;
 namespace DAL
 {
     //Nye metoder i Oppgave del 2)
-    public class AdminDBmetoder
+    public class AdminDBmetoder : IAdminDBMetoder
     {
         //Metoder for å liste ut alle data i databasen i AdminView
 
@@ -216,7 +216,7 @@ namespace DAL
             }
         }
 
-        public bool leggTilStasjonPaaBane(stasjonPaaBane innStasjonPaaBane, int stasjonID, int baneID)
+        public bool leggTilStasjonPaaBane(string avgang, int stasjonID, int baneID)
         {
             var db = new DB();
 
@@ -227,7 +227,7 @@ namespace DAL
             {
                 Stasjon = innStasjon,
                 Bane = innBane,
-                Avgang = innStasjonPaaBane.Avgang
+                Avgang = avgang
             };
 
             using (db)
@@ -374,8 +374,6 @@ namespace DAL
                 }
             }
         } 
-
-
         public List <bane> hentAlleBanenavn()
         {
             using (var db = new DB()) {
@@ -388,6 +386,22 @@ namespace DAL
                     alleBaner.Add(nyBane);
                 }
                 return alleBaner;
+            }
+        }
+
+        public List <stasjon> hentAlleStasjonsnavn()
+        {
+            using(var db = new DB())
+            {
+                List<stasjon> alleStasjoner = new List<stasjon>();
+                foreach( Stasjon stasjon in db.Stasjon)
+                {
+                    var nyStasjon = new stasjon();
+                    nyStasjon.StasjonID = stasjon.StasjonsID;
+                    nyStasjon.Stasjonsnavn = stasjon.Stasjonsnavn;
+                    alleStasjoner.Add(nyStasjon);
+                }
+                return alleStasjoner;
             }
         }
 

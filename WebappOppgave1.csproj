@@ -185,7 +185,6 @@
     <Content Include="Views\Home\Bekreftelse.cshtml" />
     <Content Include="Views\LoggInn\LoggInn.cshtml" />
     <Content Include="Views\Admin\OversiktStasjoner.cshtml" />
-    <Content Include="Views\Admin\OversiktAvgangerPaStasjon.cshtml" />
     <Content Include="Views\Admin\OversiktBaner.cshtml" />
     <Content Include="Views\Admin\EndreBane.cshtml" />
     <Content Include="Views\Admin\SlettBane.cshtml" />
