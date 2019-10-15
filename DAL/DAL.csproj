@@ -48,10 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BestilligDBMetoder.cs" />
+    <Compile Include="AdminDBMetoderStubs.cs" />
+    <Compile Include="BestillingDBMetoder.cs" />
     <Compile Include="AdminDBmetoder.cs" />
     <Compile Include="DB.cs" />
     <Compile Include="DBInit.cs" />
+    <Compile Include="IAdminDBMetoder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

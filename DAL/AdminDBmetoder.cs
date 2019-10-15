@@ -8,7 +8,7 @@ using Model;
 namespace DAL
 {
     //Nye metoder i Oppgave del 2)
-    public class AdminDBmetoder
+    public class AdminDBmetoder : IAdminDBMetoder
     {
         //Metoder for å liste ut alle data i databasen i AdminView
 
