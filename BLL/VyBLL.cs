@@ -83,9 +83,9 @@ namespace BLL
             return _AdminDAL.slettStasjon(stasjonID);
         }
 
-        public bool leggTilStasjonPaaBane(stasjonPaaBane innStasjonPaaBane, int stasjonID, int baneID)
+        public bool leggTilStasjonPaaBane(string avgang, int stasjonID, int baneID)
         {
-            return _AdminDAL.leggTilStasjonPaaBane(innStasjonPaaBane, stasjonID, baneID);
+            return _AdminDAL.leggTilStasjonPaaBane(avgang, stasjonID, baneID);
         }
 
         public bool endreStasjonPaaBane(stasjonPaaBane innStasjonPaaBane, int stasjonPaaBaneID)

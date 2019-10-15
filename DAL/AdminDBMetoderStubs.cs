@@ -7,7 +7,7 @@ using Model;
 
 namespace DAL
 {
-    class AdminDBMetoderStubs : IAdminDBMetoder
+    public class AdminDBMetoderStubs : IAdminDBMetoder
     {
         public List<stasjon> hentAlleStasjoner()
         {
@@ -178,9 +178,9 @@ namespace DAL
             }
         }
 
-        public bool leggTilStasjonPaaBane(stasjonPaaBane stasjonPaaBane, int stasjonID, int baneID)
+        public bool leggTilStasjonPaaBane(string avgang, int stasjonID, int baneID)
         {
-            if (stasjonPaaBane.Avgang == "")
+            if (avgang == "")
             {
                 return false;
             }
