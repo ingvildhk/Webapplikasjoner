@@ -18,7 +18,7 @@ namespace BLL
         bool leggTilStasjon(stasjon stasjon);
         bool endreStasjon(int id, stasjon stasjon);
         bool slettStasjon(int id);
-        bool leggTilStasjonPaaBane(stasjonPaaBane stasjonPaaBane, int stasjonID, int baneID);
+        bool leggTilStasjonPaaBane(string avgang, int stasjonID, int baneID);
         bool endreStasjonPaaBane(stasjonPaaBane stasjonPaaBane, int id);
         bool slettStasjonPaaBane(int stasjonPaaBaneID, int baneID);
         bool leggTilBane(bane bane);
