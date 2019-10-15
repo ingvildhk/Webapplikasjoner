@@ -6,6 +6,7 @@ using Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Oppg1.Controllers;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace Enhetstest
 {
@@ -143,20 +144,6 @@ namespace Enhetstest
             }
         }
 
-
-        [TestMethod]
-        public void LeggTilAvgang()
-        {
-            //Arrange
-            var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
-
-            // Act
-            var actionResult = (ViewResult)controller.LeggTilAvgang();
-
-            // Assert
-            Assert.AreEqual(actionResult.ViewName, "");
-        }
-
         [TestMethod]
         public void EndreStasjon()
         {
@@ -203,12 +190,18 @@ namespace Enhetstest
         {
             //Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var stasjon = new stasjon()
+            {
+                StasjonID = 1,
+                Stasjonsnavn = "Oslo S"
+            };
 
             // Act
-            var actionResult = (ViewResult)controller.EndreStasjon(1);
+            var actionResult = (RedirectToRouteResult)controller.EndreStasjon(stasjon.StasjonID, stasjon);
 
             // Assert
-            Assert.AreEqual(actionResult.ViewName, "");
+            Assert.AreEqual(actionResult.RouteName, "");
+            Assert.AreEqual(actionResult.RouteValues.Values.First(), "OversiktStasjoner");
         }
 
         [TestMethod]
@@ -302,12 +295,18 @@ namespace Enhetstest
         {
             //Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var bane = new bane()
+            {
+                BaneID = 1,
+                Banenavn = "L1"
+            };
 
             // Act
-            var actionResult = (ViewResult)controller.EndreBane(1);
+            var actionResult = (RedirectToRouteResult)controller.EndreBane(bane.BaneID, bane);
 
             // Assert
-            Assert.AreEqual(actionResult.ViewName, "");
+            Assert.AreEqual(actionResult.RouteName, "");
+            Assert.AreEqual(actionResult.RouteValues.Values.First(), "OversiktBaner");
         }
 
         [TestMethod]
@@ -358,7 +357,30 @@ namespace Enhetstest
         [TestMethod]
         public void EndreAvgang()
         {
+            //Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var forventetResultat = new stasjonPaaBane()
+            {
+                stasjonPaaBaneID = 1,
+                BaneID = 1,
+                Bane = "L1",
+                StasjonsID = 1,
+                Stasjon = "Oslo S",
+                Avgang = "12:00"
+            };
+
+            //Act
+            var actionResult = (ViewResult)controller.EndreAvgang(forventetResultat.BaneID);
+            var resultat = (stasjonPaaBane)actionResult.Model;
+
+            //Assert
+            Assert.AreEqual(actionResult.ViewName, "");
+            Assert.AreEqual(forventetResultat.stasjonPaaBaneID, resultat.stasjonPaaBaneID);
+            Assert.AreEqual(forventetResultat.BaneID, resultat.BaneID);
+            Assert.AreEqual(forventetResultat.Bane, resultat.Bane);
+            Assert.AreEqual(forventetResultat.StasjonsID, resultat.StasjonsID);
+            Assert.AreEqual(forventetResultat.Stasjon, resultat.Stasjon);
+            Assert.AreEqual(forventetResultat.Avgang, resultat.Avgang);
         }
 
         [TestMethod]
@@ -366,19 +388,23 @@ namespace Enhetstest
         {
             //Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
-            var forventetResultat = new bane()
+            var forventetResultat = new stasjonPaaBane()
             {
-                BaneID = 0
+                stasjonPaaBaneID = 0
             };
 
             //Act
-            var actionResult = (ViewResult)controller.EndreBane(forventetResultat.BaneID);
-            var resultat = (bane)actionResult.Model;
+            var actionResult = (ViewResult)controller.EndreAvgang(forventetResultat.stasjonPaaBaneID);
+            var resultat = (stasjonPaaBane)actionResult.Model;
 
             //Assert
             Assert.AreEqual(actionResult.ViewName, "");
+            Assert.AreEqual(forventetResultat.stasjonPaaBaneID, resultat.stasjonPaaBaneID);
             Assert.AreEqual(forventetResultat.BaneID, resultat.BaneID);
-            Assert.AreEqual(forventetResultat.Banenavn, resultat.Banenavn);
+            Assert.AreEqual(forventetResultat.Bane, resultat.Bane);
+            Assert.AreEqual(forventetResultat.StasjonsID, resultat.StasjonsID);
+            Assert.AreEqual(forventetResultat.Stasjon, resultat.Stasjon);
+            Assert.AreEqual(forventetResultat.Avgang, resultat.Avgang);
         }
 
         [TestMethod]
@@ -386,12 +412,22 @@ namespace Enhetstest
         {
             //Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var stasjonPaaBane = new stasjonPaaBane()
+            {
+                stasjonPaaBaneID = 1,
+                BaneID = 1,
+                Bane = "L1",
+                StasjonsID = 1,
+                Stasjon = "Oslo S",
+                Avgang = "12:00"
+            };
 
             // Act
-            var actionResult = (ViewResult)controller.EndreBane(1);
+            var actionResult = (RedirectToRouteResult)controller.EndreAvgang(stasjonPaaBane.stasjonPaaBaneID, stasjonPaaBane);
 
             // Assert
-            Assert.AreEqual(actionResult.ViewName, "");
+            Assert.AreEqual(actionResult.RouteName, "");
+            Assert.AreEqual(actionResult.RouteValues.Values.First(), "OversiktStasjoner");
         }
 
         [TestMethod]
@@ -400,11 +436,11 @@ namespace Enhetstest
             //Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
 
-            var bane = new bane();
-            controller.ViewData.ModelState.AddModelError("Banenavn", "Banenavn må oppgis");
+            var stasjonPaaBane = new stasjonPaaBane();
+            controller.ViewData.ModelState.AddModelError("Tidspunkt", "Tidspunkt må oppgis");
 
             // Act
-            var actionResult = (ViewResult)controller.EndreBane(bane.BaneID, bane);
+            var actionResult = (ViewResult)controller.EndreAvgang(stasjonPaaBane.stasjonPaaBaneID, stasjonPaaBane);
 
             // Assert
             Assert.IsTrue(actionResult.ViewData.ModelState.Count == 1);
@@ -417,15 +453,21 @@ namespace Enhetstest
             //Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
 
+            var stasjonPaaBane = new stasjonPaaBane()
+            {
+                stasjonPaaBaneID = 1,
+                Avgang = "14.000"
+            };
+
             // Act
-            var actionResult = (ViewResult)controller.EndreBane(1);
+            var actionResult = (ViewResult)controller.EndreAvgang(stasjonPaaBane.stasjonPaaBaneID, stasjonPaaBane);
 
             // Assert
             Assert.AreEqual(actionResult.ViewName, "");
         }
 
         [TestMethod]
-        public void EndreAvgang_BaneOK_Feil()
+        public void EndreAvgang_AvgangOK_Feil()
         {
             //Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
@@ -440,7 +482,7 @@ namespace Enhetstest
         }
 
         [TestMethod]
-        public void EndreAvgang_EndreBane_Feil()
+        public void EndreAvgang_EndreAvgang_Feil()
         {
             //Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
@@ -465,6 +507,12 @@ namespace Enhetstest
         }
 
         [TestMethod]
+        public void SlettAvgang()
+        {
+            var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+        }
+
+        [TestMethod]
         public void LeggTilStasjon()
         {
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
@@ -472,6 +520,32 @@ namespace Enhetstest
 
         [TestMethod]
         public void LeggTilBane()
+        {
+            var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+        }
+
+        [TestMethod]
+        public void LeggTilAvgang()
+        {
+            //Arrange
+            var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+
+            // Act
+            var actionResult = (ViewResult)controller.LeggTilAvgang();
+
+            // Assert
+            Assert.AreEqual(actionResult.ViewName, "");
+        }
+
+        [TestMethod]
+        public void HentAlleStasjoner()
+        {
+            var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+        }
+
+
+        [TestMethod]
+        public void HentAlleBaner()
         {
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
         }
