@@ -32,9 +32,9 @@
                 @Html.DisplayFor(modelItem => item.Avgang)
             </td>
             <td>
-                @Html.ActionLink("Endre", "EndreAvgang", new { id = item.stasjonPaaBaneID }) |
-
-                @Html.ActionLink("Slett", "SlettAvgang", new { id = item.stasjonPaaBaneID })
+                @Html.ActionLink("Endre", "EndreAvgang", new { id = item.stasjonPaaBaneID }, new { @class = "btn btn-info" })
+                @Html.ActionLink("Slett", "SlettAvgang", new { id = item.stasjonPaaBaneID }, new { @class = "btn btn-danger" })
+         
             </td>
         </tr>
     }
