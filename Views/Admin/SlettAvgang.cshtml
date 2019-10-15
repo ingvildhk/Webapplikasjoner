@@ -6,9 +6,8 @@
 
 <h2>SlettAvgang</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Er du sikker på at du ønsker å slette denne avgangstiden?</h3>
 <div>
-    <h4>stasjonPaaBane</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -37,12 +36,16 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Tilbake til oversikt over avganger", "OversiktStasjoner")
+       
+        <div class="form-actions">
+            <input type="submit" value="Slett avgang" class="btn btn-danger" />
+        </div>
+        <br />
+        <div>
+            @Html.ActionLink("Tilbake til oversikt", "OversiktStasjoner")
         </div>
     }
 </div>

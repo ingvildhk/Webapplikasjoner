@@ -34,63 +34,63 @@
 </head>
 <body>
 
-    <h2>EndreAvgang</h2>
+    
 
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <h4>stasjonPaaBane</h4>
-    <hr />
+    <div class="form-horizontal">
+        <h2>Endre avgangstid</h2>
+        <hr />
 
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.stasjonPaaBaneID)
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.stasjonPaaBaneID)
 
 
-    <dl class="form-horizontal">
-        <dt>
-            
-            <h5>@Html.DisplayNameFor(model => model.Stasjon)</h5>
-        </dt>
+        <dl class="form-horizontal">
+            <dt>
 
-        <dd>
-            @Html.HiddenFor(model => model.StasjonsID)
-            @Html.DisplayFor(model => model.Stasjon)
-        </dd>
+                <h5>@Html.DisplayNameFor(model => model.Stasjon)</h5>
+            </dt>
 
-    </dl>
+            <dd>
+                @Html.HiddenFor(model => model.StasjonsID)
+                @Html.DisplayFor(model => model.Stasjon)
+            </dd>
 
-    <dl class="form-horizontal">
-        <dt>
-            <h5>@Html.DisplayNameFor(model => model.Bane)</h5>
-        </dt>
+        </dl>
 
-        <dd>
-            @Html.HiddenFor(model => model.BaneID)
-            @Html.DisplayFor(model => model.Bane)
-        </dd>
+        <dl class="form-horizontal">
+            <dt>
+                <h5>@Html.DisplayNameFor(model => model.Bane)</h5>
+            </dt>
 
-    </dl>
+            <dd>
+                @Html.HiddenFor(model => model.BaneID)
+                @Html.DisplayFor(model => model.Bane)
+            </dd>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Avgang, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Avgang, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Avgang, "", new { @class = "text-danger" })
+        </dl>
+
+        <div class="form-group">
+            <h5>@Html.LabelFor(model => model.Avgang, htmlAttributes: new { @class = "control-label col-md-2" })</h5>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Avgang, new { htmlAttributes = new { @class = "form-control", @id = "inputBoks" } })
+                @Html.ValidationMessageFor(model => model.Avgang, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Lagre avgangstid" class="btn btn-success" id="knapp" />
+            </div>
         </div>
     </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
-        </div>
-    </div>
-</div>
     }
 
     <div>
-        @Html.ActionLink("Tilbake til oversikt over stasjoner", "OversiktStasjoner")
+        @Html.ActionLink("Tilbake til oversikt", "OversiktStasjoner")
     </div>
     </body>
 </html>
