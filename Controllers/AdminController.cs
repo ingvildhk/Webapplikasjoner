@@ -262,7 +262,7 @@ namespace Oppg1.Controllers
         public string hentAlleStasjoner()
         {
             var BLL = new VyBLL();
-            List<stasjon> alleStasjoner = BLL.hentAlleStasjonsnavn();
+            List<stasjon> alleStasjoner = BLL.hentAlleStasjoner();
             var jsonSerializer = new JavaScriptSerializer();
             string json = jsonSerializer.Serialize(alleStasjoner);
             return json;
@@ -271,7 +271,7 @@ namespace Oppg1.Controllers
         public string hentAlleBanenavn()
         {
             var BLL = new VyBLL();
-            List<bane> alleBaner = BLL.hentAlleBanenavn();
+            List<bane> alleBaner = BLL.hentAlleBaner();
             var jsonSerializer = new JavaScriptSerializer();
             string json = jsonSerializer.Serialize(alleBaner);
             return json;
