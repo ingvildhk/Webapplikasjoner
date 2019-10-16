@@ -12,7 +12,6 @@ namespace Oppg1.Metoder
         {
             HttpSessionStateBase session = filterContext.HttpContext.Session;
 
-
             if (session != null && session["Innlogget"] == null || Convert.ToBoolean(session["Innlogget"]) == false)
             {
 
