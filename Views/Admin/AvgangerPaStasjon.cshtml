@@ -3,7 +3,7 @@
     <div class="form-horizontal">
         <h5>
             <img alt="PlussIkon" src="~/Static/plussTegn.png" width="13" height="13">
-            @Html.ActionLink("Legg til ny avgang for " + @Html.DisplayFor(model => model[0].Stasjon), "LeggTilAvgang", new { tom = "" }, htmlAttributes: new { @id = "lenker" })
+            @Html.ActionLink("Legg til ny avgang", "LeggTilAvgang", new { id = Model[0].StasjonsID }, htmlAttributes: new { @id = "lenker" })
         </h5>
     </div>
 <br />

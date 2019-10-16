@@ -112,7 +112,7 @@ namespace Oppg1.Controllers
                 {
                     var bane = _vyBLL.hentEnBane(endreStasjonPaaBane.BaneID);
                     endreStasjonPaaBane.Bane = bane.Banenavn;
-                    //sjekker at avgangen ikke finnes fra før (virker ikke enda da man ikke får med seg stasjonid og baneid fra httppost)
+                    //sjekker at avgangen ikke finnes fra før 
                     bool nyAvgangOK = _vyBLL.sjekkAvgangOK(endreStasjonPaaBane);
                     if (nyAvgangOK)
                     {
@@ -233,36 +233,42 @@ namespace Oppg1.Controllers
             return View();
         }
 
-        public ActionResult LeggTilAvgang()
+        public ActionResult LeggTilAvgang(int id)
         {
-            return View();
+            var stasjon = _vyBLL.hentEnStasjon(id);
+            var stasjonPaaBane = new stasjonPaaBane()
+            {
+                StasjonsID = stasjon.StasjonID,
+                Stasjon = stasjon.Stasjonsnavn
+            };
+            return View(stasjonPaaBane);
         }
 
         [HttpPost]
-        public ActionResult LeggTilAvgang(string avgang, int StasjonID, int baneID)
+        public ActionResult LeggTilAvgang(stasjonPaaBane stasjonPaaBane)
         {
+            //Sørger for at man blir stående i samme view om man legger inn en avgang som finnes fra før
+            var stasjon = _vyBLL.hentEnStasjon(stasjonPaaBane.StasjonsID);
+            stasjonPaaBane.Stasjon = stasjon.Stasjonsnavn;
 
-            //if (ModelState.IsValid)
-            //{
-                var db = new VyBLL();
-                // bool avgangOK = db.sjekkAvgangOK(avgang);
-               // if (avgangOK)
-              //  {
-                    bool leggtilOK = db.leggTilStasjonPaaBane(avgang, StasjonID, baneID);
+            if (ModelState.IsValid)
+                {
+                bool avgangOK = _vyBLL.sjekkAvgangOK(stasjonPaaBane);
+                if (avgangOK)
+                {
+                    bool leggtilOK = _vyBLL.leggTilStasjonPaaBane(stasjonPaaBane.Avgang, stasjonPaaBane.StasjonsID, stasjonPaaBane.BaneID);
                     if (leggtilOK)
                     {
                         return RedirectToAction("OversiktStasjoner");
                     }
-               // }
-            //}
-            return View();
+                }
+            }
+            return View(stasjonPaaBane);
         }
 
-        // Helt lik metode i homecontroller, må vi ha en her også?
         public string hentAlleStasjoner()
         {
-            var BLL = new VyBLL();
-            List<stasjon> alleStasjoner = BLL.hentAlleStasjoner();
+            List<stasjon> alleStasjoner = _vyBLL.hentAlleStasjoner();
             var jsonSerializer = new JavaScriptSerializer();
             string json = jsonSerializer.Serialize(alleStasjoner);
             return json;
@@ -270,8 +276,7 @@ namespace Oppg1.Controllers
 
         public string hentAlleBanenavn()
         {
-            var BLL = new VyBLL();
-            List<bane> alleBaner = BLL.hentAlleBaner();
+            List<bane> alleBaner = _vyBLL.hentAlleBaner();
             var jsonSerializer = new JavaScriptSerializer();
             string json = jsonSerializer.Serialize(alleBaner);
             return json;
