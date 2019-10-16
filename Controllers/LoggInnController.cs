@@ -29,7 +29,7 @@ namespace Oppg1.Controllers
         public ActionResult LoggInn(bruker innlogget)
         {
             bool finnes = _vyBLL.finnBrukerDB(innlogget);
-            // SJekker om innligging ok
+            // Sjekker om innlogging ok
             if (finnes){
                 Session["Innlogget"] = true;
                 return RedirectToAction("OversiktStasjoner", "Admin");
@@ -40,6 +40,12 @@ namespace Oppg1.Controllers
                 return View();
                     
             }
+        }
+
+        public ActionResult LoggUt()
+        {
+            Session.Abandon();
+            return RedirectToAction("Index", "Index");
         }
     }
 }
