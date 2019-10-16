@@ -11,6 +11,7 @@ namespace Oppg1.Controllers
 {
     public class LoggInnController : Controller
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private IVyBLL _vyBLL;
 
         public LoggInnController()
@@ -42,8 +43,8 @@ namespace Oppg1.Controllers
             else
             {
                 Session["Innlogget"] = false;
-                return View();
-                    
+                log.Warn("Ikke innlogget");
+                return View(); 
             }
         }
 
