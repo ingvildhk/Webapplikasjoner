@@ -164,19 +164,16 @@ namespace Oppg1.Controllers
 
         public ActionResult SlettAvgang(int id)
         {
-            var db = new VyBLL();
-            var enAvgang = db.hentEnAvgang(id);
+            var enAvgang = _vyBLL.hentEnAvgang(id);
             return View(enAvgang);
         }
 
         [HttpPost]
         public ActionResult SlettAvgang (int id, stasjonPaaBane avgang)
         {
+            var baneidTilAvgang = _vyBLL.hentEnAvgang(id);
 
-            var db = new VyBLL();
-            var baneidTilAvgang = db.hentEnAvgang(id);
-
-            bool slettOK = db.slettStasjonPaaBane(id, baneidTilAvgang.BaneID);
+            bool slettOK = _vyBLL.slettStasjonPaaBane(id, baneidTilAvgang.BaneID);
             if (slettOK)
             {
                 return RedirectToAction("OversiktStasjoner");
@@ -241,6 +238,7 @@ namespace Oppg1.Controllers
                 StasjonsID = stasjon.StasjonID,
                 Stasjon = stasjon.Stasjonsnavn
             };
+
             return View(stasjonPaaBane);
         }
 
