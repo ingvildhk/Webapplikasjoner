@@ -27,8 +27,8 @@ namespace Oppg1.Controllers
         
         public ActionResult OversiktStasjoner()
         {
-            List<stasjon> alleStasjoner = _vyBLL.hentAlleStasjoner();
-            return View(alleStasjoner);
+                List<stasjon> alleStasjoner = _vyBLL.hentAlleStasjoner();
+                return View(alleStasjoner);
         }
 
         public ActionResult OversiktBaner()

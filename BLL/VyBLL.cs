@@ -187,5 +187,12 @@ namespace BLL
             bool lagre = BestillingDal.lagreBestilling(innBestilling);
             return lagre;
         }
+
+        public bool finnBrukerDB(bruker innbruker)
+        {
+            var db = new AdminDBmetoder();
+            bool finnes = db.finnBrukerDB(innbruker);
+            return finnes;
+        }
     }
 }

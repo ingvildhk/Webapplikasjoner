@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    class bruker
+    public class bruker
     {
         [Required (ErrorMessage = "Brukernavn må oppgis")]
         public String Brukernavn { get; set; }
