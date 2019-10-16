@@ -8,6 +8,7 @@ using Oppg1.Controllers;
 using System.Web.Mvc;
 using System.Linq;
 using System.Web.Script.Serialization;
+using MvcContrib.TestHelper;
 
 namespace Enhetstest
 {
@@ -19,6 +20,10 @@ namespace Enhetstest
         {
             //Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
+
             var forventetResultat = new List<stasjon>();
             var stasjon = new stasjon()
             {

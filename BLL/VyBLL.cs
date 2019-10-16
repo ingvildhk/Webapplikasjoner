@@ -123,6 +123,11 @@ namespace BLL
             return _AdminDAL.sjekkAvgangOK(innStasjonPaaBane);
         }
 
+        public bool finnBrukerDB(bruker innbruker)
+        {
+            return _AdminDAL.finnBrukerDB(innbruker);
+        }
+
         //----------------------------------------------------------------
         //Metoder for bestillingsview
         public List<String> hentAlleStasjonsNavn()
@@ -174,11 +179,5 @@ namespace BLL
             return lagre;
         }
 
-        public bool finnBrukerDB(bruker innbruker)
-        {
-            var db = new AdminDBmetoder();
-            bool finnes = db.finnBrukerDB(innbruker);
-            return finnes;
-        }
     }
 }
