@@ -12,6 +12,7 @@ namespace Oppg1.Controllers
         // GET: LoggInn
         public ActionResult LoggInn()
         {
+            
             return View();
         }
     }
