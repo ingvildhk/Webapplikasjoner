@@ -17,6 +17,12 @@ namespace Oppg1.Controllers
         {
             _vyBLL = new VyBLL();
         }
+
+        public LoggInnController(IVyBLL stub)
+        {
+            _vyBLL = stub;
+        }
+
         // GET: LoggInn
         public ActionResult LoggInn()
         {
