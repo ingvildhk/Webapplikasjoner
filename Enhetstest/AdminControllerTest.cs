@@ -54,6 +54,9 @@ namespace Enhetstest
         {
             //Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
             var forventetResultat = new List<bane>();
             var bane = new bane()
             {
@@ -84,6 +87,9 @@ namespace Enhetstest
         {
             //Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
             var forventetResultat = new List<stasjonPaaBane>();
             var stasjonPaaBane = new stasjonPaaBane()
             {
@@ -122,6 +128,9 @@ namespace Enhetstest
         {
             //Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
             var forventetResultat = new List<stasjonPaaBane>();
             var stasjonPaaBane = new stasjonPaaBane()
             {
@@ -155,6 +164,9 @@ namespace Enhetstest
         {
             //Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
             var forventetResultat = new stasjon()
             {
                 StasjonID = 1,
@@ -176,6 +188,9 @@ namespace Enhetstest
         {
             //Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
             var forventetResultat = new stasjon()
             {
                 StasjonID = 0
@@ -196,6 +211,9 @@ namespace Enhetstest
         {
             //Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
             var stasjon = new stasjon()
             {
                 StasjonID = 1,
@@ -215,6 +233,9 @@ namespace Enhetstest
         {
             //Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
 
             var stasjon = new stasjon();
             controller.ViewData.ModelState.AddModelError("Stasjonsnavn", "Stasjonsnavn må oppgis");
@@ -232,6 +253,9 @@ namespace Enhetstest
         {
             //Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
             var stasjon = new stasjon();
             stasjon.Stasjonsnavn = "";
 
@@ -247,6 +271,9 @@ namespace Enhetstest
         {
             //Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
 
             // Act
             var actionResult = (ViewResult)controller.EndreStasjon(0);
@@ -260,6 +287,9 @@ namespace Enhetstest
         {
             //Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
             var forventetResultat = new bane()
             {
                 BaneID = 1,
@@ -281,6 +311,9 @@ namespace Enhetstest
         {
             //Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
             var forventetResultat = new bane()
             {
                 BaneID = 0
@@ -301,6 +334,9 @@ namespace Enhetstest
         {
             //Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
             var bane = new bane()
             {
                 BaneID = 1,
@@ -320,6 +356,9 @@ namespace Enhetstest
         {
             //Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
 
             var bane = new bane();
             controller.ViewData.ModelState.AddModelError("Banenavn", "Banenavn må oppgis");
@@ -337,6 +376,9 @@ namespace Enhetstest
         {
             //Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
             var bane = new bane();
             bane.Banenavn = "";
 
@@ -352,6 +394,9 @@ namespace Enhetstest
         {
             //Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
             var bane = new bane()
             {
                 BaneID = 0
@@ -369,6 +414,9 @@ namespace Enhetstest
         {
             //Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
             var forventetResultat = new stasjonPaaBane()
             {
                 stasjonPaaBaneID = 1,
@@ -398,6 +446,9 @@ namespace Enhetstest
         {
             //Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
             var forventetResultat = new stasjonPaaBane()
             {
                 stasjonPaaBaneID = 0
@@ -422,6 +473,9 @@ namespace Enhetstest
         {
             //Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
             var stasjonPaaBane = new stasjonPaaBane()
             {
                 stasjonPaaBaneID = 1,
@@ -445,6 +499,9 @@ namespace Enhetstest
         {
             //Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
 
             var stasjonPaaBane = new stasjonPaaBane();
             controller.ViewData.ModelState.AddModelError("Tidspunkt", "Tidspunkt må oppgis");
@@ -462,6 +519,9 @@ namespace Enhetstest
         {
             //Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
 
             var stasjonPaaBane = new stasjonPaaBane()
             {
@@ -481,6 +541,9 @@ namespace Enhetstest
         {
             //Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
             var avgang = new stasjonPaaBane();
             avgang.Avgang = "";
 
@@ -496,6 +559,9 @@ namespace Enhetstest
         {
             //Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
             var stasjonPaaBane = new stasjonPaaBane()
             {
                 stasjonPaaBaneID = 0
@@ -513,6 +579,9 @@ namespace Enhetstest
         {
             // Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
 
             // Act
             var actionResult = (ViewResult)controller.SlettStasjon(1);
@@ -528,6 +597,9 @@ namespace Enhetstest
         {
             // Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
             var stasjon = new stasjon()
             {
                 StasjonID = 1,
@@ -546,6 +618,9 @@ namespace Enhetstest
         {
             // Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
             var stasjon = new stasjon()
             {
                 StasjonID = 1,
@@ -564,6 +639,9 @@ namespace Enhetstest
         {
             // Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
 
             // Act
             var actionResult = (ViewResult)controller.SlettBane(1);
@@ -579,6 +657,9 @@ namespace Enhetstest
         {
             // Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
             var bane = new bane()
             {
                 BaneID = 1,
@@ -597,6 +678,9 @@ namespace Enhetstest
         {
             // Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
             var bane = new bane()
             {
                 BaneID = 1,
@@ -615,6 +699,9 @@ namespace Enhetstest
         {
             // Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
 
             // Act
             var actionResult = (ViewResult)controller.SlettAvgang(1);
@@ -630,6 +717,9 @@ namespace Enhetstest
         {
             // Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
             var avgang = new stasjonPaaBane()
             {
                 stasjonPaaBaneID = 1,
@@ -652,6 +742,9 @@ namespace Enhetstest
         {
             // Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
             var avgang = new stasjonPaaBane()
             {
                 stasjonPaaBaneID = 1,
@@ -674,6 +767,9 @@ namespace Enhetstest
         {
             // Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
 
             // Act
             var actionResult = (ViewResult)controller.LeggTilStasjon();
@@ -687,6 +783,9 @@ namespace Enhetstest
         {
             // Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
 
             var stasjon = new stasjon()
             {
@@ -705,6 +804,9 @@ namespace Enhetstest
         {
             // Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
             var stasjon = new stasjon();
             controller.ViewData.ModelState.AddModelError("Stasjonsnavn", "Stasjonsnavn må oppgis");
 
@@ -720,6 +822,9 @@ namespace Enhetstest
         {
             // Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
             var stasjon = new stasjon();
             stasjon.Stasjonsnavn = "";
 
@@ -735,6 +840,9 @@ namespace Enhetstest
         {
             // Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
 
             // Act
             var actionResult = (ViewResult)controller.LeggTilBane();
@@ -748,6 +856,9 @@ namespace Enhetstest
         {
             // Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
 
             var bane = new bane()
             {
@@ -766,6 +877,9 @@ namespace Enhetstest
         {
             // Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
             var bane = new bane();
             controller.ViewData.ModelState.AddModelError("Banenavn", "Banenavn må oppgis");
 
@@ -781,6 +895,9 @@ namespace Enhetstest
         {
             // Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
             var bane = new bane();
             bane.Banenavn = "";
 
@@ -796,6 +913,9 @@ namespace Enhetstest
         {
             // Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
             var id = 1;
 
             // Act
@@ -810,6 +930,9 @@ namespace Enhetstest
         {
             // Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
 
             var avgang = new stasjonPaaBane()
             {
@@ -832,6 +955,9 @@ namespace Enhetstest
         {
             // Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
             var avgang = new stasjonPaaBane();
             controller.ViewData.ModelState.AddModelError("Tidspunkt", "Tidspunkt må oppgis");
 
@@ -847,6 +973,9 @@ namespace Enhetstest
         {
             // Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
             var avgang = new stasjonPaaBane();
             avgang.Avgang = "";
 
@@ -862,6 +991,9 @@ namespace Enhetstest
         {
             // Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
             var stasjonListe = new List<stasjon>();
             var stasjon = new stasjon()
             {
@@ -892,6 +1024,9 @@ namespace Enhetstest
         {
             //Arrange
             var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
             var baneListe = new List<bane>();
             var bane = new bane()
             {
