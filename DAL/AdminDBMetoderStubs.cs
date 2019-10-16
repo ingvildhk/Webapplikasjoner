@@ -294,5 +294,27 @@ namespace DAL
                 return true;
             }
         }
+
+        public bool finnBrukerDB(bruker innbruker)
+        {
+            if (innbruker.Brukernavn == "")
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+
+        }
+        public String lagSalt()
+        {
+            return "";
+        }
+
+        public byte[] lagHash(String innstring)
+        {
+            return Encoding.UTF8.GetBytes("");
+        }
     }
 }

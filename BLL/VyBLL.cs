@@ -59,13 +59,6 @@ namespace BLL
             return _AdminDAL.hentEnAvgang(id);
         }
 
-        public List<bane> hentAlleBanenavn()
-        {
-            var AdminDal = new AdminDBmetoder();
-            List<bane> alleBaner = AdminDal.hentAlleBanenavn();
-            return alleBaner;
-        }
-
         //----------------------------------------------------------------
         //Metoder for å lagre, endre, slette i database
         public bool leggTilStasjon(stasjon innStasjon)
@@ -130,6 +123,11 @@ namespace BLL
             return _AdminDAL.sjekkAvgangOK(innStasjonPaaBane);
         }
 
+        public bool finnBrukerDB(bruker innbruker)
+        {
+            return _AdminDAL.finnBrukerDB(innbruker);
+        }
+
         //----------------------------------------------------------------
         //Metoder for bestillingsview
         public List<String> hentAlleStasjonsNavn()
@@ -180,5 +178,6 @@ namespace BLL
             bool lagre = BestillingDal.lagreBestilling(innBestilling);
             return lagre;
         }
+
     }
 }

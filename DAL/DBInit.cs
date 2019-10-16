@@ -300,8 +300,23 @@ namespace DAL
             R20.StasjonPaaBane.Add(GarR20kl16);
             R20.StasjonPaaBane.Add(GarR20kl18);
 
-            // ---------------------- Legger til context i db ---------------------------------
+            // ---------------------Legger til adminBruker -----------------------------------
+            var db = new AdminDBmetoder();
+            var brukernavn = "Admin";
+            var passord = "Admin";
+            string salt = db.lagSalt();
+            var passordOgSalt = passord + salt;
+            byte[] passordDB = db.lagHash(passordOgSalt);
 
+            var adminBruker = new dbBruker
+            {
+                Brukernavn = brukernavn,
+                Passord = passordDB,
+                Salt = salt
+            };
+
+            // ---------------------- Legger til context i db ---------------------------------
+            context.dbBruker.Add(adminBruker);
             context.Bane.Add(L1);
             context.Bane.Add(S20);
             context.Bane.Add(R10);

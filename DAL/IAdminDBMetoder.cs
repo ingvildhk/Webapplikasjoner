@@ -27,5 +27,8 @@ namespace DAL
         bool sjekkStasjonOK(stasjon stasjon);
         bool sjekkBaneOK(bane bane);
         bool sjekkAvgangOK(stasjonPaaBane stasjonPaaBane);
+        bool finnBrukerDB(bruker innbruker);
+        String lagSalt();
+        byte[] lagHash(String innstring);
     }
 }
