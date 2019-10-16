@@ -26,7 +26,6 @@ namespace Oppg1.Controllers
         // GET: LoggInn
         public ActionResult LoggInn()
         {
-            Session["Innlogget"] = false;
             return View();
         }
 
@@ -50,8 +49,8 @@ namespace Oppg1.Controllers
 
         public ActionResult LoggUt()
         {
-            Session.Abandon();
-            return RedirectToAction("Index", "Index");
+            Session["Innlogget"] = false;
+            return RedirectToAction("../Home/Index", "Home");
         }
     }
 }

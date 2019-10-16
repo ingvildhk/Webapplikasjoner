@@ -75,13 +75,13 @@ namespace Enhetstest
             var SessionMock = new TestControllerBuilder();
 
             SessionMock.InitializeController(controller);
-            controller.Session.Abandon();
+            controller.Session["Innlogget"] = false;
             // Act
             var actionResult = (RedirectToRouteResult)controller.LoggUt();
 
             // Assert
             Assert.AreEqual(actionResult.RouteName, "");
-            Assert.AreEqual(actionResult.RouteValues.Values.First(), "Index");
+            Assert.AreEqual(actionResult.RouteValues.Values.First(), "../Home/Index");
         }
     }
 }

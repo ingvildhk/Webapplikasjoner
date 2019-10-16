@@ -69,41 +69,41 @@
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
-            <div class="form-group" id="dropDown">
-                <label for="exampleFormControlSelect1">Bane</label>
-                <select class="form-control" id="BaneID" name="BaneID"></select>
-                <div id="feilBane" class="feilmeldinger"></div>
-                <div class="editor-field">
-                    <div class="col-md-10">
-                        @if (!ViewData.ModelState.IsValid)
-                        {
-                            <span class="field-validation-error">
-                                @if (ViewData.ModelState["BaneID"] != null && @ViewData.ModelState["BaneID"].Errors.Count > 0)
-                                {
-                                    @ViewData.ModelState["BaneID"].Errors[0].ErrorMessage
-                                }
-                            </span>
-                        }
-                    </div>
+        <div class="form-group" id="dropDown">
+            <h5><label for="exampleFormControlSelect1">Bane</label></h5>
+            <select class="form-control" id="BaneID" name="BaneID"></select>
+            <div id="feilBane" class="feilmeldinger"></div>
+            <div class="editor-field">
+                <div class="col-md-10">
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <span class="field-validation-error">
+                            @if (ViewData.ModelState["BaneID"] != null && @ViewData.ModelState["BaneID"].Errors.Count > 0)
+                            {
+                                @ViewData.ModelState["BaneID"].Errors[0].ErrorMessage
+                            }
+                        </span>
+                    }
                 </div>
             </div>
+        </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Avgang, htmlAttributes: new { @class = "control-label col-md-2" })
+                <h5>@Html.LabelFor(model => model.Avgang, htmlAttributes: new { @class = "control-label col-md-2" })</h5>
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Avgang, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Avgang, new { htmlAttributes = new { @class = "form-control", @id = "inputBoks" } })
 
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Legg til avgangen" class="btn btn-default" />
+                    <input type="submit" value="Legg til avgang" class="btn btn-success" id="knapp" />
                 </div>
             </div>
         </div>
     }
-
+    <br />
     <div>
         @Html.ActionLink("Tilbake til oversikten", "OversiktStasjoner")
     </div>

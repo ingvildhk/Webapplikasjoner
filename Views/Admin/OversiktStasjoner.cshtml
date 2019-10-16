@@ -6,9 +6,8 @@
 
 </head>
 <body>
-    <!--Blir en session_destroy mohaah-->
     <div>
-        @Html.ActionLink("Logg ut", "../Home/Index")
+        <a href="@Url.Action("LoggUt", "LoggInn")">Logg ut</a>
     </div>
     <br />
     <div class="form-horizontal">
@@ -35,9 +34,9 @@
                     @item.Stasjonsnavn
                 </td>
                 <td>
+                    @Html.ActionLink("Se alle avganger til stasjon", "AvgangerPaStasjon", new { id = item.StasjonID }, new { @class = "btn btn-secondary" })
                     @Html.ActionLink("Endre navn", "EndreStasjon", new { id = item.StasjonID }, new { @class = "btn btn-info" })
                     @Html.ActionLink("Slett stasjon", "SlettStasjon", new { id = item.StasjonID }, new { @class = "btn btn-danger" })
-                    @Html.ActionLink("Se alle avganger til stasjon", "AvgangerPaStasjon", new { id = item.StasjonID }, new { @class = "btn btn-secondary" })
                 </td>
             </tr>
         }
