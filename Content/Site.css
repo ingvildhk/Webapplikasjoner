@@ -147,3 +147,8 @@ h5 {
 #endreKnapp {
     background-color: #FFD586;
 }
+
+#BaneID:focus {
+    border-color: #029678;
+    box-shadow: inset 0 1px 1px rgba(2,150,120, 0.8), 0 0 8px rgba(2,150,120, 0.86);
+}
