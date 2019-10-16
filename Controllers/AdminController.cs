@@ -266,7 +266,6 @@ namespace Oppg1.Controllers
             return View(stasjonPaaBane);
         }
 
-        // Helt lik metode i homecontroller, må vi ha en her også?
         public string hentAlleStasjoner()
         {
             List<stasjon> alleStasjoner = _vyBLL.hentAlleStasjoner();
