@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net.Mail;
+using System.Security.Cryptography;
 using Model;
 
 namespace DAL
@@ -374,36 +375,6 @@ namespace DAL
                 }
             }
         } 
-        public List <bane> hentAlleBanenavn()
-        {
-            using (var db = new DB()) {
-                List<bane> alleBaner = new List<bane>();
-                foreach (Bane bane in db.Bane )
-                {
-                    var nyBane = new bane();
-                    nyBane.BaneID = bane.BaneID;
-                    nyBane.Banenavn = bane.Banenavn;
-                    alleBaner.Add(nyBane);
-                }
-                return alleBaner;
-            }
-        }
-
-        public List <stasjon> hentAlleStasjonsnavn()
-        {
-            using(var db = new DB())
-            {
-                List<stasjon> alleStasjoner = new List<stasjon>();
-                foreach( Stasjon stasjon in db.Stasjon)
-                {
-                    var nyStasjon = new stasjon();
-                    nyStasjon.StasjonID = stasjon.StasjonsID;
-                    nyStasjon.Stasjonsnavn = stasjon.Stasjonsnavn;
-                    alleStasjoner.Add(nyStasjon);
-                }
-                return alleStasjoner;
-            }
-        }
 
         //------------------------------------------------------------------------------
         //Valideringsmetoder
@@ -465,6 +436,49 @@ namespace DAL
                 }
                 return true;
             }
+        }
+
+        //-----------------METODER FOR INNLOGGING----------------------
+
+        public bool finnBrukerDB(bruker innbruker)
+        {
+            using (var db = new DB())
+            {
+                // Finner brukernavn
+                dbBruker funnetBruker = db.dbBruker.FirstOrDefault(b => b.Brukernavn == innbruker.Brukernavn);
+                if(funnetBruker != null)
+                {
+
+                    byte[] passordForTest = lagHash(innbruker.Passord + funnetBruker.Salt);
+                    bool riktigBruker = funnetBruker.Passord.SequenceEqual(passordForTest);
+                    return riktigBruker;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public String lagSalt()
+        {
+            byte[] randomArray = new byte[10];
+            string randomString;
+
+            // Random Number Generator
+            var rng = new RNGCryptoServiceProvider();
+            rng.GetBytes(randomArray);
+            randomString = Convert.ToBase64String(randomArray);
+            return randomString;
+        }
+
+        public byte[] lagHash (String innstring)
+        {
+            byte[] innData, utData;
+            var algoritme = SHA256.Create();
+            innData = System.Text.Encoding.UTF8.GetBytes(innstring);
+            utData = algoritme.ComputeHash(innData);
+            return utData;
         }
     }
 }

@@ -25,26 +25,30 @@ namespace Oppg1.Controllers
             _vyBLL = stub;
         }
         
+        [SessionSjekker]
         public ActionResult OversiktStasjoner()
         {
             List<stasjon> alleStasjoner = _vyBLL.hentAlleStasjoner();
             return View(alleStasjoner);
         }
 
+        [SessionSjekker]
         public ActionResult OversiktBaner()
         {
             List<bane> alleBaner = _vyBLL.hentAlleBaner();
             return View(alleBaner);
         }
 
+        [SessionSjekker]
         //Oversikt avganger til stasjoner
         public ActionResult AvgangerPaStasjon(int id)
         {
             List<stasjonPaaBane> listen = _vyBLL.hentStasjonPaaBane(id);
             return View(listen);
         }
-  
-    public ActionResult EndreStasjon(int id)
+
+        [SessionSjekker]
+        public ActionResult EndreStasjon(int id)
         {
             stasjon enstasjon = _vyBLL.hentEnStasjon(id);
             return View(enstasjon);
@@ -69,6 +73,7 @@ namespace Oppg1.Controllers
             return View();
         }
 
+        [SessionSjekker]
         public ActionResult EndreBane(int id)
         {
             bane enbane = _vyBLL.hentEnBane(id);
@@ -94,6 +99,7 @@ namespace Oppg1.Controllers
             return View();
         }
 
+        [SessionSjekker]
         public ActionResult EndreAvgang(int id)
         {
             var enAvgang = _vyBLL.hentEnAvgang(id);
@@ -112,7 +118,7 @@ namespace Oppg1.Controllers
                 {
                     var bane = _vyBLL.hentEnBane(endreStasjonPaaBane.BaneID);
                     endreStasjonPaaBane.Bane = bane.Banenavn;
-                    //sjekker at avgangen ikke finnes fra før (virker ikke enda da man ikke får med seg stasjonid og baneid fra httppost)
+                    //sjekker at avgangen ikke finnes fra før 
                     bool nyAvgangOK = _vyBLL.sjekkAvgangOK(endreStasjonPaaBane);
                     if (nyAvgangOK)
                     {
@@ -128,6 +134,7 @@ namespace Oppg1.Controllers
             return View();
         }
 
+        [SessionSjekker]
         public ActionResult SlettStasjon(int id)
         {
             stasjon enStasjon = _vyBLL.hentEnStasjon(id);
@@ -145,6 +152,7 @@ namespace Oppg1.Controllers
             return View();
         }
 
+        [SessionSjekker]
         public ActionResult SlettBane(int id)
         {
             var enBane = _vyBLL.hentEnBane(id);
@@ -162,21 +170,19 @@ namespace Oppg1.Controllers
             return View();
         }
 
+        [SessionSjekker]
         public ActionResult SlettAvgang(int id)
         {
-            var db = new VyBLL();
-            var enAvgang = db.hentEnAvgang(id);
+            var enAvgang = _vyBLL.hentEnAvgang(id);
             return View(enAvgang);
         }
 
         [HttpPost]
         public ActionResult SlettAvgang (int id, stasjonPaaBane avgang)
         {
+            var baneidTilAvgang = _vyBLL.hentEnAvgang(id);
 
-            var db = new VyBLL();
-            var baneidTilAvgang = db.hentEnAvgang(id);
-
-            bool slettOK = db.slettStasjonPaaBane(id, baneidTilAvgang.BaneID);
+            bool slettOK = _vyBLL.slettStasjonPaaBane(id, baneidTilAvgang.BaneID);
             if (slettOK)
             {
                 return RedirectToAction("OversiktStasjoner");
@@ -185,6 +191,7 @@ namespace Oppg1.Controllers
 
         }
 
+        [SessionSjekker]
         public ActionResult LeggTilStasjon()
         {
             return View();
@@ -209,6 +216,7 @@ namespace Oppg1.Controllers
             return View();
         }
 
+        [SessionSjekker]
         public ActionResult LeggTilBane()
         {
             return View();
@@ -233,36 +241,44 @@ namespace Oppg1.Controllers
             return View();
         }
 
-        public ActionResult LeggTilAvgang()
+        [SessionSjekker]
+        public ActionResult LeggTilAvgang(int id)
         {
-            return View();
+            var stasjon = _vyBLL.hentEnStasjon(id);
+            var stasjonPaaBane = new stasjonPaaBane()
+            {
+                StasjonsID = stasjon.StasjonID,
+                Stasjon = stasjon.Stasjonsnavn
+            };
+
+            return View(stasjonPaaBane);
         }
 
         [HttpPost]
-        public ActionResult LeggTilAvgang(string avgang, int StasjonID, int baneID)
+        public ActionResult LeggTilAvgang(stasjonPaaBane stasjonPaaBane)
         {
+            //Sørger for at man blir stående i samme view om man legger inn en avgang som finnes fra før
+            var stasjon = _vyBLL.hentEnStasjon(stasjonPaaBane.StasjonsID);
+            stasjonPaaBane.Stasjon = stasjon.Stasjonsnavn;
 
-            //if (ModelState.IsValid)
-            //{
-                var db = new VyBLL();
-                // bool avgangOK = db.sjekkAvgangOK(avgang);
-               // if (avgangOK)
-              //  {
-                    bool leggtilOK = db.leggTilStasjonPaaBane(avgang, StasjonID, baneID);
+            if (ModelState.IsValid)
+                {
+                bool avgangOK = _vyBLL.sjekkAvgangOK(stasjonPaaBane);
+                if (avgangOK)
+                {
+                    bool leggtilOK = _vyBLL.leggTilStasjonPaaBane(stasjonPaaBane.Avgang, stasjonPaaBane.StasjonsID, stasjonPaaBane.BaneID);
                     if (leggtilOK)
                     {
                         return RedirectToAction("OversiktStasjoner");
                     }
-               // }
-            //}
-            return View();
+                }
+            }
+            return View(stasjonPaaBane);
         }
 
-        // Helt lik metode i homecontroller, må vi ha en her også?
         public string hentAlleStasjoner()
         {
-            var BLL = new VyBLL();
-            List<stasjon> alleStasjoner = BLL.hentAlleStasjoner();
+            List<stasjon> alleStasjoner = _vyBLL.hentAlleStasjoner();
             var jsonSerializer = new JavaScriptSerializer();
             string json = jsonSerializer.Serialize(alleStasjoner);
             return json;
@@ -270,8 +286,7 @@ namespace Oppg1.Controllers
 
         public string hentAlleBanenavn()
         {
-            var BLL = new VyBLL();
-            List<bane> alleBaner = BLL.hentAlleBaner();
+            List<bane> alleBaner = _vyBLL.hentAlleBaner();
             var jsonSerializer = new JavaScriptSerializer();
             string json = jsonSerializer.Serialize(alleBaner);
             return json;

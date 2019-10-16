@@ -27,5 +27,7 @@ namespace BLL
         bool sjekkStasjonOK(stasjon stasjon);
         bool sjekkBaneOK(bane bane);
         bool sjekkAvgangOK(stasjonPaaBane stasjonPaaBane);
+
+        bool finnBrukerDB(bruker innbruker);
     }
 }
