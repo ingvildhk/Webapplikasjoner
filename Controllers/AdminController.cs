@@ -27,8 +27,16 @@ namespace Oppg1.Controllers
         
         public ActionResult OversiktStasjoner()
         {
-                List<stasjon> alleStasjoner = _vyBLL.hentAlleStasjoner();
-                return View(alleStasjoner);
+            if (Session["Innlogget"] != null)
+            {
+                bool loggetInn = (bool)Session["Innlogget"];
+                if (loggetInn){
+                    List<stasjon> alleStasjoner = _vyBLL.hentAlleStasjoner();
+                    return View(alleStasjoner);
+                };
+            }
+            return RedirectToAction("LoggInn", "LoggInn");
+                
         }
 
         public ActionResult OversiktBaner()
