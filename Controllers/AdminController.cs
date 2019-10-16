@@ -25,34 +25,30 @@ namespace Oppg1.Controllers
             _vyBLL = stub;
         }
         
+        [SessionSjekker]
         public ActionResult OversiktStasjoner()
         {
-            if (Session["Innlogget"] != null)
-            {
-                bool loggetInn = (bool)Session["Innlogget"];
-                if (loggetInn){
-                    List<stasjon> alleStasjoner = _vyBLL.hentAlleStasjoner();
-                    return View(alleStasjoner);
-                };
-            }
-            return RedirectToAction("LoggInn", "LoggInn");
-                
+            List<stasjon> alleStasjoner = _vyBLL.hentAlleStasjoner();
+            return View(alleStasjoner);
         }
 
+        [SessionSjekker]
         public ActionResult OversiktBaner()
         {
             List<bane> alleBaner = _vyBLL.hentAlleBaner();
             return View(alleBaner);
         }
 
+        [SessionSjekker]
         //Oversikt avganger til stasjoner
         public ActionResult AvgangerPaStasjon(int id)
         {
             List<stasjonPaaBane> listen = _vyBLL.hentStasjonPaaBane(id);
             return View(listen);
         }
-  
-    public ActionResult EndreStasjon(int id)
+
+        [SessionSjekker]
+        public ActionResult EndreStasjon(int id)
         {
             stasjon enstasjon = _vyBLL.hentEnStasjon(id);
             return View(enstasjon);
@@ -77,6 +73,7 @@ namespace Oppg1.Controllers
             return View();
         }
 
+        [SessionSjekker]
         public ActionResult EndreBane(int id)
         {
             bane enbane = _vyBLL.hentEnBane(id);
@@ -102,6 +99,7 @@ namespace Oppg1.Controllers
             return View();
         }
 
+        [SessionSjekker]
         public ActionResult EndreAvgang(int id)
         {
             var enAvgang = _vyBLL.hentEnAvgang(id);
@@ -136,6 +134,7 @@ namespace Oppg1.Controllers
             return View();
         }
 
+        [SessionSjekker]
         public ActionResult SlettStasjon(int id)
         {
             stasjon enStasjon = _vyBLL.hentEnStasjon(id);
@@ -153,6 +152,7 @@ namespace Oppg1.Controllers
             return View();
         }
 
+        [SessionSjekker]
         public ActionResult SlettBane(int id)
         {
             var enBane = _vyBLL.hentEnBane(id);
@@ -170,6 +170,7 @@ namespace Oppg1.Controllers
             return View();
         }
 
+        [SessionSjekker]
         public ActionResult SlettAvgang(int id)
         {
             var enAvgang = _vyBLL.hentEnAvgang(id);
@@ -190,6 +191,7 @@ namespace Oppg1.Controllers
 
         }
 
+        [SessionSjekker]
         public ActionResult LeggTilStasjon()
         {
             return View();
@@ -214,6 +216,7 @@ namespace Oppg1.Controllers
             return View();
         }
 
+        [SessionSjekker]
         public ActionResult LeggTilBane()
         {
             return View();
@@ -238,6 +241,7 @@ namespace Oppg1.Controllers
             return View();
         }
 
+        [SessionSjekker]
         public ActionResult LeggTilAvgang(int id)
         {
             var stasjon = _vyBLL.hentEnStasjon(id);
