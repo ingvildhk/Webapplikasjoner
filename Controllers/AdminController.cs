@@ -186,10 +186,12 @@ namespace Oppg1.Controllers
         [HttpPost]
         public ActionResult SlettStasjon(int id, stasjon slettstasjon)
         {
+            stasjon s = _vyBLL.hentEnStasjon(id);
+            String Stasjonsnavn = s.Stasjonsnavn;
             bool slettOK = _vyBLL.slettStasjon(id);
             if (slettOK)
             {
-                log.Info("Sletting av stasjon "+ slettstasjon.Stasjonsnavn+ " var vellykket!");
+                log.Info("Sletting av stasjon "+ Stasjonsnavn + " var vellykket!");
                 return RedirectToAction("OversiktStasjoner");
             }
             return View();
