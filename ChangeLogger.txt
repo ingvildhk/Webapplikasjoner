@@ -1,14 +1,1 @@
-2019-10-16 23:47:44,496 [5] INFO Oppg1.Controllers.HomeController - Info logging
-2019-10-16 23:50:15,951 INFO Oppg1.Controllers.HomeController - Info logging
-2019-10-17 00:30:52,243 INFO Oppg1.Controllers.HomeController - Ikke valgt 'fra' stasjon
-2019-10-17 00:51:46,300 WARN Oppg1.Controllers.LoggInnController - Ikke innlogget
-2019-10-17 00:51:54,576 WARN Oppg1.Controllers.LoggInnController - Ikke innlogget
-2019-10-17 00:52:28,117 WARN Oppg1.Controllers.LoggInnController - Ikke innlogget
-2019-10-17 01:04:22,468 INFO Oppg1.Controllers.AdminController - Endring på Stasjon utført, verdier: True
-2019-10-17 01:06:15,834 INFO Oppg1.Controllers.AdminController - Endring på Stasjon utført, verdier: Model.stasjon
-2019-10-17 01:09:10,655 WARN Oppg1.Controllers.LoggInnController - Ikke innlogget
-2019-10-17 01:09:25,553 INFO Oppg1.Controllers.AdminController - Endring på Stasjon utført, verdier: Billingstad
-2019-10-17 01:25:43,618 WARN Oppg1.Controllers.AdminController - Velg Bane 'Legg til Avgang'
-2019-10-17 01:26:16,583 WARN Oppg1.Controllers.AdminController - Velg Bane 'Legg til Avgang'
-01:31:02,049 WARN Oppg1.Controllers.AdminController - feil ved - Velg Bane 'Legg til Avgang'
- Oppg1.Controllers.AdminController.LeggTilAvgang(C:\Users\Hilde\Documents\GitHub\WebapplikasjonerOppgave1\Controllers\AdminController.cs:353) -  - LeggTilAvgang 
+10:56:34,743 - INFO - Oppg1.Controllers.AdminController - SlettStasjon - Sletting av stasjon  var vellykket!

@@ -189,6 +189,7 @@ namespace Oppg1.Controllers
             bool slettOK = _vyBLL.slettStasjon(id);
             if (slettOK)
             {
+                log.Info("Sletting av stasjon "+ slettstasjon.Stasjonsnavn+ " var vellykket!");
                 return RedirectToAction("OversiktStasjoner");
             }
             return View();
@@ -207,12 +208,10 @@ namespace Oppg1.Controllers
             bool slettOK = _vyBLL.slettBane(id);
             if (slettOK)
             {
-                log.Info("Sletting av bane: " + enBane + "var vellykket!");
+                log.Info("Sletting av bane var vellykket!");
                 return RedirectToAction("OversiktBaner");
             }
-            else if(!slettOK){ // ---------------- ny Logging event ------------------------------
-                log.Error("Sletting av Bane feilet!");
-            }
+           
             return View();
             
         }

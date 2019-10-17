@@ -1,0 +1,1 @@
+10:57:10,140 - WARN - Oppg1.Controllers.AdminController - LeggTilAvgang - feil ved - Velg Bane 'Legg til Avgang'
