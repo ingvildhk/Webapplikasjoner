@@ -313,7 +313,12 @@ namespace Oppg1.Controllers
             var metodeSjekk = new ValideringsMetoder();
             bool tidspunktOk = metodeSjekk.sjekkTidspunkt(stasjonPaaBane.Avgang);
 
-            if (string.IsNullOrEmpty(stasjonPaaBane.Avgang))
+            if (string.IsNullOrEmpty(stasjonPaaBane.Bane) || stasjonPaaBane.Bane == "Velg bane")
+            {
+                ModelState.AddModelError("Bane", "Velg bane");
+            }
+
+            else if (string.IsNullOrEmpty(stasjonPaaBane.Avgang))
             {
                 ModelState.AddModelError("Avgang", "Tidspunkt må oppgis");
             }
@@ -321,11 +326,6 @@ namespace Oppg1.Controllers
             else if (!tidspunktOk)
             {
                 ModelState.AddModelError("Avgang", "Tidspunkt må være på korrekt format");
-            }
-
-            else if (string.IsNullOrEmpty(stasjonPaaBane.Bane) || stasjonPaaBane.Bane == "Velg Bane")
-            {
-                ModelState.AddModelError("Avgang", "Velg Bane");
             }
 
             else if (ModelState.IsValid)
