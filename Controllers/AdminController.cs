@@ -323,13 +323,17 @@ namespace Oppg1.Controllers
                 ModelState.AddModelError("Avgang", "Tidspunkt må være på korrekt format");
             }
 
-            else if (stasjonPaaBane.BaneID == 0)
+            else if (string.IsNullOrEmpty(stasjonPaaBane.Bane) || stasjonPaaBane.Bane == "Velg Bane")
             {
                 ModelState.AddModelError("Avgang", "Velg Bane");
             }
 
             else if (ModelState.IsValid)
                 {
+                //Legger til BaneID i stasjonPaaBane
+                bane riktigBane = _vyBLL.hentBaneFraNavn(stasjonPaaBane.Bane);
+                stasjonPaaBane.BaneID = riktigBane.BaneID;
+
                 //sjekker om avgangen finnes fra før
                 bool avgangOK = _vyBLL.sjekkAvgangOK(stasjonPaaBane);
                 if (avgangOK)
