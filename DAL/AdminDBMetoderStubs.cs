@@ -139,6 +139,16 @@ namespace DAL
             }
         }
 
+        public bane hentBaneFraNavn(String Banenavn)
+        {
+            var bane = new bane
+            {
+                BaneID = 1,
+                Banenavn = Banenavn
+            };
+            return bane;
+        }
+
         public bool leggTilStasjon(stasjon stasjon)
         {
             if (stasjon.Stasjonsnavn == "")
