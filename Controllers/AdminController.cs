@@ -309,25 +309,26 @@ namespace Oppg1.Controllers
             var stasjon = _vyBLL.hentEnStasjon(stasjonPaaBane.StasjonsID);
             stasjonPaaBane.Stasjon = stasjon.Stasjonsnavn;
 
+            //sjekker om tidspunkt er valgt og på riktig format
+            var metodeSjekk = new ValideringsMetoder();
+            bool tidspunktOk = metodeSjekk.sjekkTidspunkt(stasjonPaaBane.Avgang);
+
             if (string.IsNullOrEmpty(stasjonPaaBane.Avgang))
             {
                 ModelState.AddModelError("Avgang", "Tidspunkt må oppgis");
             }
 
-            //sjekker om tidspunkt er valgt og på riktig format
-            var metodeSjekk = new ValideringsMetoder();
-            bool tidspunktOk = metodeSjekk.sjekkTidspunkt(stasjonPaaBane.Avgang);
-            if (!tidspunktOk)
+            else if (!tidspunktOk)
             {
                 ModelState.AddModelError("Avgang", "Tidspunkt må være på korrekt format");
             }
 
-            if (string.IsNullOrEmpty(stasjonPaaBane.Bane) || stasjonPaaBane.Bane == "Velg Bane")
+            else if (stasjonPaaBane.BaneID == 0)
             {
                 ModelState.AddModelError("Avgang", "Velg Bane");
             }
 
-            if (ModelState.IsValid)
+            else if (ModelState.IsValid)
                 {
                 //sjekker om avgangen finnes fra før
                 bool avgangOK = _vyBLL.sjekkAvgangOK(stasjonPaaBane);
