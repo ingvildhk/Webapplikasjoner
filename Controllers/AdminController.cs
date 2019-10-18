@@ -156,7 +156,8 @@ namespace Oppg1.Controllers
                     if (endringOK)
                     {
                         //må endre denne til oversikt over avgang på stasjon
-                        return RedirectToAction("OversiktStasjoner");
+                        //return RedirectToAction("OversiktStasjoner");
+                        return RedirectToAction("AvgangerPaStasjon", "Admin", new { id = endreStasjonPaaBane.StasjonsID });
                     }
                 }
                 else
@@ -214,11 +215,12 @@ namespace Oppg1.Controllers
         public ActionResult SlettAvgang (int id, stasjonPaaBane avgang)
         {
             var baneidTilAvgang = _vyBLL.hentEnAvgang(id);
-
+            // For å få tak istasjonsid i redirecttoaction
+            var stasjonid = baneidTilAvgang.StasjonsID;
             bool slettOK = _vyBLL.slettStasjonPaaBane(id, baneidTilAvgang.BaneID);
             if (slettOK)
             {
-                return RedirectToAction("OversiktStasjoner");
+                return RedirectToAction("AvgangerPaStasjon", "Admin", new { id = stasjonid });
             }
             return View();
 
@@ -301,7 +303,7 @@ namespace Oppg1.Controllers
                 StasjonsID = stasjon.StasjonID,
                 Stasjon = stasjon.Stasjonsnavn
             };
-
+            
             return View(stasjonPaaBane);
         }
 
@@ -344,7 +346,7 @@ namespace Oppg1.Controllers
                     bool leggtilOK = _vyBLL.leggTilStasjonPaaBane(stasjonPaaBane.Avgang, stasjonPaaBane.StasjonsID, stasjonPaaBane.BaneID);
                     if (leggtilOK)
                     {
-                        return RedirectToAction("OversiktStasjoner");
+                        return RedirectToAction("AvgangerPaStasjon", "Admin", new { id = stasjonPaaBane.StasjonsID });
                     }
                 }
                 else
@@ -353,6 +355,7 @@ namespace Oppg1.Controllers
                 }
             }
             return View(stasjonPaaBane);
+            
         }
 
         public string hentAlleStasjoner()
