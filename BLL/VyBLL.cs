@@ -106,6 +106,12 @@ namespace BLL
             return _AdminDAL.slettBane(baneID);
         }
 
+        public bane hentBaneFraNavn(String Banenavn)
+        {
+            bane bane = _AdminDAL.hentBaneFraNavn(Banenavn);
+            return bane; 
+        }
+
         //----------------------------------------------------------------
         //Valideringsmetoder
         public bool sjekkStasjonOK (stasjon innStasjon)
