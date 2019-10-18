@@ -46,9 +46,21 @@ namespace Oppg1.Controllers
         //Oversikt avganger til stasjoner
         public ActionResult AvgangerPaStasjon(int id)
         {
+            var ID = id;
             List<stasjonPaaBane> avgangerPaaStasjon = _vyBLL.hentStasjonPaaBane(id);
             avgangerPaaStasjon = avgangerPaaStasjon.OrderBy(a => a.Bane).ThenBy(a => a.Avgang).ToList();
+            if (avgangerPaaStasjon.Count == 0)
+            {
+                return RedirectToAction(actionName: "AvgangerPaStasjonTom", routeValues: new { id = ID });
+            }
             return View(avgangerPaaStasjon);
+        }
+
+        [SessionSjekker]
+        public ActionResult AvgangerPaStasjonTom(int id)
+        {
+            stasjon stasjon = _vyBLL.hentEnStasjon(id);
+            return View(stasjon);
         }
 
         [SessionSjekker]
@@ -220,6 +232,11 @@ namespace Oppg1.Controllers
             bool slettOK = _vyBLL.slettStasjonPaaBane(id, baneidTilAvgang.BaneID);
             if (slettOK)
             {
+                List<stasjonPaaBane> avgangerPaaStasjon = _vyBLL.hentStasjonPaaBane(stasjonid);
+                if (avgangerPaaStasjon.Count == 0)
+                {
+                    return RedirectToAction(actionName: "AvgangerPaStasjonTom", routeValues: new { id = stasjonid });
+                }
                 return RedirectToAction("AvgangerPaStasjon", "Admin", new { id = stasjonid });
             }
             return View();
