@@ -30,6 +30,7 @@ namespace Oppg1.Controllers
         public ActionResult OversiktStasjoner()
         {
             List<stasjon> alleStasjoner = _vyBLL.hentAlleStasjoner();
+            alleStasjoner = alleStasjoner.OrderBy(a => a.Stasjonsnavn).ToList();
             return View(alleStasjoner);
         }
 
@@ -37,6 +38,7 @@ namespace Oppg1.Controllers
         public ActionResult OversiktBaner()
         {
             List<bane> alleBaner = _vyBLL.hentAlleBaner();
+            alleBaner = alleBaner.OrderBy(a => a.Banenavn).ToList();
             return View(alleBaner);
         }
 
@@ -44,8 +46,9 @@ namespace Oppg1.Controllers
         //Oversikt avganger til stasjoner
         public ActionResult AvgangerPaStasjon(int id)
         {
-            List<stasjonPaaBane> listen = _vyBLL.hentStasjonPaaBane(id);
-            return View(listen);
+            List<stasjonPaaBane> avgangerPaaStasjon = _vyBLL.hentStasjonPaaBane(id);
+            avgangerPaaStasjon = avgangerPaaStasjon.OrderBy(a => a.Bane).ThenBy(a => a.Avgang).ToList();
+            return View(avgangerPaaStasjon);
         }
 
         [SessionSjekker]
