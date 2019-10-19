@@ -38,12 +38,13 @@ namespace Oppg1.Controllers
             // Sjekker om innlogging ok
             if (finnes){
                 Session["Innlogget"] = true;
+                log.Info("Innlogging registrert!");
                 return RedirectToAction("OversiktStasjoner", "Admin");
             }
             else
             {
                 Session["Innlogget"] = false;
-                log.Warn("Ikke innlogget");
+                log.Warn("Innlogging feilet!");
                 return View(); 
             }
         }
