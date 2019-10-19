@@ -13,7 +13,6 @@ namespace Oppg1.Controllers
 {
     public class AdminController : Controller
     {
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private IVyBLL _vyBLL;
 
@@ -31,6 +30,7 @@ namespace Oppg1.Controllers
         public ActionResult OversiktStasjoner()
         {
             List<stasjon> alleStasjoner = _vyBLL.hentAlleStasjoner();
+            alleStasjoner = alleStasjoner.OrderBy(a => a.Stasjonsnavn).ToList();
             return View(alleStasjoner);
         }
 
@@ -38,6 +38,7 @@ namespace Oppg1.Controllers
         public ActionResult OversiktBaner()
         {
             List<bane> alleBaner = _vyBLL.hentAlleBaner();
+            alleBaner = alleBaner.OrderBy(a => a.Banenavn).ToList();
             return View(alleBaner);
         }
 
@@ -45,8 +46,21 @@ namespace Oppg1.Controllers
         //Oversikt avganger til stasjoner
         public ActionResult AvgangerPaStasjon(int id)
         {
-            List<stasjonPaaBane> listen = _vyBLL.hentStasjonPaaBane(id);
-            return View(listen);
+            var ID = id;
+            List<stasjonPaaBane> avgangerPaaStasjon = _vyBLL.hentStasjonPaaBane(id);
+            avgangerPaaStasjon = avgangerPaaStasjon.OrderBy(a => a.Bane).ThenBy(a => a.Avgang).ToList();
+            if (avgangerPaaStasjon.Count == 0)
+            {
+                return RedirectToAction(actionName: "AvgangerPaStasjonTom", routeValues: new { id = ID });
+            }
+            return View(avgangerPaaStasjon);
+        }
+
+        [SessionSjekker]
+        public ActionResult AvgangerPaStasjonTom(int id)
+        {
+            stasjon stasjon = _vyBLL.hentEnStasjon(id);
+            return View(stasjon);
         }
 
         [SessionSjekker]
@@ -61,7 +75,6 @@ namespace Oppg1.Controllers
         {
             if (string.IsNullOrEmpty(endreStasjon.Stasjonsnavn))
             {
-                log.Warn("Stasjonsnavn må oppgis 'Endre Stasjon'");
                 ModelState.AddModelError("Stasjonsnavn", "Stasjonnavn må oppgis");
             }
 
@@ -74,13 +87,15 @@ namespace Oppg1.Controllers
                     bool endringOK = _vyBLL.endreStasjon(id, endreStasjon);
                     if (endringOK)
                     {
-                        log.Info("Endring på Stasjon utført! Nytt navn er: " + endreStasjon.Stasjonsnavn);
                         return RedirectToAction("OversiktStasjoner");
+                    }
+                    else
+                    {
+                        ViewBag.save = "Kunne ikke oppdatere stasjon";
                     }
                 }
                 else
                 {
-                    log.Warn("Stasjon finnes fra før 'Endre Stasjon'");
                     ModelState.AddModelError("Stasjonsnavn", "Stasjonen finnes fra før");
                 }
             }
@@ -99,7 +114,6 @@ namespace Oppg1.Controllers
         { 
             if (string.IsNullOrEmpty(endreBane.Banenavn))
             {
-                log.Warn("Banenavn er tom, oppgi banenavn 'Endre Bane'");
                 ModelState.AddModelError("Banenavn", "Banenavn må oppgis");
             }
 
@@ -112,14 +126,16 @@ namespace Oppg1.Controllers
                     bool endringOK = _vyBLL.endreBane(id, endreBane);
                     if (endringOK)
                     {
-
-                        log.Info("Endring på Bane utført! Nytt navn er: " + endreBane.Banenavn);
                         return RedirectToAction("OversiktBaner");
+                    }
+
+                    else
+                    {
+                        ViewBag.save = "Kunne ikke oppdatere bane";
                     }
                 }
                 else
                 {
-                    log.Warn("Banenavn finnes fra før 'Endre Bane'");
                     ModelState.AddModelError("Banenavn", "Banen finnes fra før");
                 }
             }
@@ -138,7 +154,6 @@ namespace Oppg1.Controllers
         {
             if (string.IsNullOrEmpty(endreStasjonPaaBane.Avgang))
             {
-                log.Warn("Oppgi tidspunkt for 'Endre Avgang'");
                 ModelState.AddModelError("Avgang", "Tidspunkt må oppgis");
             }
 
@@ -147,7 +162,6 @@ namespace Oppg1.Controllers
             bool tidspunktOk = metodeSjekk.sjekkTidspunkt(endreStasjonPaaBane.Avgang);
             if (!tidspunktOk)
             {
-                log.Warn("Tidspunkt må ha korrekt format - 'Endre Agang'");
                 ModelState.AddModelError("Avgang", "Tidspunkt må være på korrekt format");
             }
 
@@ -162,14 +176,16 @@ namespace Oppg1.Controllers
                     bool endringOK = _vyBLL.endreStasjonPaaBane(endreStasjonPaaBane, id);
                     if (endringOK)
                     {
-                        log.Info("Endring på Avgang utført! Nytt navn er: " + endreStasjonPaaBane.Avgang);
-                        //må endre denne til oversikt over avgang på stasjon
-                        return RedirectToAction("OversiktStasjoner");
+                        return RedirectToAction("AvgangerPaStasjon", "Admin", new { id = endreStasjonPaaBane.StasjonsID });
+                    }
+
+                    else
+                    {
+                        ViewBag.save = "Kunne ikke oppdatere avgang";
                     }
                 }
                 else
                 {
-                    log.Warn("Avgang finnes fra før 'Endre Avgang'");
                     ModelState.AddModelError("Avgang", "Avgangen finnes fra før");
                 }
             }
@@ -186,12 +202,9 @@ namespace Oppg1.Controllers
         [HttpPost]
         public ActionResult SlettStasjon(int id, stasjon slettstasjon)
         {
-            stasjon s = _vyBLL.hentEnStasjon(id);
-            String Stasjonsnavn = s.Stasjonsnavn;
             bool slettOK = _vyBLL.slettStasjon(id);
             if (slettOK)
             {
-                log.Info("Sletting av stasjon "+ Stasjonsnavn + " var vellykket!");
                 return RedirectToAction("OversiktStasjoner");
             }
             return View();
@@ -210,12 +223,14 @@ namespace Oppg1.Controllers
             bool slettOK = _vyBLL.slettBane(id);
             if (slettOK)
             {
-                log.Info("Sletting av bane var vellykket!");
                 return RedirectToAction("OversiktBaner");
             }
-           
+
+            else
+            {
+                ViewBag.save = "Kunne ikke slette bane";
+            }
             return View();
-            
         }
 
         [SessionSjekker]
@@ -229,12 +244,21 @@ namespace Oppg1.Controllers
         public ActionResult SlettAvgang (int id, stasjonPaaBane avgang)
         {
             var baneidTilAvgang = _vyBLL.hentEnAvgang(id);
-
+            // For å få tak istasjonsid i redirecttoaction
+            var stasjonid = baneidTilAvgang.StasjonsID;
             bool slettOK = _vyBLL.slettStasjonPaaBane(id, baneidTilAvgang.BaneID);
             if (slettOK)
             {
-                log.Info("Sletting av avgang: " + avgang + "var vellykket!");
-                return RedirectToAction("OversiktStasjoner");
+                List<stasjonPaaBane> avgangerPaaStasjon = _vyBLL.hentStasjonPaaBane(stasjonid);
+                if (avgangerPaaStasjon.Count == 0)
+                {
+                    return RedirectToAction(actionName: "AvgangerPaStasjonTom", routeValues: new { id = stasjonid });
+                }
+                return RedirectToAction("AvgangerPaStasjon", "Admin", new { id = stasjonid });
+            }
+            else
+            {
+                ViewBag.save = "Kunne ikke slette avgang";
             }
             return View();
 
@@ -251,7 +275,6 @@ namespace Oppg1.Controllers
         {
             if (string.IsNullOrEmpty(stasjon.Stasjonsnavn))
             {
-                log.Warn("Stasjonsnavn må oppgis 'Legg til Stasjon'");
                 ModelState.AddModelError("Stasjonsnavn", "Stasjonnavn må oppgis");
             }
 
@@ -264,13 +287,15 @@ namespace Oppg1.Controllers
                     bool leggTilOK = _vyBLL.leggTilStasjon(stasjon);
                     if (leggTilOK)
                     {
-                        log.Info("Ny stasjon lagt til: " + stasjon.Stasjonsnavn);
                         return RedirectToAction("OversiktStasjoner");
+                    }
+                    else
+                    {
+                        ViewBag.save = "Kunne ikke legge til stasjon";
                     }
                 }
                 else
                 {
-                    log.Warn("Stasjon finnes fra før 'Legg til Stasjon'");
                     ModelState.AddModelError("Stasjonsnavn", "Stasjonen finnes fra før");
                 }
             }
@@ -288,7 +313,6 @@ namespace Oppg1.Controllers
         {
             if (string.IsNullOrEmpty(bane.Banenavn))
             {
-                log.Warn("Oppgi Banenavn 'Legg til Bane'");
                 ModelState.AddModelError("Banenavn", "Banenavn må oppgis");
             }
 
@@ -301,13 +325,15 @@ namespace Oppg1.Controllers
                     bool leggTilOK = _vyBLL.leggTilBane(bane);
                     if (leggTilOK)
                     {
-                        log.Info("Ny Bane lagt til: " + bane.Banenavn);
                         return RedirectToAction("OversiktBaner");
+                    }
+                    else
+                    {
+                        ViewBag.save = "Kunne ikke legge til bane";
                     }
                 }
                 else
                 {
-                    log.Warn("Bane finnes fra før 'Legg til Bane'");
                     ModelState.AddModelError("Banenavn", "Banen finnes fra før");
                 }
             }
@@ -323,7 +349,7 @@ namespace Oppg1.Controllers
                 StasjonsID = stasjon.StasjonID,
                 Stasjon = stasjon.Stasjonsnavn
             };
-
+            
             return View(stasjonPaaBane);
         }
 
@@ -334,28 +360,31 @@ namespace Oppg1.Controllers
             var stasjon = _vyBLL.hentEnStasjon(stasjonPaaBane.StasjonsID);
             stasjonPaaBane.Stasjon = stasjon.Stasjonsnavn;
 
-            if (string.IsNullOrEmpty(stasjonPaaBane.Avgang))
-            {
-                log.Warn("Oppgi tidspunkt 'Legg til Avgang'");
-                ModelState.AddModelError("Avgang", "Tidspunkt må oppgis");
-            }
-
             //sjekker om tidspunkt er valgt og på riktig format
             var metodeSjekk = new ValideringsMetoder();
             bool tidspunktOk = metodeSjekk.sjekkTidspunkt(stasjonPaaBane.Avgang);
-            if (!tidspunktOk)
+
+            if (string.IsNullOrEmpty(stasjonPaaBane.Bane) || stasjonPaaBane.Bane == "Velg bane")
             {
-                log.Warn("Oppgi tidspunkt i rett format 'Legg til Avgang'");
+                ModelState.AddModelError("Bane", "Velg bane");
+            }
+
+            else if (stasjonPaaBane.BaneID == 0)
+            {
+                ModelState.AddModelError("Bane", "Velg bane");
+            }
+
+            else if (string.IsNullOrEmpty(stasjonPaaBane.Avgang))
+            {
+                ModelState.AddModelError("Avgang", "Tidspunkt må oppgis");
+            }
+
+            else if (!tidspunktOk)
+            {
                 ModelState.AddModelError("Avgang", "Tidspunkt må være på korrekt format");
             }
 
-            if (string.IsNullOrEmpty(stasjonPaaBane.Bane) || stasjonPaaBane.Bane == "Velg Bane")
-            {
-                log.Warn("feil ved - Velg Bane 'Legg til Avgang'");
-                ModelState.AddModelError("Avgang", "Velg Bane");
-            }
-
-            if (ModelState.IsValid)
+            else if (ModelState.IsValid)
                 {
                 //sjekker om avgangen finnes fra før
                 bool avgangOK = _vyBLL.sjekkAvgangOK(stasjonPaaBane);
@@ -364,18 +393,21 @@ namespace Oppg1.Controllers
                     bool leggtilOK = _vyBLL.leggTilStasjonPaaBane(stasjonPaaBane.Avgang, stasjonPaaBane.StasjonsID, stasjonPaaBane.BaneID);
                     if (leggtilOK)
                     {
+                        return RedirectToAction("AvgangerPaStasjon", "Admin", new { id = stasjonPaaBane.StasjonsID });
+                    }
 
-                        log.Info("Ny avgang lagt til på stasjon: " + stasjonPaaBane.Bane + " tidspunkt: " + stasjonPaaBane.Avgang);
-                        return RedirectToAction("OversiktStasjoner");
+                    else
+                    {
+                        ViewBag.save = "Kunne ikke legge til avgang";
                     }
                 }
                 else
                 {
-                    log.Warn("Avgang finnes fra før 'Legg til Avgang'");
                     ModelState.AddModelError("Avgang", "Avgangen finnes fra før");
                 }
             }
             return View(stasjonPaaBane);
+            
         }
 
         public string hentAlleStasjoner()
