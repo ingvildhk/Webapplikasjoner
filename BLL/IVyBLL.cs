@@ -15,7 +15,6 @@ namespace BLL
         stasjon hentEnStasjon(int id);
         bane hentEnBane(int id);
         stasjonPaaBane hentEnAvgang(int id);
-        bane hentBaneFraNavn(String Banenavn);
         bool leggTilStasjon(stasjon stasjon);
         bool endreStasjon(int id, stasjon stasjon);
         bool slettStasjon(int id);

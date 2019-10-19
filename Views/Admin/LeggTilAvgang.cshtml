@@ -18,11 +18,12 @@
         });
 
         function visBanerDropdown(bane) {
-            var utStreng = "<option value'' selected hidden>Velg bane</option>";
+            var hidden = 0;
+            var utStreng = "<option value = '" + hidden + "' selected hidden>" + "Velg bane" + "</option>";
             for (var i in bane) {
-                utStreng += "<option value = '" + bane[i].Banenavn + "'>" + bane[i].Banenavn + "</option>";
+                utStreng += "<option value = '" + bane[i].BaneID + "'>" + bane[i].Banenavn + "</option>";
             }
-            $("#Bane").append(utStreng);
+            $("#BaneID").append(utStreng);
         }
 
 
@@ -50,6 +51,8 @@
 </head>
 <body>
 
+    <h3>@ViewBag.save</h3>
+
     <form action="/Admin/LeggTilAvgang" method="post" id="leggTilAvgangForm">
         <div class="form-row">
         </div>
@@ -69,24 +72,24 @@
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
-        <div class="form-group" id="dropDown">
-            <h5><label for="exampleFormControlSelect1">Bane</label></h5>
-            <select class="form-control" id="Bane" name="Bane"></select>
-            <div id="feilBane" class="feilmeldinger"></div>
-            <div class="editor-field">
-                <div class="col-md-10">
-                    @if (!ViewData.ModelState.IsValid)
-                    {
-                    <span class="text-danger">
-                        @if (ViewData.ModelState["Bane"] != null && @ViewData.ModelState["Bane"].Errors.Count > 0)
+            <div class="form-group" id="dropDown">
+                <h5><label for="exampleFormControlSelect1">Bane</label></h5>
+                <select class="form-control" id="BaneID" name="BaneID"></select>
+                <div id="feilBane" class="feilmeldinger"></div>
+                <div class="editor-field">
+                    <div class="col-md-10">
+                        @if (!ViewData.ModelState.IsValid)
                         {
-                            @ViewData.ModelState["Bane"].Errors[0].ErrorMessage
+                            <span class="text-danger">
+                                @if (ViewData.ModelState["BaneID"] != null && @ViewData.ModelState["BaneID"].Errors.Count > 0)
+                                {
+                                    @ViewData.ModelState["BaneID"].Errors[0].ErrorMessage
+                                }
+                            </span>
                         }
-                    </span>
-                    }
+                    </div>
                 </div>
             </div>
-        </div>
 
             <div class="form-group">
                 <h5>@Html.LabelFor(model => model.Avgang, htmlAttributes: new { @class = "control-label col-md-2" })</h5>

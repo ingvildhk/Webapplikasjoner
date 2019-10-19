@@ -89,6 +89,10 @@ namespace Oppg1.Controllers
                     {
                         return RedirectToAction("OversiktStasjoner");
                     }
+                    else
+                    {
+                        ViewBag.save = "Kunne ikke oppdatere stasjon";
+                    }
                 }
                 else
                 {
@@ -123,6 +127,11 @@ namespace Oppg1.Controllers
                     if (endringOK)
                     {
                         return RedirectToAction("OversiktBaner");
+                    }
+
+                    else
+                    {
+                        ViewBag.save = "Kunne ikke oppdatere bane";
                     }
                 }
                 else
@@ -167,9 +176,12 @@ namespace Oppg1.Controllers
                     bool endringOK = _vyBLL.endreStasjonPaaBane(endreStasjonPaaBane, id);
                     if (endringOK)
                     {
-                        //må endre denne til oversikt over avgang på stasjon
-                        //return RedirectToAction("OversiktStasjoner");
                         return RedirectToAction("AvgangerPaStasjon", "Admin", new { id = endreStasjonPaaBane.StasjonsID });
+                    }
+
+                    else
+                    {
+                        ViewBag.save = "Kunne ikke oppdatere avgang";
                     }
                 }
                 else
@@ -213,6 +225,11 @@ namespace Oppg1.Controllers
             {
                 return RedirectToAction("OversiktBaner");
             }
+
+            else
+            {
+                ViewBag.save = "Kunne ikke slette bane";
+            }
             return View();
         }
 
@@ -238,6 +255,10 @@ namespace Oppg1.Controllers
                     return RedirectToAction(actionName: "AvgangerPaStasjonTom", routeValues: new { id = stasjonid });
                 }
                 return RedirectToAction("AvgangerPaStasjon", "Admin", new { id = stasjonid });
+            }
+            else
+            {
+                ViewBag.save = "Kunne ikke slette avgang";
             }
             return View();
 
@@ -267,6 +288,10 @@ namespace Oppg1.Controllers
                     if (leggTilOK)
                     {
                         return RedirectToAction("OversiktStasjoner");
+                    }
+                    else
+                    {
+                        ViewBag.save = "Kunne ikke legge til stasjon";
                     }
                 }
                 else
@@ -301,6 +326,10 @@ namespace Oppg1.Controllers
                     if (leggTilOK)
                     {
                         return RedirectToAction("OversiktBaner");
+                    }
+                    else
+                    {
+                        ViewBag.save = "Kunne ikke legge til bane";
                     }
                 }
                 else
@@ -340,6 +369,11 @@ namespace Oppg1.Controllers
                 ModelState.AddModelError("Bane", "Velg bane");
             }
 
+            else if (stasjonPaaBane.BaneID == 0)
+            {
+                ModelState.AddModelError("Bane", "Velg bane");
+            }
+
             else if (string.IsNullOrEmpty(stasjonPaaBane.Avgang))
             {
                 ModelState.AddModelError("Avgang", "Tidspunkt må oppgis");
@@ -352,10 +386,6 @@ namespace Oppg1.Controllers
 
             else if (ModelState.IsValid)
                 {
-                //Legger til BaneID i stasjonPaaBane
-                bane riktigBane = _vyBLL.hentBaneFraNavn(stasjonPaaBane.Bane);
-                stasjonPaaBane.BaneID = riktigBane.BaneID;
-
                 //sjekker om avgangen finnes fra før
                 bool avgangOK = _vyBLL.sjekkAvgangOK(stasjonPaaBane);
                 if (avgangOK)
@@ -364,6 +394,11 @@ namespace Oppg1.Controllers
                     if (leggtilOK)
                     {
                         return RedirectToAction("AvgangerPaStasjon", "Admin", new { id = stasjonPaaBane.StasjonsID });
+                    }
+
+                    else
+                    {
+                        ViewBag.save = "Kunne ikke legge til avgang";
                     }
                 }
                 else

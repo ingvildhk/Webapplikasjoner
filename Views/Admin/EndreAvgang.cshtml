@@ -6,91 +6,65 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-    <script type="text/javascript">
-        $(function () {
-
-            $.ajax({
-                url: '/Admin/hentAlleBanenavn',
-                type: 'GET',
-                dataType: 'json',
-                success: visBanerDropdown,
-                error: function (x, y, z) {
-                    alert();
-                }
-            });
-
-            function visBanerDropdown(bane) {
-                var utStreng = "<option value'' selected hidden>Velg bane </option>";
-                for (var i in bane) {
-                    utStreng += "<option value = '" + bane[i].BaneID + "'>" + bane[i].Banenavn + "</option>";
-
-
-                }
-                $("#BaneID").append(utStreng);
-            }
-        });
-    </script>
-</head>
 <body>
 
-    
+    <h3>@ViewBag.save</h3>
 
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h2>Endre avgangstid</h2>
-        <hr />
+        <div class="form-horizontal">
+            <h2>Endre avgangstid</h2>
+            <hr />
 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.stasjonPaaBaneID)
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.stasjonPaaBaneID)
 
 
-        <dl class="form-horizontal">
-            <dt>
+            <dl class="form-horizontal">
+                <dt>
 
-                <h5>@Html.DisplayNameFor(model => model.Stasjon)</h5>
-            </dt>
+                    <h5>@Html.DisplayNameFor(model => model.Stasjon)</h5>
+                </dt>
 
-            <dd>
-                @Html.HiddenFor(model => model.StasjonsID)
-                @Html.DisplayFor(model => model.Stasjon)
-            </dd>
+                <dd>
+                    @Html.HiddenFor(model => model.StasjonsID)
+                    @Html.DisplayFor(model => model.Stasjon)
+                </dd>
 
-        </dl>
+            </dl>
 
-        <dl class="form-horizontal">
-            <dt>
-                <h5>@Html.DisplayNameFor(model => model.Bane)</h5>
-            </dt>
+            <dl class="form-horizontal">
+                <dt>
+                    <h5>@Html.DisplayNameFor(model => model.Bane)</h5>
+                </dt>
 
-            <dd>
-                @Html.HiddenFor(model => model.BaneID)
-                @Html.DisplayFor(model => model.Bane)
-            </dd>
+                <dd>
+                    @Html.HiddenFor(model => model.BaneID)
+                    @Html.DisplayFor(model => model.Bane)
+                </dd>
 
-        </dl>
+            </dl>
 
-        <div class="form-group">
-            <h5>@Html.LabelFor(model => model.Avgang, htmlAttributes: new { @class = "control-label col-md-2" })</h5>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Avgang, new { htmlAttributes = new { @class = "form-control", @id = "inputBoks", @type = "time"} })
-                @Html.ValidationMessageFor(model => model.Avgang, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <h5>@Html.LabelFor(model => model.Avgang, htmlAttributes: new { @class = "control-label col-md-2" })</h5>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Avgang, new { htmlAttributes = new { @class = "form-control", @id = "inputBoks", @type = "time" } })
+                    @Html.ValidationMessageFor(model => model.Avgang, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Lagre avgangstid" class="btn btn-success" id="knapp" />
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Lagre avgangstid" class="btn btn-success" id="knapp" />
-            </div>
-        </div>
-    </div>
     }
 
-<div>
-    @Html.ActionLink("Tilbake til oversikt over avganger", "AvgangerPaStasjon", new { id = Model.StasjonsID })
-</div>
-    </body>
+    <div>
+        @Html.ActionLink("Tilbake til oversikt over avganger", "AvgangerPaStasjon", new { id = Model.StasjonsID })
+    </div>
+</body>
 </html>

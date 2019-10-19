@@ -137,24 +137,6 @@ namespace DAL
             }
         }
 
-        public bane hentBaneFraNavn(String Banenavn)
-        {
-            using (var db = new DB())
-            {
-                bane bane = new bane();
-                foreach (Bane b in db.Bane)
-                {
-                    if (b.Banenavn == Banenavn)
-                    {
-                        bane.BaneID = b.BaneID;
-                        bane.Banenavn = b.Banenavn;
-                    }
-                }
-                return bane;
-            } 
-        }
-
-
         // ------------------------------------------------------------------------------------
         // Metoder for å endre, slette og legge til stasjoner i DB 
 
