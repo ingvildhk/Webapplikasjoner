@@ -34,3 +34,6 @@
 19:11:37,254 - INFO - Oppg1.Controllers.AdminController - EndreAvgang - Endring på avgang 08:30 fra stasjon Askerregistrert. Ny avgangstid er 09:30!
 19:21:53,492 - INFO - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
 19:22:12,882 - INFO - Oppg1.Controllers.AdminController - EndreStasjon - Stasjon Asker endret navn til Slependen!
+19:35:21,856 - INFO - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+19:35:22,435 - INFO - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+19:35:54,875 - INFO - Oppg1.Controllers.AdminController - EndreStasjon - Stasjon Asker endret navn til Billingstad!

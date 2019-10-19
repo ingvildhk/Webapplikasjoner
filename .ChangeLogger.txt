@@ -1,0 +1,1 @@
+19:34:29,514 - INFO - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
