@@ -8,10 +8,13 @@ using System.Net.Mail;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
+[assembly: log4net.Config.XmlConfigurator(Watch = true)]
+
 namespace Oppg1.Controllers
 {
     public class HomeController : Controller
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public ActionResult Index()
         {
             // For å kunne ta vare på bestillingsobjektet 
@@ -28,12 +31,14 @@ namespace Oppg1.Controllers
             //sjekker om fraStasjon er valgt
             if (string.IsNullOrEmpty(innBestilling.fraStasjon) || innBestilling.fraStasjon == "Velg stasjon")
             {
+                log.Info("Ikke valgt 'fra' stasjon");
                 ModelState.AddModelError("fraStasjon", "Velg stasjon å reise fra");
             }
 
             //sjekker om tilStasjon er valgt
             if (string.IsNullOrEmpty(innBestilling.tilStasjon) || innBestilling.tilStasjon == "Velg stasjon")
             {
+                log.Info("Ikke valgt 'til' stasjon");
                 ModelState.AddModelError("tilStasjon", "Velg stasjon å reise til ");
             }
 
@@ -44,10 +49,13 @@ namespace Oppg1.Controllers
 
             if (string.IsNullOrEmpty(innBestilling.dato) || innBestilling.dato == "dd.mm.åååå")
             {
+                log.Info("Ikke valgt dato");
                 ModelState.AddModelError("dato", "Velg dato");
             }
             else if (!validDate)
             {
+
+                log.Info("Dato valgt er feil format");
                 ModelState.AddModelError("dato", "Dato må være på korrekt format");
             }
 
@@ -58,10 +66,12 @@ namespace Oppg1.Controllers
 
             if (string.IsNullOrEmpty(innBestilling.avgang) || innBestilling.avgang == "Velg tidspunkt")
             {
+                log.Info("Ikke valgt tidspunkt");
                 ModelState.AddModelError("avgang", "Velg tidspunkt");
             }
             else if (!validTime)
             {
+                log.Info("Tidspunkt i feil format");
                 ModelState.AddModelError("avgang", "Tidspunkt må være på korrekt format");
             }
 
@@ -74,10 +84,12 @@ namespace Oppg1.Controllers
 
                 if (string.IsNullOrEmpty(innBestilling.returDato) || innBestilling.returDato == "dd.mm.åååå")
                 {
+                    log.Info("Ikke valgt returdato");
                     ModelState.AddModelError("returDato", "Velg returdato");
                 }
                 else if (!validReturDate)
                 {
+                    log.Info("Returdato har feil format");
                     ModelState.AddModelError("returdato", "Dato må være på korrekt format");
                 }
 
@@ -87,15 +99,22 @@ namespace Oppg1.Controllers
 
                 if (string.IsNullOrEmpty(innBestilling.returAvgang) || innBestilling.returAvgang == "Velg tidspunkt")
                 {
+                    log.Info("Ikke valgt returtidspunkt");
                     ModelState.AddModelError("returAvgang", "Velg returtidspunkt");
                 }
                 else if (!validReturTime)
                 {
+                    log.Info("Returtidspunkt feil format");
                     ModelState.AddModelError("returAvgang", "Tidspunkt må være på korrekt format");
                 }
             }
 
             //hvis alt er i orden, sender videre til bestilling, ellers blir stående på siden
+            if (!ModelState.IsValid)
+            {
+                log.Error("Feil i håndtering av bestillingsvalidering");
+
+            }
             if (ModelState.IsValid)
             {
                 return RedirectToAction("Bestilling");
@@ -131,6 +150,7 @@ namespace Oppg1.Controllers
             //sjekker om epost er fylt ut på korrekt format
             if (string.IsNullOrEmpty(epost) || epost == "Skriv epostadresse her" || epost == "")
             {
+                log.Info("Ikke skrevet inn epostadresse");
                 ModelState.AddModelError("epost", "Skriv inn epostadresse");
             }
 
@@ -142,6 +162,7 @@ namespace Oppg1.Controllers
                 }
                 catch (FormatException)
                 {
+                    log.Info("Epost på feil format");
                     ModelState.AddModelError("epost", "epost må være på korrekt format");
                 }
             }
@@ -201,6 +222,7 @@ namespace Oppg1.Controllers
 
                     catch (Exception)
                     {
+                        log.Error("Kunne ikke sende bekreftelse på mail");
                         ViewBag.save = "Kunne ikke sende bekreftelse på mail";
                     }
                     return View("Bekreftelse");
@@ -208,6 +230,7 @@ namespace Oppg1.Controllers
 
                 else
                 {
+                    log.Error("Kunne ikke lagre kjøp til database");
                     ViewBag.save = "Kjøp ikke gjennomført, kunne ikke lagre til database";
                     return View(innBestilling);
                 }
@@ -215,6 +238,7 @@ namespace Oppg1.Controllers
 
             else
             {
+                log.Error("Feil i kjøpsdata");
                 ViewBag.save = "Kjøp ikke gjennomført, feil i kjøpsdata";
                 return View(innBestilling);
             }

@@ -1,0 +1,39 @@
+10:56:34,743 - INFO - Oppg1.Controllers.AdminController - SlettStasjon - Sletting av stasjon  var vellykket!
+16:12:27,970 - INFO - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+16:12:38,870 - INFO - Oppg1.Controllers.AdminController - LeggTilStasjon - Ny stasjon med navn Model.stasjon lagt til i databasen
+16:13:29,634 - INFO - Oppg1.Controllers.AdminController - EndreStasjon - Stasjon Asker ble endret til Model.stasjon!
+16:14:19,344 - INFO - Oppg1.Controllers.AdminController - SlettStasjon - Sletting av stasjon Billingstad var vellykket!
+16:15:12,058 - INFO - Oppg1.Controllers.AdminController - EndreBane - Bane L1 ble endret til Model.bane. Endring lagret til databasen!
+16:15:40,891 - INFO - Oppg1.Controllers.AdminController - SlettBane - Sletting av Bane L2 ble utført!
+16:16:06,092 - INFO - Oppg1.Controllers.AdminController - LeggTilBane - Ny Bane ved navn Model.bane lagt til i databasen
+16:16:45,403 - INFO - Oppg1.Controllers.AdminController - EndreAvgang - Endring på avgang 11:00 registrert. Ny avgangstid er 21:00!
+16:31:07,391 - INFO - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+16:31:23,438 - INFO - Oppg1.Controllers.AdminController - SlettAvgang - Avgang 08:00 fra stasjon Stavanger ble slettet!
+16:39:11,904 - INFO - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+16:39:34,138 - DEBUG - Oppg1.Controllers.AdminController - LeggTilAvgang - Kommer inn i ModelstateValid 'Legg til Avgang', men ikke videre!
+16:43:58,373 - INFO - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+16:44:09,806 - DEBUG - Oppg1.Controllers.AdminController - LeggTilAvgang - Kommer ikke inn i ModelstateValid 'Legg til Avgang'
+16:49:23,536 - INFO - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+16:49:36,299 - INFO - Oppg1.Controllers.AdminController - LeggTilAvgang - Avgang 01:02 er lagt til stasjon Stavanger!
+18:36:09,858 - INFO - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+18:36:10,460 - INFO - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+18:36:18,876 - INFO - Oppg1.Controllers.AdminController - LeggTilStasjon - Ny stasjon med navn Billingstad lagt til i databasen
+18:45:32,146 - INFO - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+18:45:45,170 - INFO - Oppg1.Controllers.AdminController - EndreBane - Bane L1 ble endret til Model.bane. Endring lagret til databasen!
+18:47:00,044 - INFO - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+18:47:08,818 - INFO - Oppg1.Controllers.AdminController - EndreBane - Bane L1 ble endret til L2. Endring lagret til databasen!
+18:49:38,562 - INFO - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+18:49:46,951 - INFO - Oppg1.Controllers.AdminController - LeggTilBane - Ny Bane ved navn L3 lagt til i databasen
+18:54:58,129 - INFO - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+18:54:58,716 - INFO - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+18:55:17,216 - INFO - Oppg1.Controllers.AdminController - EndreStasjon - Stasjon Asker endret navn til Billingstad!
+18:57:47,672 - INFO - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+19:01:01,787 - INFO - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+19:01:02,369 - INFO - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+19:11:27,988 - INFO - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+19:11:37,254 - INFO - Oppg1.Controllers.AdminController - EndreAvgang - Endring på avgang 08:30 fra stasjon Askerregistrert. Ny avgangstid er 09:30!
+19:21:53,492 - INFO - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+19:22:12,882 - INFO - Oppg1.Controllers.AdminController - EndreStasjon - Stasjon Asker endret navn til Slependen!
+19:35:21,856 - INFO - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+19:35:22,435 - INFO - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+19:35:54,875 - INFO - Oppg1.Controllers.AdminController - EndreStasjon - Stasjon Asker endret navn til Billingstad!
