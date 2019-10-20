@@ -5,27 +5,29 @@
 <h3>Er du sikker på at du ønsker å slette stasjonen?</h3>
 <div>
     <hr />
-    <dl class="form-horizontal">
-        <dt>
-            <h5>@Html.DisplayNameFor(model => model.Stasjonsnavn)</h5>
-        </dt>
+    <div class="form-group">
+        <dl class="form-horizontal">
+            <dt>
+                <h5>@Html.DisplayNameFor(model => model.Stasjonsnavn)</h5>
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Stasjonsnavn)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Stasjonsnavn)
+            </dd>
 
-    </dl>
+        </dl>
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-        <div class="form-group">
-            <input type="submit" value="Slett stasjon" class="btn btn-danger" />
-        </div>
-        <br />
-        <div>
-            @Html.ActionLink("Tilbake til oversikt", "OversiktStasjoner")
-        </div>
-    }
+            <div class="form-group" id="slettKnapp">
+                <input type="submit" value="Slett stasjon" class="btn btn-danger" />
+            </div>
+            <br />
+            <div>
+                @Html.ActionLink("Tilbake til oversikt", "OversiktStasjoner")
+            </div>
+        }
+    </div>
 </div>

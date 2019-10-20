@@ -37,3 +37,39 @@
 19:35:21,856 - INFO - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
 19:35:22,435 - INFO - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
 19:35:54,875 - INFO - Oppg1.Controllers.AdminController - EndreStasjon - Stasjon Asker endret navn til Billingstad!
+19:38:49,532 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+19:40:07,810 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+19:40:16,254 - DEBUG - Identity - Oppg1.Controllers.AdminController - LeggTilAvgang - Kommer ikke inn i ModelstateValid 'Legg til Avgang'
+19:42:22,168 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+19:43:59,511 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+19:46:30,038 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+19:47:55,901 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+19:50:00,396 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+19:54:25,590 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+19:56:12,246 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+19:59:06,505 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+20:04:28,215 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+20:06:43,454 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+20:10:08,160 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+20:11:10,785 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+20:12:18,058 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+20:19:51,125 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+20:25:35,394 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+20:27:09,231 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+20:29:27,524 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+20:31:21,657 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+20:32:43,028 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+20:33:31,265 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+20:35:07,716 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+20:37:52,741 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+20:40:19,995 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+20:43:49,253 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+20:47:01,274 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+20:48:42,452 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+20:50:19,429 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+20:52:47,160 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+20:55:27,622 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+20:56:46,314 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+20:57:13,403 - INFO - Identity - Oppg1.Controllers.AdminController - LeggTilStasjon - Ny stasjon med navn Sarpsborg lagt til i databasen
+20:57:43,035 - INFO - Identity - Oppg1.Controllers.AdminController - LeggTilAvgang - Avgang 23:00 er lagt til stasjon Sarpsborg!
+20:59:03,298 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!

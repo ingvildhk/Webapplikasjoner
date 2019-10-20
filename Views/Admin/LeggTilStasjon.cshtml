@@ -15,7 +15,7 @@
                 @Html.LabelFor(model => model.Stasjonsnavn, htmlAttributes: new { @class = "control-label col-md-2" })
             </h5>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Stasjonsnavn, new { htmlAttributes = new { @class = "form-control", @id = "inputBoks" } })
+                @Html.EditorFor(model => model.Stasjonsnavn, new { htmlAttributes = new { @class = "form-control", @id = "inputBoks", @placeholder = "Skriv navn på ny stasjon" } })
                 @Html.ValidationMessageFor(model => model.Stasjonsnavn, "", new { @class = "text-danger" })
             </div>
         </div>

@@ -1,1 +1,3 @@
 10:57:10,140 - WARN - Oppg1.Controllers.AdminController - LeggTilAvgang - feil ved - Velg Bane 'Legg til Avgang'
+19:40:04,649 - WARN - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging feilet!
+19:40:16,243 - ERROR - Identity - Oppg1.Metoder.ValideringsMetoder - sjekkTidspunkt - Feil i tid

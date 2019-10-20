@@ -120,29 +120,6 @@ h5 {
     background-color: #029678;
 }
 
-#endre {
-    color: #029678;
-    padding-left: 5px;
-    padding-right: 20px;
-    font-size: large;
-    font-weight: bold;
-}
-
-#slett {
-    color: red;
-    padding-left: 5px;
-    padding-right: 20px;
-    font-size: large;
-    font-weight: bold;
-}
-
-#se {
-    color: #029678;
-    padding-left: 5px;
-    padding-right: 20px;
-    font-size: large;
-    font-weight:bold;
-}
 
 #endreKnapp {
     background-color: #FFD586;
@@ -153,4 +130,14 @@ h5 {
     box-shadow: inset 0 1px 1px rgba(2,150,120, 0.8), 0 0 8px rgba(2,150,120, 0.86);
 }
 
+#banePlassering {
+    padding-left: 15px;
+}
 
+dl {
+    padding-left: 15px;
+}
+
+#slettKnapp {
+    padding-left: 15px;
+}

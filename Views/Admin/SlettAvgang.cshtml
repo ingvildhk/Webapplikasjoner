@@ -6,14 +6,12 @@
 
     <h3 class = "text-danger">@ViewBag.save</h3>
 
-<h2>SlettAvgang</h2>
-
-<h3>Er du sikker på at du ønsker å slette denne avgangstiden?</h3>
+<h3>Er du sikker på at du ønsker å slette avgangen?</h3>
 <div>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Stasjon)
+            <h5>@Html.DisplayNameFor(model => model.Stasjon)</h5>
         </dt>
 
         <dd>
@@ -21,7 +19,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Bane)
+            <h5>@Html.DisplayNameFor(model => model.Bane)</h5>
         </dt>
 
         <dd>
@@ -29,7 +27,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Avgang)
+            <h5>@Html.DisplayNameFor(model => model.Avgang)</h5>
         </dt>
 
         <dd>
@@ -42,7 +40,7 @@
     {
         @Html.AntiForgeryToken()
        
-        <div class="form-actions">
+        <div class="form-actions" id="slettKnapp">
             <input type="submit" value="Slett avgang" class="btn btn-danger" />
         </div>
         <br />

@@ -51,11 +51,11 @@
 </head>
 <body>
 
-    <h3 class = "text-danger">@ViewBag.save</h3>
+    <h3 class="text-danger">@ViewBag.save</h3>
 
     <form action="/Admin/LeggTilAvgang" method="post" id="leggTilAvgangForm">
-        <div class="form-row">
-        </div>
+       
+
     </form>
 
     @using (Html.BeginForm())
@@ -71,7 +71,7 @@
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-
+        <div id="banePlassering">
             <div class="form-group" id="dropDown">
                 <h5><label for="exampleFormControlSelect1">Bane</label></h5>
                 <select class="form-control" id="BaneID" name="BaneID"></select>
@@ -90,6 +90,7 @@
                     </div>
                 </div>
             </div>
+        </div>
 
             <div class="form-group">
                 <h5>@Html.LabelFor(model => model.Avgang, htmlAttributes: new { @class = "control-label col-md-2" })</h5>
@@ -110,6 +111,7 @@
                 </div>
             </div>
         </div>
+
     }
     <br />
     <div>
