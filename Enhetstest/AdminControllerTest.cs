@@ -536,7 +536,7 @@ namespace Enhetstest
 
             // Assert
             Assert.AreEqual(actionResult.RouteName, "");
-            Assert.AreEqual(actionResult.RouteValues.Values.First(), "OversiktStasjoner");
+            Assert.AreEqual(actionResult.RouteValues.Values.First(), "AvgangerPaStasjon");
         }
 
         [TestMethod]
@@ -547,15 +547,15 @@ namespace Enhetstest
             var SessionMock = new TestControllerBuilder();
             SessionMock.InitializeController(controller);
             controller.Session["Innlogget"] = true;
-
             var stasjonPaaBane = new stasjonPaaBane();
+
             controller.ViewData.ModelState.AddModelError("Tidspunkt", "Tidspunkt må oppgis");
 
             // Act
             var actionResult = (ViewResult)controller.EndreAvgang(stasjonPaaBane.stasjonPaaBaneID, stasjonPaaBane);
 
             // Assert
-            Assert.IsTrue(actionResult.ViewData.ModelState.Count == 1);
+            Assert.IsTrue(actionResult.ViewData.ModelState.Count > 1);
             Assert.AreEqual(actionResult.ViewName, "");
         }
 
