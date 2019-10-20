@@ -536,7 +536,7 @@ namespace Enhetstest
 
             // Assert
             Assert.AreEqual(actionResult.RouteName, "");
-            Assert.AreEqual(actionResult.RouteValues.Values.First(), "AvgangerPaStasjon");
+            Assert.AreEqual(actionResult.RouteValues.Values.First(), stasjonPaaBane.StasjonsID);
         }
 
         [TestMethod]
@@ -780,7 +780,7 @@ namespace Enhetstest
 
             // Assert
             Assert.AreEqual(actionResult.RouteName, "");
-            Assert.AreEqual(actionResult.RouteValues.Values.First(), "OversiktStasjoner");
+            Assert.AreEqual(actionResult.RouteValues.Values.First(), avgang.StasjonsID);
         }
         [TestMethod]
         public void SlettAvgang_SlettOK_Feil()
@@ -993,7 +993,7 @@ namespace Enhetstest
 
             // Assert
             Assert.AreEqual(result.RouteName, "");
-            Assert.AreEqual(result.RouteValues.Values.First(), "OversiktStasjoner");
+            Assert.AreEqual(result.RouteValues.Values.First(), avgang.StasjonsID);
         }
         [TestMethod]
         public void LeggTilAvgang_Model_Feil()
@@ -1010,7 +1010,7 @@ namespace Enhetstest
             var actionResult = (ViewResult)controller.LeggTilAvgang(avgang);
 
             // Assert
-            Assert.IsTrue(actionResult.ViewData.ModelState.Count == 1);
+            Assert.IsTrue(actionResult.ViewData.ModelState.Count >= 1);
             Assert.AreEqual(actionResult.ViewName, "");
         }
         [TestMethod]
