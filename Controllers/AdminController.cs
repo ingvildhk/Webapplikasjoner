@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -75,9 +76,16 @@ namespace Oppg1.Controllers
         [HttpPost]
         public ActionResult EndreStasjon(int id, stasjon endreStasjon)
         {
+            Regex regex = new Regex("[^ÆØÅæøåa-zA-Z0-9 ]+");
+
             if (string.IsNullOrEmpty(endreStasjon.Stasjonsnavn))
             {
                 ModelState.AddModelError("Stasjonsnavn", "Stasjonnavn må oppgis");
+            }
+            
+            else if (regex.IsMatch(endreStasjon.Stasjonsnavn))
+            {
+                ModelState.AddModelError("Stasjonsnavn", "Stasjonnavn kan ikke inneholde spesialtegn");
             }
 
             if (ModelState.IsValid)
@@ -118,10 +126,17 @@ namespace Oppg1.Controllers
 
         [HttpPost]
         public ActionResult EndreBane(int id, bane endreBane)
-        { 
+        {
+            Regex regex = new Regex("[^ÆØÅæøåa-zA-Z0-9 ]+");
+
             if (string.IsNullOrEmpty(endreBane.Banenavn))
             {
                 ModelState.AddModelError("Banenavn", "Banenavn må oppgis");
+            }
+
+            else if (regex.IsMatch(endreBane.Banenavn))
+            {
+                ModelState.AddModelError("Banenavn", "Banenavn kan ikke inneholde spesialtegn");
             }
 
             if (ModelState.IsValid)
@@ -316,9 +331,16 @@ namespace Oppg1.Controllers
         [HttpPost]
         public ActionResult LeggTilStasjon(stasjon stasjon)
         {
+            Regex regex = new Regex("[^ÆØÅæøåa-zA-Z0-9 ]+");
+
             if (string.IsNullOrEmpty(stasjon.Stasjonsnavn))
             {
                 ModelState.AddModelError("Stasjonsnavn", "Stasjonnavn må oppgis");
+            }
+
+            else if (regex.IsMatch(stasjon.Stasjonsnavn))
+            {
+                ModelState.AddModelError("Stasjonsnavn", "Stasjonnavn kan ikke inneholde spesialtegn");
             }
 
             if (ModelState.IsValid)
@@ -356,9 +378,16 @@ namespace Oppg1.Controllers
         [HttpPost]
         public ActionResult LeggTilBane(bane bane)
         {
+            Regex regex = new Regex("[^ÆØÅæøåa-zA-Z0-9 ]+");
+
             if (string.IsNullOrEmpty(bane.Banenavn))
             {
                 ModelState.AddModelError("Banenavn", "Banenavn må oppgis");
+            }
+
+            else if (regex.IsMatch(bane.Banenavn))
+            {
+                ModelState.AddModelError("Banenavn", "Banenavn kan ikke inneholde spesialtegn");
             }
 
             if (ModelState.IsValid)
@@ -413,7 +442,7 @@ namespace Oppg1.Controllers
 
             if (stasjonPaaBane.BaneID == 0)
             {
-                ModelState.AddModelError("Bane", "Velg bane");
+                ModelState.AddModelError("BaneID", "Velg bane");
             }
 
             else if (string.IsNullOrEmpty(stasjonPaaBane.Avgang))

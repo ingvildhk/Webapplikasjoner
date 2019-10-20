@@ -160,6 +160,51 @@ namespace Enhetstest
         }
 
         [TestMethod]
+        public void AvgangerPaStasjonTom()
+        {
+            var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
+            var forventetResultat = new stasjon()
+            {
+                StasjonID = 1,
+                Stasjonsnavn = "Oslo S"
+            };
+
+            //Act
+            var actionResult = (ViewResult)controller.AvgangerPaStasjonTom(forventetResultat.StasjonID);
+            var resultat = (stasjon)actionResult.Model;
+
+            //Assert
+            Assert.AreEqual(actionResult.ViewName, "");
+            Assert.AreEqual(forventetResultat.StasjonID, resultat.StasjonID);
+            Assert.AreEqual(forventetResultat.Stasjonsnavn, resultat.Stasjonsnavn);
+        }
+
+        [TestMethod]
+        public void AvgangerPaStasjonTom_ID_0()
+        {
+            var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
+            var forventetResultat = new stasjon()
+            {
+                StasjonID = 0
+            };
+
+            //Act
+            var actionResult = (ViewResult)controller.AvgangerPaStasjonTom(forventetResultat.StasjonID);
+            var resultat = (stasjon)actionResult.Model;
+
+            //Assert
+            Assert.AreEqual(actionResult.ViewName, "");
+            Assert.AreEqual(forventetResultat.StasjonID, resultat.StasjonID);
+            Assert.AreEqual(forventetResultat.Stasjonsnavn, resultat.Stasjonsnavn);
+        }
+
+        [TestMethod]
         public void EndreStasjon()
         {
             //Arrange
