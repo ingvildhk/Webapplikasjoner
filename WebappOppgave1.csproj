@@ -110,6 +110,7 @@
     <Content Include="ErrorLogger.txt" />
     <Content Include="Global.asax" />
     <Content Include="README.txt" />
+    <Content Include="Scripts\Admin.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
