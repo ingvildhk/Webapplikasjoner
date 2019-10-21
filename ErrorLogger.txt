@@ -4,3 +4,6 @@
 04:37:00,295 - WARN - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging feilet!
 04:37:06,051 - WARN - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging feilet!
 04:37:07,307 - WARN - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging feilet!
+04:53:00,022 - WARN - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging feilet!
+04:53:04,440 - WARN - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging feilet!
+04:53:11,675 - WARN - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging feilet!
