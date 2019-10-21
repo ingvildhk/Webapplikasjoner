@@ -55,6 +55,11 @@ namespace DAL
                 return stasjonPaaBaneListe;
             }
 
+            else if (id == 2)
+            {
+                return stasjonPaaBaneListe;
+            }
+
             else
             {
                 var stasjonPaaBane = new stasjonPaaBane()
@@ -154,7 +159,7 @@ namespace DAL
 
         public bool endreStasjon(int id, stasjon stasjon)
         {
-            if (id == 0)
+            if (id == 10)
             {
                 return false;
             }
@@ -232,7 +237,7 @@ namespace DAL
 
         public bool endreBane(int id, bane bane)
         {
-            if (id == 0)
+            if (id == 10)
             {
                 return false;
             }
@@ -258,7 +263,7 @@ namespace DAL
 
         public bool sjekkStasjonOK(stasjon stasjon)
         {
-            if (stasjon.Stasjonsnavn == "")
+            if (stasjon.Stasjonsnavn == "Feil")
             {
                 return false;
             }
@@ -271,7 +276,7 @@ namespace DAL
 
         public bool sjekkBaneOK(bane bane)
         {
-            if (bane.Banenavn == "")
+            if (bane.Banenavn == "Feil")
             {
                 return false;
             }
