@@ -1,5 +1,7 @@
 # WebapplikasjonerOppgave1
 
-Link til løsningen: https://webappoppgave-vy-2.azurewebsites.net/
+Link til løsningen: https://webappoppgavevy.azurewebsites.net
 
-Oppgaven inkluderer ikke valg av type billett eller funksjon for å kalkulere pris basert på strekning. 
+Administrator
+Brukernavn: Admin
+Passord: Admin
