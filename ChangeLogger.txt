@@ -76,3 +76,5 @@
 21:02:53,276 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
 00:44:12,881 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
 00:45:08,730 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+11:39:20,153 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+11:40:02,307 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!

@@ -34,7 +34,7 @@
                     @item.Stasjonsnavn
                 </td>
                 <td>
-                    @Html.ActionLink("Se alle avganger til stasjon", "AvgangerPaStasjon", new { id = item.StasjonID }, new { @class = "btn btn-secondary" })
+                    @Html.ActionLink("Administrer avganger til stasjon", "AvgangerPaStasjon", new { id = item.StasjonID }, new { @class = "btn btn-secondary" })
                     @Html.ActionLink("Endre navn", "EndreStasjon", new { id = item.StasjonID }, new { @class = "btn btn-info" })
                     @Html.ActionLink("Slett stasjon", "SlettStasjon", new { id = item.StasjonID }, new { @class = "btn btn-danger" })
                 </td>
