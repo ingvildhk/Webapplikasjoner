@@ -74,3 +74,5 @@
 20:57:43,035 - INFO - Identity - Oppg1.Controllers.AdminController - LeggTilAvgang - Avgang 23:00 er lagt til stasjon Sarpsborg!
 20:59:03,298 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
 21:02:53,276 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+00:44:12,881 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
+00:45:08,730 - INFO - Identity - Oppg1.Controllers.LoggInnController - LoggInn - Innlogging registrert!
