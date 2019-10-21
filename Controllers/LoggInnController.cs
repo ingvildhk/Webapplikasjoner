@@ -43,10 +43,9 @@ namespace Oppg1.Controllers
             }
             else
             {
+                Session["Innlogget"] = false;
                 ModelState.AddModelError("Brukernavn", "Brukernavn eller passord er feil");
                 ModelState.AddModelError("Passord", "Brukernavn eller passord er feil");
-
-                Session["Innlogget"] = false;
                 log.Warn("Innlogging feilet!");
                 return View(); 
             }
