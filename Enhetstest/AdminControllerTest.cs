@@ -375,8 +375,6 @@ namespace Enhetstest
             Assert.IsTrue(actionResult.ViewData.ModelState.Count == 1);
         }
 
-
-
         [TestMethod]
         public void EndreBane()
         {
@@ -666,8 +664,16 @@ namespace Enhetstest
             var SessionMock = new TestControllerBuilder();
             SessionMock.InitializeController(controller);
             controller.Session["Innlogget"] = true;
-            var avgang = new stasjonPaaBane();
-            avgang.Avgang = "";
+            var avgang = new stasjonPaaBane()
+            {
+                stasjonPaaBaneID = 2,
+                StasjonsID = 2,
+                Stasjon = "Oslo", 
+                Bane = "Bane",
+                BaneID = 2,
+                Avgang = "10:01"
+            };
+            
 
             // Act
             var actionResult = (ViewResult)controller.EndreAvgang(avgang.stasjonPaaBaneID, avgang);
@@ -686,11 +692,11 @@ namespace Enhetstest
             controller.Session["Innlogget"] = true;
             var stasjonPaaBane = new stasjonPaaBane()
             {
-                stasjonPaaBaneID = 0
+                stasjonPaaBaneID = 10
             };
 
             // Act
-            var actionResult = (ViewResult)controller.EndreAvgang(0, stasjonPaaBane);
+            var actionResult = (ViewResult)controller.EndreAvgang(10, stasjonPaaBane);
 
             // Assert
             Assert.AreEqual(actionResult.ViewName, "");
@@ -827,13 +833,11 @@ namespace Enhetstest
 
             // Act
             var actionResult = (ViewResult)controller.SlettAvgang(1);
-            var resultat = (stasjonPaaBane)actionResult.Model;
 
             // Assert
             Assert.AreEqual(actionResult.ViewName, "");
-
-
         }
+
         [TestMethod]
         public void SlettAvgang_SlettOK_OK()
         {
@@ -859,6 +863,7 @@ namespace Enhetstest
             Assert.AreEqual(actionResult.RouteName, "");
             Assert.AreEqual(actionResult.RouteValues.Values.First(), avgang.StasjonsID);
         }
+
         [TestMethod]
         public void SlettAvgang_SlettOK_Feil()
         {
@@ -885,6 +890,32 @@ namespace Enhetstest
         }
 
         [TestMethod]
+        public void SlettAvgang_Count_0()
+        {
+            // Arrange
+            var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
+            var avgang = new stasjonPaaBane()
+            {
+                stasjonPaaBaneID = 2,
+                BaneID = 1,
+                Bane = "L1",
+                StasjonsID = 1,
+                Stasjon = "Oslo S",
+                Avgang = "12:00"
+            };
+
+            // Act
+            var actionResult = (RedirectToRouteResult)controller.SlettAvgang(2, avgang);
+
+            // Assert
+            Assert.AreEqual(actionResult.RouteName, "");
+            Assert.AreEqual(actionResult.RouteValues.Values.First(), avgang.StasjonsID);
+        }
+
+        [TestMethod]
         public void LeggTilStasjon()
         {
             // Arrange
@@ -898,6 +929,27 @@ namespace Enhetstest
 
             // Assert
             Assert.AreEqual(actionResult.ViewName, "");
+        }
+
+        [TestMethod]
+        public void LeggTilStasjon_Regex_Feil()
+        {
+            //Arrange
+            var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
+            var stasjon = new stasjon()
+            {
+                Stasjonsnavn = "#¤%&/"
+            };
+
+            // Act
+            var actionResult = (ViewResult)controller.LeggTilStasjon(stasjon);
+
+            // Assert
+            Assert.AreEqual(actionResult.ViewName, "");
+            Assert.IsTrue(actionResult.ViewData.ModelState.Count == 1);
         }
 
         [TestMethod]
@@ -947,14 +999,37 @@ namespace Enhetstest
             var SessionMock = new TestControllerBuilder();
             SessionMock.InitializeController(controller);
             controller.Session["Innlogget"] = true;
-            var stasjon = new stasjon();
-            stasjon.Stasjonsnavn = "";
+            var stasjon = new stasjon()
+            {
+                Stasjonsnavn = "DetteErFeil"
+            };
 
             // Act
             var actionResult = (ViewResult)controller.LeggTilStasjon(stasjon);
 
             // Assert
             Assert.AreEqual(actionResult.ViewName, "");
+        }
+
+        [TestMethod]
+        public void LeggTilStasjon_AvgangOK_Feil()
+        {
+            // Arrange
+            var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
+            var stasjon = new stasjon()
+            {
+                Stasjonsnavn = "Feil"
+            };
+
+            // Act
+            var actionResult = (ViewResult)controller.LeggTilStasjon(stasjon);
+
+            // Assert
+            Assert.AreEqual(actionResult.ViewName, "");
+            Assert.IsTrue(actionResult.ViewData.ModelState.Count == 1);
         }
 
         [TestMethod]
@@ -971,6 +1046,28 @@ namespace Enhetstest
 
             // Assert
             Assert.AreEqual(actionResult.ViewName, "");
+        }
+
+        [TestMethod]
+        public void LeggTilBane_Regex_Feil()
+        {
+            // Arrange
+            var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
+            var bane = new bane()
+            {
+                Banenavn = "#¤%&/"
+            };
+
+            // Act
+            var actionResult = (ViewResult)controller.LeggTilBane(bane);
+
+            // Assert
+            Assert.AreEqual(actionResult.ViewName, "");
+            Assert.IsTrue(actionResult.ViewData.ModelState.Count == 1);
+
         }
 
         [TestMethod]
@@ -994,6 +1091,8 @@ namespace Enhetstest
             Assert.AreEqual(result.RouteName, "");
             Assert.AreEqual(result.RouteValues.Values.First(), "OversiktBaner");
         }
+
+
         [TestMethod]
         public void LeggTilBane_Model_Feil()
         {
@@ -1020,14 +1119,38 @@ namespace Enhetstest
             var SessionMock = new TestControllerBuilder();
             SessionMock.InitializeController(controller);
             controller.Session["Innlogget"] = true;
-            var bane = new bane();
-            bane.Banenavn = "";
+            var bane = new bane()
+            {
+                BaneID = 2,
+                Banenavn = "DetteErFeil"
+            };
 
             // Act
             var actionResult = (ViewResult)controller.LeggTilBane(bane);
 
             // Assert
             Assert.AreEqual(actionResult.ViewName, "");
+        }
+
+        [TestMethod]
+        public void LeggTilBane_SjekkOK_Feil()
+        {
+            // Arrange
+            var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
+
+            var bane = new bane()
+            {
+                BaneID = 2,
+                Banenavn = "Feil"
+            };
+            // Act
+            var result = (ViewResult)controller.LeggTilBane(bane);
+
+            // Assert
+            Assert.AreEqual(result.ViewName, "");
         }
 
         [TestMethod]
@@ -1045,6 +1168,51 @@ namespace Enhetstest
 
             // Assert
             Assert.AreEqual(actionResult.ViewName, "");
+        }
+
+        [TestMethod]
+        public void LeggTilAvgang_StringIsEmpty()
+        {
+            // Arrange
+            var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
+            var avgang = new stasjonPaaBane()
+            {
+                stasjonPaaBaneID = 1,
+                BaneID = 2,
+            };
+
+            // Act
+            var actionResult = (ViewResult)controller.LeggTilAvgang(avgang);
+
+            // Assert
+            Assert.AreEqual(actionResult.ViewName, "");
+            Assert.IsTrue(actionResult.ViewData.ModelState.Count == 1);
+        }
+
+        [TestMethod]
+        public void LeggTilAvgang_TidspunktOK_Feil()
+        {
+            // Arrange
+            var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
+            var avgang = new stasjonPaaBane()
+            {
+                stasjonPaaBaneID = 1,
+                BaneID = 2,
+                Avgang = "Hei"
+            };
+
+            // Act
+            var actionResult = (ViewResult)controller.LeggTilAvgang(avgang);
+
+            // Assert
+            Assert.AreEqual(actionResult.ViewName, "");
+            Assert.IsTrue(actionResult.ViewData.ModelState.Count == 1);
         }
 
         [TestMethod]
@@ -1098,8 +1266,39 @@ namespace Enhetstest
             var SessionMock = new TestControllerBuilder();
             SessionMock.InitializeController(controller);
             controller.Session["Innlogget"] = true;
-            var avgang = new stasjonPaaBane();
-            avgang.Avgang = "";
+            var avgang = new stasjonPaaBane()
+            {
+                Avgang = "10:10",
+                StasjonsID = 2,
+                BaneID = 2,
+                Bane = "Bane",
+                Stasjon = "Stasjon"
+            };
+
+            // Act
+            var actionResult = (ViewResult)controller.LeggTilAvgang(avgang);
+
+            // Assert
+            Assert.AreEqual(actionResult.ViewName, "");
+        }
+
+        [TestMethod]
+        public void LeggTilAvgang_AvgangOK_Feil()
+        {
+            //Arrange
+            var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
+            var SessionMock = new TestControllerBuilder();
+            SessionMock.InitializeController(controller);
+            controller.Session["Innlogget"] = true;
+            var avgang = new stasjonPaaBane()
+            {
+                StasjonsID = 2,
+                Stasjon = "Oslo",
+                Bane = "Bane",
+                BaneID = 2,
+                Avgang = "10:01"
+            };
+
 
             // Act
             var actionResult = (ViewResult)controller.LeggTilAvgang(avgang);
