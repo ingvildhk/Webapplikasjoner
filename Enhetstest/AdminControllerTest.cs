@@ -902,7 +902,7 @@ namespace Enhetstest
                 stasjonPaaBaneID = 2,
                 BaneID = 1,
                 Bane = "L1",
-                StasjonsID = 1,
+                StasjonsID = 2,
                 Stasjon = "Oslo S",
                 Avgang = "12:00"
             };
