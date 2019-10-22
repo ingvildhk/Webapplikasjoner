@@ -135,6 +135,12 @@
     <Content Include="Scripts\esm\popper-utils.js.map" />
     <None Include="Properties\PublishProfiles\WebappOppgave-Vy-1 - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\WebappOppgave-vy-2 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\WebappOppgaveVY - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\WebappOppgaveVY - Web Deploy1.pubxml" />
+    <None Include="Properties\PublishProfiles\WebappOppgaveVY - Web Deploy2.pubxml" />
+    <None Include="Properties\PublishProfiles\WebappOppgaveVY - Web Deploy3.pubxml" />
+    <None Include="Properties\PublishProfiles\WebappOppgaveVY - Web Deploy4.pubxml" />
+    <None Include="Properties\PublishProfiles\WebappOppgaveVY - Web Deploy5.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\JavaScript.rich.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -157,7 +163,12 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Static\admin-icon.jpg" />
+    <Content Include="Static\endreIcon.png" />
     <Content Include="Static\logo.png" />
+    <Content Include="Static\plussTegn.png" />
+    <Content Include="Static\SeIkon.png" />
+    <Content Include="Static\slettIkon.png" />
     <Content Include="Static\VyBilde.png" />
     <Content Include="Web.config" />
   </ItemGroup>

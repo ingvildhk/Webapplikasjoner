@@ -1,6 +1,6 @@
-# WebapplikasjonerOppgave1
+# WebapplikasjonerOppgave2
 
-Link til løsningen: https://webappoppgavevy.azurewebsites.net
+Link til løsningen: https://webappoppgavevy.azurewebsites.net/
 
 Administrator
 Brukernavn: Admin
