@@ -899,7 +899,7 @@ namespace Enhetstest
             controller.Session["Innlogget"] = true;
             var avgang = new stasjonPaaBane()
             {
-                stasjonPaaBaneID = 2,
+                stasjonPaaBaneID = 1,
                 BaneID = 1,
                 Bane = "L1",
                 StasjonsID = 2,
