@@ -55,6 +55,11 @@ namespace DAL
                 return stasjonPaaBaneListe;
             }
 
+            else if (id == 2)
+            {
+                return stasjonPaaBaneListe;
+            }
+
             else
             {
                 var stasjonPaaBane = new stasjonPaaBane()
@@ -141,7 +146,7 @@ namespace DAL
 
         public bool leggTilStasjon(stasjon stasjon)
         {
-            if (stasjon.Stasjonsnavn == "")
+            if (stasjon.Stasjonsnavn == "DetteErFeil")
             {
                 return false;
             }
@@ -154,7 +159,7 @@ namespace DAL
 
         public bool endreStasjon(int id, stasjon stasjon)
         {
-            if (id == 0)
+            if (id == 10)
             {
                 return false;
             }
@@ -180,7 +185,7 @@ namespace DAL
 
         public bool leggTilStasjonPaaBane(string avgang, int stasjonID, int baneID)
         {
-            if (avgang == "")
+            if (avgang == "10:10")
             {
                 return false;
             }
@@ -193,7 +198,7 @@ namespace DAL
 
         public bool endreStasjonPaaBane(stasjonPaaBane stasjonPaaBane, int id)
         {
-            if (id == 0)
+            if (id == 10)
             {
                 return false;
             }
@@ -219,7 +224,7 @@ namespace DAL
 
         public bool leggTilBane(bane bane)
         {
-            if (bane.Banenavn == "")
+            if (bane.Banenavn == "DetteErFeil")
             {
                 return false;
             }
@@ -232,7 +237,7 @@ namespace DAL
 
         public bool endreBane(int id, bane bane)
         {
-            if (id == 0)
+            if (id == 10)
             {
                 return false;
             }
@@ -258,7 +263,7 @@ namespace DAL
 
         public bool sjekkStasjonOK(stasjon stasjon)
         {
-            if (stasjon.Stasjonsnavn == "")
+            if (stasjon.Stasjonsnavn == "Feil")
             {
                 return false;
             }
@@ -271,7 +276,7 @@ namespace DAL
 
         public bool sjekkBaneOK(bane bane)
         {
-            if (bane.Banenavn == "")
+            if (bane.Banenavn == "Feil")
             {
                 return false;
             }
@@ -284,7 +289,7 @@ namespace DAL
 
         public bool sjekkAvgangOK(stasjonPaaBane stasjonPaaBane)
         {
-            if (stasjonPaaBane.Avgang == "")
+            if (stasjonPaaBane.Avgang == "10:01")
             {
                 return false;
             }
