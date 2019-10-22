@@ -889,31 +889,6 @@ namespace Enhetstest
             Assert.AreEqual(actionResult.ViewName, "");
         }
 
-        [TestMethod]
-        public void SlettAvgang_Count_0()
-        {
-            // Arrange
-            var controller = new AdminController(new VyBLL(new AdminDBMetoderStubs()));
-            var SessionMock = new TestControllerBuilder();
-            SessionMock.InitializeController(controller);
-            controller.Session["Innlogget"] = true;
-            var avgang = new stasjonPaaBane()
-            {
-                stasjonPaaBaneID = 1,
-                BaneID = 1,
-                Bane = "L1",
-                StasjonsID = 2,
-                Stasjon = "Oslo S",
-                Avgang = "12:00"
-            };
-
-            // Act
-            var actionResult = (RedirectToRouteResult)controller.SlettAvgang(2, avgang);
-
-            // Assert
-            Assert.AreEqual(actionResult.RouteName, "");
-            Assert.AreEqual(actionResult.RouteValues.Values.First(), avgang.StasjonsID);
-        }
 
         [TestMethod]
         public void LeggTilStasjon()
