@@ -1,2 +1,2 @@
-# WebapplikasjonerOppgave2
+# Webapplikasjoner Semesteroppgave
 
